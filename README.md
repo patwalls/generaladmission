@@ -1,23 +1,23 @@
 # General Admission
 
-[Heroku link][heroku] **NB:** This should be a link to your production site
-
-[heroku]: http://www.herokuapp.com
+[Heroku link][http://generaladmission.herokuapp.com/]
 
 ## Minimum Viable Product
 
-FresherNote is a web application inspired by Evernote built using Ruby on Rails
-and React.js. FresherNote allows users to:
+General Admission (GA) is a web application inspired by Untappd.com built using Ruby on Rails and React.js. GA allows users to:
 
 <!-- This is a Markdown checklist. Use it to keep track of your
 progress. Put an x between the brackets for a checkmark: [x] -->
 
 - [ ] Create an account
 - [ ] Log in / Log out
-- [ ] Create, read, edit, and delete notes
-- [ ] Organize notes within Notebooks
-- [ ] Tag notes with multiple tags
-- [ ] Apply complex styling to notes while editing
+- [ ] Edit User Details/Settings
+- [ ] Search for artists
+- [ ] View artist rating, info, other check-ins, and other details
+- [ ] Check in for an artist and submit rating and other details
+- [ ] View user's profiles, details, and other stats (including self)
+- [ ] Add friend
+- [ ] View feed (global, friends, & self)
 
 ## Design Docs
 * [View Wireframes][views]
