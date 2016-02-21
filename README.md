@@ -15,7 +15,7 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 - [ ] Search for artists
 - [ ] Search results page
 - [ ] View artist rating, info, other check-ins, and other details
-- [ ] Check in for an artist and submit rating and other details
+- [ ] Check-In for an artist and submit review and other details
 - [ ] View user's profiles, details, and other stats (including self)
 - [ ] Add friend
 - [ ] View feed (global, friends, & self)
@@ -45,34 +45,48 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 - [ ] user signup/signin pages
 - [ ] blank landing page after signin
 
-### Phase 2: Notes Model, API, and basic APIUtil (1.5 days)
+### Phase 2: Artists Model, API, and basic APIUtil (1.5 days)
 
-**Objective:** Notes can be created, read, edited and destroyed through
+**Objective:** Artists can be created, read, edited and destroyed through
 the API.
 
-- [ ] create `Note` model
+- [ ] create `Artist` model
 - [ ] seed the database with a small amount of test data
-- [ ] CRUD API for notes (`NotesController`)
-- [ ] jBuilder views for notes
+- [ ] CRUD API for artists (`ArtistsController`)
+- [ ] jBuilder views for Artists (single Artist Page)
 - [ ] setup Webpack & Flux scaffold
 - [ ] setup `APIUtil` to interact with the API
 - [ ] test out API interaction in the console.
+- [ ] API interaction with Songkick (if time permits)
 
-### Phase 3: Flux Architecture and Router (1.5 days)
+### Phase 3: Attends Model, API, and basic APIUtil (1.5 days)
 
-**Objective:** Notes can be created, read, edited and destroyed with the
+**Objective:** Attends can be created, read, edited and destroyed through
+the API. Attends = one Activity React component.
+
+- [ ] create `Attend` model
+- [ ] seed the database with a small amount of test data
+- [ ] CRUD API for artists (`AttendsController`)
+- [ ] jBuilder views for Attends (single User Page)
+- [ ] setup Webpack & Flux scaffold
+- [ ] setup `APIUtil` to interact with the API
+- [ ] test out API interaction in the console.
+- [ ] create `Activity` React component
+- [ ] create `Check In` React component
+
+### Phase 4: Flux Architecture and Router (1.5 days)
+
+**Objective:** Artists and Attends can be created, read, edited and destroyed with the
 user interface.
 
 - [ ] setup the flux loop with skeleton files
 - [ ] setup React Router
-- implement each note component, building out the flux loop as needed.
-  - [ ] `NotesIndex`
-  - [ ] `NoteIndexItem`
-  - [ ] `NoteForm`
-- [ ] save Notes to the DB when the form loses focus or is left idle
-  after editing.
+- implement each component, building out the flux loop as needed.
+  - [ ] `User Profile`
+  - [ ] `Artist Profile`
+  - [ ] `Activity`
 
-### Phase 4: Start Styling (0.5 days)
+### Phase 5: Start Styling (0.5 days)
 
 **Objective:** Existing pages (including singup/signin) will look good.
 
@@ -80,55 +94,39 @@ user interface.
 - [ ] position elements on the page
 - [ ] add basic colors & styles
 
-### Phase 5: Notebooks (1 day)
+### Phase 6: User Profiles & Friends (1.5 days)
 
-**Objective:** Notes belong to Notebooks, and can be viewed by notebook.
+**Objective:** Users have profiles that show their activity and stats and users have friends.
 
-- [ ] create `Notebook` model
+- [ ] Add friend button/action on user profiles.
 - build out API, Flux loop, and components for:
-  - [ ] Notebook CRUD
-  - [ ] adding notes requires a notebook
-  - [ ] moving notes to a different notebook
-  - [ ] viewing notes by notebook
-- Use CSS to style new views
-
-Phase 3 adds organization to the Notes. Notes belong to a Notebook,
-which has its own `Index` view.
-
-### Phase 6: Tags (1.5 days)
-
-**Objective:** Notes can be tagged with multiple tags, and tags are searchable.
-
-- [ ] create `Tag` model and join table
-- build out API, Flux loop, and components for:
-  - [ ] fetching tags for notebook
-  - [ ] adding tags to notebook
-  - [ ] creating tags while adding to notebooks
-  - [ ] searching notebooks by tag
+  - [ ] get recent activity
+  - [ ] statistics about attendance
+  - [ ] user details
 - [ ] Style new elements
 
-### Phase 7: Allow Complex Styling in Notes (0.5 days)
-
-**objective:** Enable complex styling of notes.
-
-- [ ] Integrate `react-quill` (based on Quill.js).
-- [ ] Use Rails helpers to sanitize HTML before rendering.
-- [ ] Style the new Quill elements.
-
-### Phase 8: Styling Cleanup and Seeding (1 day)
+### Phase 7: Styling Cleanup and Seeding (1.5 day)
 
 **objective:** Make the site feel more cohesive and awesome.
 
 - [ ] Get feedback on my UI from others
 - [ ] Refactor HTML classes & CSS rules
+- [ ] Research easy UI fixes / advice that can increase look (Product Hunt?)
 - [ ] Add modals, transitions, and other styling flourishes.
 
+### Bonus: The Feed (TBD)
+
+**Objective:** Users have a feed that can be filtered globally or friends only.
+
+- build out API, Flux loop, and components for:
+  - [ ] Updated Feed
+  - [ ] Filtering feed
+
 ### Bonus Features (TBD)
-- [ ] Search through notes for blocks of text
-- [ ] Pagination / infinite scroll for Notes Index
-- [ ] Set reminders on notes
-- [ ] Changelogs for Notes
-- [ ] Multiple sessions
+- [ ] Songkick API integration for artists and venues, and similar artists
+- [ ] Extra stats on user profile such as Top Artists & Venues
+- [ ] Extra stats on artists such as loyal fans, similar artists, and popular venues
+- [ ] Extra stats on artists such as loyal fans, similar artists, and popular venues
 
 [phase-one]: ./docs/phases/phase1.md
 [phase-two]: ./docs/phases/phase2.md
