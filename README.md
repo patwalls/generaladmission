@@ -13,6 +13,7 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 - [ ] Log in / Log out
 - [ ] Edit User Details/Settings
 - [ ] Search for artists
+- [ ] Search results page
 - [ ] View artist rating, info, other check-ins, and other details
 - [ ] Check in for an artist and submit rating and other details
 - [ ] View user's profiles, details, and other stats (including self)
