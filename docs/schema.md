@@ -1,42 +1,26 @@
 # Schema Information
 
-## notes
-column name | data type | details
-------------|-----------|-----------------------
-id          | integer   | not null, primary key
-title       | string    | not null
-body        | text      | not null
-author_id   | integer   | not null, foreign key (references users), indexed
-notebook_id | integer   | not null, foreign key (references notebooks), indexed
-archived    | boolean   | not null, default: false
-
-## notebooks
-column name | data type | details
-------------|-----------|-----------------------
-id          | integer   | not null, primary key
-author_id   | integer   | not null, foreign key (references users), indexed
-title       | string    | not null
-description | string    |
-
-## reminders
-column name | data type | details
-------------|-----------|-----------------------
-id          | integer   | not null, primary key
-user_id     | integer   | not null, foreign key (references users), indexed
-note_id     | string    | not null, foreign key (references notes), indexed
-date        | datetime  | not null
-type        | string    | not null
-prev_id     | integer   | foreign key (references reminders), indexed
-
 ## attendance
-column name | data type | details
-------------|-----------|-----------------------
-id          | integer   | not null, primary key
-user_id     | integer   | not null, foreign key
-artist_id   | integer   | not null, foreign key
-user_id     | integer   | not null, indexed
-user_id     | integer   | not null, indexed
-user_id     | integer   | not null, indexed
+column name     | data type | details
+----------------|-----------|-----------------------
+id              | integer   | not null, primary key
+user_id         | integer   | not null, indexed, foreign key
+artist_id       | integer   | not null, indexed, foreign key
+venue_id        | integer   | not null, indexed, foreign key
+text_review     | text      | 
+rating          | integer   | not null
+photo           | text      |  
+date            | date      |  
+
+## venues
+column name     | data type | details
+----------------|-----------|-----------------------
+id              | integer   | not null, primary key
+name            | string    | not null
+photo           | text      |
+genre           | text      |
+description     | text      |
+songkick_id     | integer   | not null, indexed, unique
 
 ## artists
 column name     | data type | details
