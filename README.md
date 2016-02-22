@@ -1,6 +1,8 @@
 # General Admission
 
-[Heroku link][http://generaladmission.herokuapp.com/]
+[Heroku link][heroku]
+
+[heroku]: http://generaladmission.herokuapp.com/
 
 ## Minimum Viable Product
 
@@ -18,7 +20,7 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 - [ ] Check-In for an artist and submit review and other details
 - [ ] View user's profiles, details, and other stats (including self)
 - [ ] Add friend
-- [ ] View feed (global, friends, & self)
+- [ ] View feed (global, friends, & self) (if time permits)
 
 ## Design Docs
 * [View Wireframes][views]

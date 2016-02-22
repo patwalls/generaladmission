@@ -1,38 +1,44 @@
-# Phase 2: Flux Architecture and Note CRUD (2 days)
+# Phase 2: Artists Model, API, and basic APIUtil (1.5 days)
 
 ## Rails
 ### Models
+* Artist model
 
 ### Controllers
+* ArtistsController
 
 ### Views
+artists/show.json.jbuilder
 
 ## Flux
 ### Views (React Components)
-* NotesIndex
-  - NotesIndexItem
+* ArtistPanel
+  - ArtistHeader
+  - ArtistInfo
+  - ArtistActivity
+    - CheckIn (in later phase)
+    - Activity (in later phase)
 * NoteForm
 
 ### Stores
-* Note
+* Artist
 
 ### Actions
-* ApiActions.receiveAllNotes -> triggered by ApiUtil
-* ApiActions.receiveSingleNote
-* ApiActions.deleteNote
-* NoteActions.fetchAllNotes -> triggers ApiUtil
-* NoteActions.fetchSingleNote 
-* NoteActions.createNote
-* NoteActions.editNote 
-* NoteActions.destroyNote
+* ApiActions.receiveAllArtists -> triggered by ApiUtil
+* ApiActions.receiveSingleArtist
+* ApiActions.deleteArtist
+* ArtistActions.fetchAllArtists -> triggers ApiUtil
+* ArtistActions.fetchSingleArtist
+* ArtistActions.createArtist
+* ArtistActions.editArtist
+* ArtistActions.destroyArtist
 
 ### ApiUtil
-* ApiUtil.fetchAllNotes
-* ApiUtil.fetchSingleNote
-* ApiUtil.createNote
-* ApiUtil.editNote
-* ApiUtil.destroyNote
+* ApiUtil.fetchAllArtists
+* ApiUtil.fetchSingleArtist
+* ApiUtil.createArtist
+* ApiUtil.editArtist
+* ApiUtil.destroyArtist
 
 ## Gems/Libraries
 * Flux Dispatcher (npm)
-* Twitter Bootstrap

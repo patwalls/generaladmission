@@ -1,44 +1,42 @@
-# Phase 3: Notebooks and Tags (2 days)
+# Phase 3: Attends Model, API, and basic APIUtil (1.5 days)
 
 ## Rails
 ### Models
-* Notebook
-* Tag
-* Tagging
+* Attends
+
 
 ### Controllers
-* Api::NotebooksController (create, destroy, index, show, update)
+* Api::AttendsController (create, destroy, index, update)
 
 ### Views
-* notebooks/index.json.jbuilder
-* notebooks/show.json.jbuilder
-* tags/show.json.jbuilder
 
 ## Flux
 ### Views (React Components)
-* NotebooksIndex
-  - NotebookIndexItem
-* NotebookForm
-* SearchIndex
+* Activity Feed
+* AttendanceItem
 
 ### Stores
-* Notebook
+* Attends
 
 ### Actions
-* ApiActions.receiveAllNotebooks -> triggered by ApiUtil
-* ApiActions.receiveSingleNotebook
-* ApiActions.deleteNotebook
-* NotebookActions.fetchAllNotebooks -> triggers ApiUtil
+* ApiActions.receiveAllAttends -> triggered by ApiUtil
+* ApiActions.receiveAllAttendsforUser
+* ApiActions.receiveAllAttendsforArtist
+* ApiActions.receiveSingleAttend
+* ApiActions.deleteAttend
+* NotebookActions.fetchAllAttends -> triggers ApiUtil
+* NotebookActions.fetchAllAttendsforUser
+* NotebookActions.fetchAllAttendsforArtist
 * NotebookActions.fetchSingleNotebook
 * NotebookActions.createNotebook
 * NotebookActions.editNotebook
 * NotebookActions.destroyNotebook
 
 ### ApiUtil
-* ApiUtil.fetchAllNotebooks
-* ApiUtil.fetchSingleNotebook
-* ApiUtil.createNotebook
-* ApiUtil.editNotebook
-* ApiUtil.destroyNotebook
+* ApiUtil.fetchAllAttends
+* ApiUtil.fetchSingleAttend
+* ApiUtil.createAttend
+* ApiUtil.editAttend
+* ApiUtil.destroyAttend
 
 ## Gems/Libraries
