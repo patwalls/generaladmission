@@ -49,8 +49,12 @@
 	var ReactRouter = __webpack_require__(159);
 	var Router = ReactRouter.Router;
 	var Route = ReactRouter.Route;
+	var IndexRoute = ReactRouter.IndexRoute;
+	var Link = __webpack_require__(159).Link;
 	var ArtistStore = __webpack_require__(216);
 	var ArtistIndex = __webpack_require__(241);
+	var ArtistShow = __webpack_require__(242);
+	var Home = __webpack_require__(243);
 
 	var App = React.createClass({
 	  displayName: 'App',
@@ -65,16 +69,24 @@
 	        React.createElement(
 	          'h1',
 	          null,
-	          'General Admission'
+	          React.createElement(
+	            Link,
+	            { to: IndexRoute },
+	            'General Admission'
+	          )
 	        )
 	      ),
-	      this.props.children,
-	      React.createElement(ArtistIndex, null)
+	      this.props.children
 	    );
 	  }
 	});
 
-	var routes = React.createElement(Route, { path: '/', component: App });
+	var routes = React.createElement(
+	  Route,
+	  { path: '/', component: App },
+	  React.createElement(IndexRoute, { component: Home }),
+	  React.createElement(Route, { path: 'artists/:artistId', component: ArtistShow })
+	);
 
 	$(document).on('DOMContentLoaded', function () {
 	  ReactDOM.render(React.createElement(
@@ -31528,12 +31540,12 @@
 	    $.get('api/artists', function (artists) {
 	      ApiActions.receiveAll(artists);
 	    });
+	  },
+	  createArtist: function (data) {
+	    $.post('api/artists', { artist: data }, function (artist) {
+	      ApiActions.receiveAll([artist]);
+	    });
 	  }
-	  // createBench: function(data){
-	  //   $.post('api/benches', { bench: data }, function(bench) {
-	  //     ApiActions.receiveAll([bench]);
-	  //   });
-	  // },
 	  // createReview: function(data) {
 	  //   $.post('api/reviews', { review: data }, function (bench) {
 	  //     ApiActions.receiveAll([bench]);
@@ -31607,6 +31619,88 @@
 	});
 
 	module.exports = ArtistIndex;
+
+/***/ },
+/* 242 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ReactRouter = __webpack_require__(159);
+
+	var ArtistStore = __webpack_require__(216);
+	var ApiUtil = __webpack_require__(239);
+
+	var ArtistShow = React.createClass({
+	  displayName: 'ArtistShow',
+
+	  contextTypes: {
+	    router: React.PropTypes.func
+	  },
+	  getInitialState: function () {
+	    var artistId = this.props.params.artistId;
+	    var artist = this._findArtistById(artistId) || {};
+	    return { artist: artist };
+	  },
+	  _findArtistById: function (id) {
+	    var res;
+	    ArtistStore.all().forEach(function (artist) {
+	      if (id == artist.id) {
+	        res = artist;
+	      }
+	    }.bind(this));
+	    return res;
+	  },
+	  componentDidMount: function () {
+	    this.artistListener = ArtistStore.addListener(this._artistChanged);
+	    ApiUtil.fetchArtists();
+	  },
+	  componentWillUnmount: function () {
+	    this.artistListener.remove();
+	  },
+	  _artistChanged: function () {
+	    var artistId = this.props.params.artistId;
+	    var artist = this._findArtistById(artistId);
+	    this.setState({ artist: artist });
+	  },
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'artist-show' },
+	      'Name: ',
+	      this.state.artist.name,
+	      React.createElement('img', { src: this.state.artist.photo, width: '500' }),
+	      'Genre: ',
+	      this.state.artist.genre,
+	      'Description: ',
+	      this.state.artist.description,
+	      'SongKick ID: ',
+	      this.state.artist.songkick_id
+	    );
+	  }
+	});
+
+	module.exports = ArtistShow;
+
+/***/ },
+/* 243 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ArtistIndex = __webpack_require__(241);
+
+	var Home = React.createClass({
+	  displayName: 'Home',
+
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { id: 'general-admission' },
+	      React.createElement(ArtistIndex, null)
+	    );
+	  }
+	});
+
+	module.exports = Home;
 
 /***/ }
 /******/ ]);

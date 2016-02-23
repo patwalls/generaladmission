@@ -5,12 +5,12 @@ var ApiUtil = {
     $.get('api/artists', function(artists){
       ApiActions.receiveAll(artists);
     });
+  },
+  createArtist: function(data){
+    $.post('api/artists', { artist: data }, function(artist) {
+      ApiActions.receiveAll([artist]);
+    });
   }
-  // createBench: function(data){
-  //   $.post('api/benches', { bench: data }, function(bench) {
-  //     ApiActions.receiveAll([bench]);
-  //   });
-  // },
   // createReview: function(data) {
   //   $.post('api/reviews', { review: data }, function (bench) {
   //     ApiActions.receiveAll([bench]);
