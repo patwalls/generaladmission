@@ -52,8 +52,8 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 **Objective:** Artists can be created, read, edited and destroyed through
 the API.
 
-- [ ] create `Artist` model
-- [ ] seed the database with a small amount of test data
+- [x] create `Artist` model
+- [x] seed the database with a small amount of test data
 - [ ] CRUD API for artists (`ArtistsController`)
 - [ ] jBuilder views for Artists (single Artist Page)
 - [ ] setup Webpack & Flux scaffold
