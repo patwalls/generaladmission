@@ -47,7 +47,7 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 - [x] user signup/signin pages
 - [ ] blank landing page after signin
 
-### Phase 2: Artists Model, API, and basic APIUtil (1.5 days)
+### Phase 2: Artists Model & Search Index, API, and basic APIUtil (1.5 days)
 
 **Objective:** Artists can be created, read, edited and destroyed through
 the API.
@@ -55,11 +55,13 @@ the API.
 - [x] create `Artist` model
 - [x] seed the database with a small amount of test data
 - [ ] CRUD API for artists (`ArtistsController`)
+- [x] Artists indexed on root page
 - [ ] jBuilder views for Artists (single Artist Page)
 - [ ] setup Webpack & Flux scaffold
 - [ ] setup `APIUtil` to interact with the API
 - [ ] test out API interaction in the console.
 - [ ] API interaction with Songkick (if time permits)
+- [ ] Basic search index on root/landing page
 
 ### Phase 3: Attends Model, API, and basic APIUtil (1.5 days)
 

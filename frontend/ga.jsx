@@ -3,6 +3,8 @@ var ReactDOM = require('react-dom');
 var ReactRouter = require('react-router');
 var Router = ReactRouter.Router;
 var Route = ReactRouter.Route;
+var ArtistStore = require('./stores/artist.js');
+var ArtistIndex = require('./components/artists/artist_index.jsx');
 
 var App = React.createClass({
   render: function(){
@@ -10,7 +12,9 @@ var App = React.createClass({
       <div>
         <header><h1>General Admission</h1></header>
         {this.props.children}
+          <ArtistIndex />
       </div>
+
     );
   }
 });
