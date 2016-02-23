@@ -11,8 +11,8 @@ General Admission (GA) is a web application inspired by Untappd.com built using 
 <!-- This is a Markdown checklist. Use it to keep track of your
 progress. Put an x between the brackets for a checkmark: [x] -->
 
-- [ ] Create an account
-- [ ] Log in / Log out
+- [x] Create an account
+- [x] Log in / Log out
 - [ ] Edit User Details/Settings
 - [ ] Search for artists
 - [ ] Search results page
@@ -41,10 +41,10 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 
 **Objective:** Functioning rails project with Authentication
 
-- [ ] create new project
-- [ ] create `User` model
-- [ ] authentication
-- [ ] user signup/signin pages
+- [x] create new project
+- [x] create `User` model
+- [x] authentication
+- [x] user signup/signin pages
 - [ ] blank landing page after signin
 
 ### Phase 2: Artists Model, API, and basic APIUtil (1.5 days)
