@@ -5,6 +5,7 @@ var ArtistStore = require('../../stores/artist');
 var ApiUtil = require('../../util/api_util');
 
 var ArtistShow = React.createClass({
+
   contextTypes: {
     router: React.PropTypes.func
   },

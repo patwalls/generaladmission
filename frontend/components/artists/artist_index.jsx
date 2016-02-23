@@ -1,6 +1,9 @@
 var React = require('react');
 var ArtistStore = require('../../stores/artist');
 var ApiUtil = require('../../util/api_util');
+var Link = require('react-router').Link
+
+var ArtistIndexItem = require('./artist_index_item');
 
 var ArtistIndex = React.createClass({
 
@@ -22,12 +25,11 @@ var ArtistIndex = React.createClass({
   },
 
   render: function () {
-    console.log(this.state.artists)
     return(
       <ul>
         {
           this.state.artists.map( function (artist) {
-            return <li>{artist.name}</li>;
+            return <ArtistIndexItem artist={artist} key={artist.id} />
           }, this)
         }
       </ul>

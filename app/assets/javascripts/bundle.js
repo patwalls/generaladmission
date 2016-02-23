@@ -53,8 +53,8 @@
 	var Link = __webpack_require__(159).Link;
 	var ArtistStore = __webpack_require__(216);
 	var ArtistIndex = __webpack_require__(241);
-	var ArtistShow = __webpack_require__(242);
-	var Home = __webpack_require__(243);
+	var ArtistShow = __webpack_require__(243);
+	var Home = __webpack_require__(244);
 
 	var App = React.createClass({
 	  displayName: 'App',
@@ -31580,6 +31580,9 @@
 	var React = __webpack_require__(1);
 	var ArtistStore = __webpack_require__(216);
 	var ApiUtil = __webpack_require__(239);
+	var Link = __webpack_require__(159).Link;
+
+	var ArtistIndexItem = __webpack_require__(242);
 
 	var ArtistIndex = React.createClass({
 	  displayName: 'ArtistIndex',
@@ -31603,16 +31606,11 @@
 	  },
 
 	  render: function () {
-	    console.log(this.state.artists);
 	    return React.createElement(
 	      'ul',
 	      null,
 	      this.state.artists.map(function (artist) {
-	        return React.createElement(
-	          'li',
-	          null,
-	          artist.name
-	        );
+	        return React.createElement(ArtistIndexItem, { artist: artist, key: artist.id });
 	      }, this)
 	    );
 	  }
@@ -31625,6 +31623,35 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
+	var ArtistStore = __webpack_require__(216);
+	var ApiUtil = __webpack_require__(239);
+	var Link = __webpack_require__(159).Link;
+	var History = __webpack_require__(159).History;
+
+	var ArtistIndexItem = React.createClass({
+	  displayName: 'ArtistIndexItem',
+
+	  mixins: [History],
+
+	  showDetail: function () {
+	    this.history.push("/artists/" + this.props.artist.id);
+	  },
+	  render: function () {
+	    return React.createElement(
+	      'li',
+	      { className: 'artist-index-item', onClick: this.showDetail },
+	      this.props.artist.name
+	    );
+	  }
+	});
+
+	module.exports = ArtistIndexItem;
+
+/***/ },
+/* 243 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
 
 	var ArtistStore = __webpack_require__(216);
@@ -31632,6 +31659,7 @@
 
 	var ArtistShow = React.createClass({
 	  displayName: 'ArtistShow',
+
 
 	  contextTypes: {
 	    router: React.PropTypes.func
@@ -31682,7 +31710,7 @@
 	module.exports = ArtistShow;
 
 /***/ },
-/* 243 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
