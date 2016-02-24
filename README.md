@@ -68,10 +68,10 @@ the API.
 **Objective:** Attends can be created, read, edited and destroyed through
 the API. Attends = one Activity React component.
 
-- [ ] create `Attend` model
-- [ ] seed the database with a small amount of test data
-- [ ] CRUD API for artists (`AttendsController`)
-- [ ] jBuilder views for Attends (single User Page)
+- [x] create `Attend` model
+- [x] seed the database with a small amount of test data
+- [x] CRUD API for artists (`AttendsController`)
+- [x] jBuilder views for Attends (single User Page)
 - [ ] setup Webpack & Flux scaffold
 - [ ] setup `APIUtil` to interact with the API
 - [ ] test out API interaction in the console.

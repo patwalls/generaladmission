@@ -8,9 +8,7 @@ var ApiUtil = {
     });
   },
   fetchSingleArtist: function(id){
-    console.log('fetch initializes');
     $.get('api/artists/' + id, function(artist) {
-      console.log(artist);
       ApiActions.receiveSingleArtist(artist);
     });
   },
@@ -18,12 +16,13 @@ var ApiUtil = {
     $.post('api/artists', { artist: data }, function(artist) {
       ApiActions.receiveAll([artist]);
     });
+  },
+  fetchAttendsForArtist: function(id) {
+    var data = {artist_id: id};
+    $.get('api/attends', data, function(attends) {
+      ApiActions.receiveAllAttendsForArtist(attends);
+    });
   }
-  // createReview: function(data) {
-  //   $.post('api/reviews', { review: data }, function (bench) {
-  //     ApiActions.receiveAll([bench]);
-  //   });
-  // }
 };
 window.ApiUtil = ApiUtil;
 module.exports = ApiUtil;

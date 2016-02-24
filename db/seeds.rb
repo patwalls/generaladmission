@@ -33,3 +33,23 @@ Artist.create(name: "Travis Scott",
               genre: "Hip Hop",
               description: "Travis Scott is the stage name of Jacques Webster, a rapper hailing from Houston, Texas, USA and born on the 30th of April 1992. Since debuting in 2009 at the age of 17 he has been signed to the record labels of both Kanye West and T.I.",
               songkick_id: 6008144)
+
+Attend.create(
+  review: "What a pleasant experience!",
+  rating: 4,
+  photo: "http://images.musictimes.com/data/images/full/47820/vitaminwater-and-the-fader-unite-to-hydrate-the-hustle-for-fifth-anniversary-of-uncapped-concert-series.jpg?w=775",
+  date: '2015-08-24',
+  user_id: 1,
+  artist_id: 1,
+  venue_id: 1,
+)
+
+Attend.create(
+  review: "What a terrible concert. Chance didn't even play Sunday Candy and the set was only 40 mins",
+  rating: 2,
+  photo: "http://images.musictimes.com/data/images/full/47820/vitaminwater-and-the-fader-unite-to-hydrate-the-hustle-for-fifth-anniversary-of-uncapped-concert-series.jpg?w=775",
+  date: '2015-10-02',
+  user_id: 2,
+  artist_id: 1,
+  venue_id: 2
+)

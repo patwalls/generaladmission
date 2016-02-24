@@ -6,9 +6,9 @@ var ActivityItem = React.createClass({
     return (
         <div className='activity-item'>
           <ul>
-            <li>Pat Walls saw this artist on 9/23/15</li>
-            <li>4 Stars out of 5</li>
-            <li>This is one of the best concerts I have ever been to! So much fun.</li>
+            <li>User {this.props.attend.user_id} saw this artist on {this.props.attend.date}</li>
+            <li>{this.props.attend.rating} Stars out of 5</li>
+            <li>{this.props.attend.review}</li>
           </ul>
         </div>
       );

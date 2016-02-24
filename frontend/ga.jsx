@@ -9,6 +9,7 @@ var ArtistStore = require('./stores/artist.js');
 var ArtistIndex = require('./components/artists/artist_index.jsx');
 var ArtistShow = require('./components/artists/artist_show.jsx');
 var Home = require('./components/home.jsx');
+var AttendStore = require('./stores/attend.js');
 
 var App = React.createClass({
   render: function(){

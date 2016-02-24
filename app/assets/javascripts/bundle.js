@@ -52,9 +52,10 @@
 	var IndexRoute = ReactRouter.IndexRoute;
 	var Link = __webpack_require__(159).Link;
 	var ArtistStore = __webpack_require__(216);
-	var ArtistIndex = __webpack_require__(241);
-	var ArtistShow = __webpack_require__(243);
-	var Home = __webpack_require__(244);
+	var ArtistIndex = __webpack_require__(242);
+	var ArtistShow = __webpack_require__(244);
+	var Home = __webpack_require__(248);
+	var AttendStore = __webpack_require__(250);
 
 	var App = React.createClass({
 	  displayName: 'App',
@@ -31565,9 +31566,7 @@
 	    });
 	  },
 	  fetchSingleArtist: function (id) {
-	    console.log('fetch initializes');
 	    $.get('api/artists/' + id, function (artist) {
-	      console.log(artist);
 	      ApiActions.receiveSingleArtist(artist);
 	    });
 	  },
@@ -31575,12 +31574,13 @@
 	    $.post('api/artists', { artist: data }, function (artist) {
 	      ApiActions.receiveAll([artist]);
 	    });
+	  },
+	  fetchAttendsForArtist: function (id) {
+	    var data = { artist_id: id };
+	    $.get('api/attends', data, function (attends) {
+	      ApiActions.receiveAllAttendsForArtist(attends);
+	    });
 	  }
-	  // createReview: function(data) {
-	  //   $.post('api/reviews', { review: data }, function (bench) {
-	  //     ApiActions.receiveAll([bench]);
-	  //   });
-	  // }
 	};
 	window.ApiUtil = ApiUtil;
 	module.exports = ApiUtil;
@@ -31591,6 +31591,7 @@
 
 	var AppDispatcher = __webpack_require__(236);
 	var ArtistConstants = __webpack_require__(235);
+	var AttendsConstants = __webpack_require__(241);
 
 	ApiActions = {
 	  receiveAll: function (artists) {
@@ -31600,10 +31601,15 @@
 	    });
 	  },
 	  receiveSingleArtist: function (artist) {
-	    console.log('action initializes');
 	    AppDispatcher.dispatch({
 	      actionType: ArtistConstants.SINGLE_ARTIST_RECEIVED,
 	      artist: artist
+	    });
+	  },
+	  receiveAllAttendsForArtist: function (attends) {
+	    AppDispatcher.dispatch({
+	      actionType: AttendsConstants.ATTENDS_RECEIVED,
+	      attends: attends
 	    });
 	  }
 	};
@@ -31612,6 +31618,16 @@
 
 /***/ },
 /* 241 */
+/***/ function(module, exports) {
+
+	var AttendsConstants = {
+	  ATTENDS_RECEIVED: "ATTENDS_RECEIVED"
+	};
+
+	module.exports = AttendsConstants;
+
+/***/ },
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -31619,7 +31635,7 @@
 	var ApiUtil = __webpack_require__(239);
 	var Link = __webpack_require__(159).Link;
 
-	var ArtistIndexItem = __webpack_require__(242);
+	var ArtistIndexItem = __webpack_require__(243);
 
 	var ArtistIndex = React.createClass({
 	  displayName: 'ArtistIndex',
@@ -31655,7 +31671,7 @@
 	module.exports = ArtistIndex;
 
 /***/ },
-/* 242 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -31683,7 +31699,7 @@
 	module.exports = ArtistIndexItem;
 
 /***/ },
-/* 243 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -31692,10 +31708,10 @@
 	var ArtistStore = __webpack_require__(216);
 	var ApiUtil = __webpack_require__(239);
 
-	var ArtistHeader = __webpack_require__(249);
-	var ArtistAbout = __webpack_require__(250);
+	var ArtistHeader = __webpack_require__(245);
+	var ArtistAbout = __webpack_require__(246);
 
-	var ArtistActivity = __webpack_require__(251);
+	var ArtistActivity = __webpack_require__(247);
 
 	var ArtistShow = React.createClass({
 	  displayName: 'ArtistShow',
@@ -31704,7 +31720,6 @@
 	    router: React.PropTypes.func
 	  },
 	  getInitialState: function () {
-	    console.log('initial state working');
 	    var artistId = this.props.params.artistId;
 	    var artist = this._findArtistById(artistId) || {};
 	    return { artist: artist };
@@ -31737,7 +31752,7 @@
 	      { className: 'artist-show' },
 	      React.createElement(ArtistHeader, { artist: this.state.artist }),
 	      React.createElement(ArtistAbout, { artist: this.state.artist }),
-	      React.createElement(ArtistActivity, { artist: this.state.artist })
+	      React.createElement(ArtistActivity, { params: this.props.params, artist: this.state.artist })
 	    );
 	  }
 	});
@@ -31745,66 +31760,7 @@
 	module.exports = ArtistShow;
 
 /***/ },
-/* 244 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var ArtistIndex = __webpack_require__(241);
-	var ArtistSearch = __webpack_require__(247);
-
-	var Home = React.createClass({
-	  displayName: 'Home',
-
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { id: 'general-admission' },
-	      React.createElement(ArtistSearch, null),
-	      React.createElement(ArtistIndex, null)
-	    );
-	  }
-	});
-
-	module.exports = Home;
-
-/***/ },
-/* 245 */,
-/* 246 */,
-/* 247 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var ArtistStore = __webpack_require__(216);
-	var ApiUtil = __webpack_require__(239);
-
-	var ArtistIndex = __webpack_require__(241);
-
-	var ArtistSearch = React.createClass({
-	  displayName: 'ArtistSearch',
-
-	  changedQuery: function () {
-	    var query = this.queryString();
-	    if (query.length === 0) {
-	      ApiUtil.fetchArtists("no artist has this name!!!!!!!! ahhahahah");
-	    } else {
-	      ApiUtil.fetchArtists(query);
-	    }
-	  },
-	  queryString: function () {
-	    return document.getElementById('search-query').value;
-	  },
-	  render: function () {
-	    return React.createElement('input', { type: 'text', id: 'search-query', onChange: this.changedQuery });
-	  }
-	});
-
-	window.ArtistSearch = ArtistSearch;
-
-	module.exports = ArtistSearch;
-
-/***/ },
-/* 248 */,
-/* 249 */
+/* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -31831,7 +31787,7 @@
 	module.exports = ArtistHeader;
 
 /***/ },
-/* 250 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -31873,37 +31829,152 @@
 	module.exports = ArtistAbout;
 
 /***/ },
-/* 251 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
 
-	var ActivityItem = __webpack_require__(252);
+	var AttendStore = __webpack_require__(250);
+	var ApiUtil = __webpack_require__(239);
+
+	var ActivityItem = __webpack_require__(251);
 
 	var ArtistActivity = React.createClass({
 	  displayName: 'ArtistActivity',
 
+
+	  getInitialState: function () {
+	    var id = this.props.params.artistId;
+	    ApiUtil.fetchAttendsForArtist(id);
+	    return { attends: AttendStore.all() };
+	  },
+
+	  _onChange: function () {
+	    this.setState({ attends: AttendStore.all() });
+	  },
+
+	  componentDidMount: function (callback) {
+	    this.listenerToken = AttendStore.addListener(this._onChange);
+	  },
+
+	  componentWillUnmount: function () {
+	    this.listenerToken.remove();
+	  },
 	  render: function () {
 	    return React.createElement(
-	      'div',
-	      { className: 'artist-activity' },
-	      React.createElement(
-	        'h2',
-	        null,
-	        'Artist Activity:'
-	      ),
-	      React.createElement(ActivityItem, null),
-	      React.createElement(ActivityItem, null),
-	      React.createElement(ActivityItem, null)
+	      'ul',
+	      null,
+	      this.state.attends.map(function (attend) {
+	        return React.createElement(ActivityItem, { attend: attend, key: attend.id });
+	      }, this)
 	    );
 	  }
 	});
 
+	window.ArtistActivity = ArtistActivity;
 	module.exports = ArtistActivity;
 
 /***/ },
-/* 252 */
+/* 248 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ArtistIndex = __webpack_require__(242);
+	var ArtistSearch = __webpack_require__(249);
+
+	var Home = React.createClass({
+	  displayName: 'Home',
+
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { id: 'general-admission' },
+	      React.createElement(ArtistSearch, null),
+	      React.createElement(ArtistIndex, null)
+	    );
+	  }
+	});
+
+	module.exports = Home;
+
+/***/ },
+/* 249 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ArtistStore = __webpack_require__(216);
+	var ApiUtil = __webpack_require__(239);
+
+	var ArtistIndex = __webpack_require__(242);
+
+	var ArtistSearch = React.createClass({
+	  displayName: 'ArtistSearch',
+
+	  changedQuery: function () {
+	    var query = this.queryString();
+	    if (query.length === 0) {
+	      ApiUtil.fetchArtists("no artist has this name!!!!!!!! ahhahahah");
+	    } else {
+	      ApiUtil.fetchArtists(query);
+	    }
+	  },
+	  queryString: function () {
+	    return document.getElementById('search-query').value;
+	  },
+	  render: function () {
+	    return React.createElement('input', { type: 'text', id: 'search-query', onChange: this.changedQuery });
+	  }
+	});
+
+	window.ArtistSearch = ArtistSearch;
+
+	module.exports = ArtistSearch;
+
+/***/ },
+/* 250 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(217).Store;
+
+	var AttendsConstants = __webpack_require__(241);
+	var AppDispatcher = __webpack_require__(236);
+	var ApiUtil = __webpack_require__(239);
+
+	var AttendStore = new Store(AppDispatcher);
+
+	var _attends = {};
+
+	var resetAttends = function (attends) {
+	  _attends = {};
+	  attends.forEach(function (attend) {
+	    _attends[attend.id] = attend;
+	  });
+	};
+
+	AttendStore.all = function () {
+	  var attends = [];
+	  for (var id in _attends) {
+	    attends.push(_attends[id]);
+	  }
+	  return attends;
+	};
+
+	AttendStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case AttendsConstants.ATTENDS_RECEIVED:
+	      var result = resetAttends(payload.attends);
+	      AttendStore.__emitChange();
+	      break;
+	  }
+	};
+
+	window.AttendStore = AttendStore;
+
+	module.exports = AttendStore;
+
+/***/ },
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -31922,17 +31993,21 @@
 	        React.createElement(
 	          'li',
 	          null,
-	          'Pat Walls saw this artist on 9/23/15'
+	          'User ',
+	          this.props.attend.user_id,
+	          ' saw this artist on ',
+	          this.props.attend.date
 	        ),
 	        React.createElement(
 	          'li',
 	          null,
-	          '4 Stars out of 5'
+	          this.props.attend.rating,
+	          ' Stars out of 5'
 	        ),
 	        React.createElement(
 	          'li',
 	          null,
-	          'This is one of the best concerts I have ever been to! So much fun.'
+	          this.props.attend.review
 	        )
 	      )
 	    );

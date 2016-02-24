@@ -7,14 +7,13 @@ var ApiUtil = require('../../util/api_util');
 var ArtistHeader = require('./artist_header');
 var ArtistAbout = require('./artist_about');
 
-var ArtistActivity = require('./artist_activity');
+var ArtistActivity = require('./artist_activity.jsx');
 
 var ArtistShow = React.createClass({
   contextTypes: {
     router: React.PropTypes.func
   },
   getInitialState: function () {
-    console.log('initial state working')
     var artistId = this.props.params.artistId;
     var artist = this._findArtistById(artistId) || {} ;
     return { artist: artist };
@@ -46,7 +45,7 @@ var ArtistShow = React.createClass({
         <div className='artist-show'>
           <ArtistHeader artist={this.state.artist}/>
           <ArtistAbout artist={this.state.artist}/>
-          <ArtistActivity artist={this.state.artist}/>
+          <ArtistActivity params={this.props.params} artist={this.state.artist}/>
         </div>
       );
   }
