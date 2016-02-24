@@ -31534,10 +31534,12 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var ApiActions = __webpack_require__(240);
+	var SearchParamsStore = __webpack_require__(245);
 
 	var ApiUtil = {
-	  fetchArtists: function () {
-	    $.get('api/artists', function (artists) {
+	  fetchArtists: function (query) {
+	    var searchParam = { name: query };
+	    $.get('api/artists', searchParam, function (artists) {
 	      ApiActions.receiveAll(artists);
 	    });
 	  },
@@ -31597,7 +31599,6 @@
 	  },
 
 	  componentDidMount: function (callback) {
-	    ApiUtil.fetchArtists();
 	    this.listenerToken = ArtistStore.addListener(this._onChange);
 	  },
 
@@ -31625,7 +31626,6 @@
 	var React = __webpack_require__(1);
 	var ArtistStore = __webpack_require__(216);
 	var ApiUtil = __webpack_require__(239);
-	var Link = __webpack_require__(159).Link;
 	var History = __webpack_require__(159).History;
 
 	var ArtistIndexItem = React.createClass({
@@ -31715,6 +31715,7 @@
 
 	var React = __webpack_require__(1);
 	var ArtistIndex = __webpack_require__(241);
+	var ArtistSearch = __webpack_require__(247);
 
 	var Home = React.createClass({
 	  displayName: 'Home',
@@ -31723,12 +31724,108 @@
 	    return React.createElement(
 	      'div',
 	      { id: 'general-admission' },
+	      React.createElement(ArtistSearch, null),
 	      React.createElement(ArtistIndex, null)
 	    );
 	  }
 	});
 
 	module.exports = Home;
+
+/***/ },
+/* 245 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(217).Store;
+
+	var SearchConstants = __webpack_require__(246);
+	var AppDispatcher = __webpack_require__(236);
+	var ApiUtil = __webpack_require__(239);
+
+	var SearchParamsStore = new Store(AppDispatcher);
+
+	var _params = {};
+
+	SearchParamsStore.params = function () {
+	  return Object.assign({}, _params);
+	};
+
+	SearchParamsStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case SearchConstants.PARAMS_RECEIVED:
+	      _params.bounds = payload.bounds;
+	      SearchParamsStore.__emitChange();
+	      break;
+	  }
+	};
+
+	window.SearchParamsStore = SearchParamsStore;
+
+	module.exports = SearchParamsStore;
+
+/***/ },
+/* 246 */
+/***/ function(module, exports) {
+
+	var SearchConstants = {
+	  PARAMS_RECEIVED: "PARAMS_RECEIVED"
+	};
+
+	module.exports = SearchConstants;
+
+/***/ },
+/* 247 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ArtistStore = __webpack_require__(216);
+	var SearchActions = __webpack_require__(248);
+	var SearchParamsStore = __webpack_require__(245);
+	var ApiUtil = __webpack_require__(239);
+
+	var ArtistIndex = __webpack_require__(241);
+
+	var ArtistSearch = React.createClass({
+	  displayName: 'ArtistSearch',
+
+	  changedQuery: function () {
+	    var query = this.queryString();
+	    if (query.length === 0) {
+	      ApiUtil.fetchArtists("no artist has this name!!!!!!!! ahhahahah");
+	    } else {
+	      ApiUtil.fetchArtists(query);
+	    }
+	  },
+	  queryString: function () {
+	    return document.getElementById('search-query').value;
+	  },
+	  render: function () {
+	    return React.createElement('input', { type: 'text', id: 'search-query', onChange: this.changedQuery });
+	  }
+	});
+
+	window.ArtistSearch = ArtistSearch;
+
+	module.exports = ArtistSearch;
+
+/***/ },
+/* 248 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var AppDispatcher = __webpack_require__(236);
+	var ArtistConstants = __webpack_require__(235);
+	var SearchConstants = __webpack_require__(246);
+
+	SearchActions = {
+	  updateParams: function (params) {
+	    AppDispatcher.dispatch({
+	      actionType: SearchConstants.PARAMS_RECEIVED,
+	      params: params
+	    });
+	  }
+	};
+
+	module.exports = SearchActions;
 
 /***/ }
 /******/ ]);

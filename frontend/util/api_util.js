@@ -1,8 +1,10 @@
 var ApiActions = require('../actions/api_actions');
+var SearchParamsStore = require('../stores/search_params');
 
 var ApiUtil = {
-  fetchArtists: function(){
-    $.get('api/artists', function(artists){
+  fetchArtists: function(query){
+    var searchParam = {name: query};
+    $.get('api/artists', searchParam, function(artists) {
       ApiActions.receiveAll(artists);
     });
   },

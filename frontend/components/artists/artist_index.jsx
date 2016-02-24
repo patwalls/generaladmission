@@ -16,7 +16,6 @@ var ArtistIndex = React.createClass({
   },
 
   componentDidMount: function (callback) {
-    ApiUtil.fetchArtists();
     this.listenerToken = ArtistStore.addListener(this._onChange);
   },
 
@@ -29,7 +28,7 @@ var ArtistIndex = React.createClass({
       <ul>
         {
           this.state.artists.map( function (artist) {
-            return <ArtistIndexItem artist={artist} key={artist.id} />
+              return <ArtistIndexItem artist={artist} key={artist.id} />
           }, this)
         }
       </ul>

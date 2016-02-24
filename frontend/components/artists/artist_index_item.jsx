@@ -1,7 +1,6 @@
 var React = require('react');
 var ArtistStore = require('../../stores/artist');
 var ApiUtil = require('../../util/api_util');
-var Link = require('react-router').Link
 var History = require('react-router').History;
 
 var ArtistIndexItem = React.createClass({

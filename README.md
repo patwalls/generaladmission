@@ -13,11 +13,11 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 
 - [x] Create an account
 - [x] Log in / Log out
-- [ ] Edit User Details/Settings
-- [ ] Search for artists
-- [ ] Search results page
+- [x] Search for artists
+- [x] Search results page
 - [ ] View artist rating, info, other check-ins, and other details
 - [ ] Check-In for an artist and submit review and other details
+- [ ] Edit User Details/Settings
 - [ ] View user's profiles, details, and other stats (including self)
 - [ ] Add friend
 - [ ] View feed (global, friends, & self) (if time permits)
@@ -54,14 +54,14 @@ the API.
 
 - [x] create `Artist` model
 - [x] seed the database with a small amount of test data
-- [ ] CRUD API for artists (`ArtistsController`)
+- [x] CRUD API for artists (`ArtistsController`)
 - [x] Artists indexed on root page
 - [x] jBuilder views for Artists (single Artist Page)
 - [x] setup Webpack & Flux scaffold
 - [x] setup `APIUtil` to interact with the API
 - [x] test out API interaction in the console.
 - [ ] API interaction with Songkick (if time permits)
-- [ ] Basic search index on root/landing page
+- [x] Basic search index on root/landing page
 
 ### Phase 3: Attends Model, API, and basic APIUtil (1.5 days)
 
