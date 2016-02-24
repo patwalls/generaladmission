@@ -24772,6 +24772,10 @@
 	      console.log(payload.artist);
 	      this.__emitChange();
 	      break;
+	    case ArtistConstants.RESET_ARTISTS:
+	      _artists = {};
+	      this.__emitChange();
+	      break;
 	  }
 	};
 
@@ -31286,7 +31290,8 @@
 
 	var ArtistConstants = {
 	  ARTISTS_RECEIVED: "ARTISTS_RECEIVED",
-	  SINGLE_ARTIST_RECEIVED: "SINGLE_ARTIST_RECEIVED"
+	  SINGLE_ARTIST_RECEIVED: "SINGLE_ARTIST_RECEIVED",
+	  RESET_ARTISTS: "RESET_ARTISTS"
 	};
 
 	module.exports = ArtistConstants;
@@ -31565,6 +31570,9 @@
 	      ApiActions.receiveAll(artists);
 	    });
 	  },
+	  resetArtists: function () {
+	    ApiActions.resetAllArtists();
+	  },
 	  fetchSingleArtist: function (id) {
 	    $.get('api/artists/' + id, function (artist) {
 	      ApiActions.receiveSingleArtist(artist);
@@ -31600,6 +31608,11 @@
 	      artists: artists
 	    });
 	  },
+	  resetAllArtists: function () {
+	    AppDispatcher.dispatch({
+	      actionType: ArtistConstants.RESET_ARTISTS
+	    });
+	  },
 	  receiveSingleArtist: function (artist) {
 	    AppDispatcher.dispatch({
 	      actionType: ArtistConstants.SINGLE_ARTIST_RECEIVED,
@@ -31633,7 +31646,6 @@
 	var React = __webpack_require__(1);
 	var ArtistStore = __webpack_require__(216);
 	var ApiUtil = __webpack_require__(239);
-	var Link = __webpack_require__(159).Link;
 
 	var ArtistIndexItem = __webpack_require__(243);
 
@@ -31914,7 +31926,7 @@
 	  changedQuery: function () {
 	    var query = this.queryString();
 	    if (query.length === 0) {
-	      ApiUtil.fetchArtists("no artist has this name!!!!!!!! ahhahahah");
+	      ApiUtil.resetArtists();
 	    } else {
 	      ApiUtil.fetchArtists(query);
 	    }

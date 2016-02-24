@@ -9,6 +9,11 @@ ApiActions = {
       artists: artists
     });
   },
+  resetAllArtists: function(){
+    AppDispatcher.dispatch({
+      actionType: ArtistConstants.RESET_ARTISTS,
+    });
+  },
   receiveSingleArtist: function(artist){
     AppDispatcher.dispatch({
       actionType: ArtistConstants.SINGLE_ARTIST_RECEIVED,

@@ -43,6 +43,10 @@ ArtistStore.__onDispatch = function (payload) {
       console.log(payload.artist);
       this.__emitChange();
       break;
+    case ArtistConstants.RESET_ARTISTS:
+      _artists = {};
+      this.__emitChange();
+      break;
   }
 };
 

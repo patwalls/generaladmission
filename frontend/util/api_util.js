@@ -7,6 +7,9 @@ var ApiUtil = {
       ApiActions.receiveAll(artists);
     });
   },
+  resetArtists: function(){
+    ApiActions.resetAllArtists();
+  },
   fetchSingleArtist: function(id){
     $.get('api/artists/' + id, function(artist) {
       ApiActions.receiveSingleArtist(artist);

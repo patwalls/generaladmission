@@ -8,7 +8,7 @@ var ArtistSearch = React.createClass({
   changedQuery: function () {
     var query = this.queryString();
     if (query.length === 0) {
-      ApiUtil.fetchArtists("no artist has this name!!!!!!!! ahhahahah");
+      ApiUtil.resetArtists();
     } else {
       ApiUtil.fetchArtists(query);
     }
