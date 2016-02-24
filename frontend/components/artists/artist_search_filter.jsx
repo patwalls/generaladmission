@@ -1,7 +1,5 @@
 var React = require('react');
 var ArtistStore = require('../../stores/artist');
-var SearchActions = require('../../actions/search_actions');
-var SearchParamsStore = require('../../stores/search_params');
 var ApiUtil = require('../../util/api_util');
 
 var ArtistIndex = require('./artist_index');

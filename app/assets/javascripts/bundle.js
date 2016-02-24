@@ -24734,14 +24734,29 @@
 
 	var ArtistStore = new Store(AppDispatcher);
 
-	var _artists = [];
+	var _artists = {};
 
 	var resetArtists = function (artists) {
-	  _artists = artists.slice(0);
+	  for (var i = 0; i < artists.length; i++) {
+	    _artists[artists[i].id] = artists[i];
+	  }
 	};
 
 	ArtistStore.all = function () {
-	  return _artists.slice(0);
+	  var _returnArtist = [];
+	  Object.keys(_artists).map(function (key) {
+	    _returnArtist.push(_artists[key]);
+	  });
+	  return _returnArtist;
+	};
+
+	ArtistStore.updateArtist = function (artist) {
+	  console.log(artist);
+	  _artists[artist.id] = artist;
+	};
+
+	ArtistStore.find = function (id) {
+	  return _artists[id];
 	};
 
 	ArtistStore.__onDispatch = function (payload) {
@@ -24749,6 +24764,12 @@
 	    case ArtistConstants.ARTISTS_RECEIVED:
 	      var result = resetArtists(payload.artists);
 	      ArtistStore.__emitChange();
+	      break;
+	    case ArtistConstants.SINGLE_ARTIST_RECEIVED:
+	      console.log('case works');
+	      this.updateArtist(payload.artist);
+	      console.log(payload.artist);
+	      this.__emitChange();
 	      break;
 	  }
 	};
@@ -31263,7 +31284,8 @@
 /***/ function(module, exports) {
 
 	var ArtistConstants = {
-	  ARTISTS_RECEIVED: "ARTISTS_RECEIVED"
+	  ARTISTS_RECEIVED: "ARTISTS_RECEIVED",
+	  SINGLE_ARTIST_RECEIVED: "SINGLE_ARTIST_RECEIVED"
 	};
 
 	module.exports = ArtistConstants;
@@ -31534,13 +31556,19 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var ApiActions = __webpack_require__(240);
-	var SearchParamsStore = __webpack_require__(245);
 
 	var ApiUtil = {
 	  fetchArtists: function (query) {
 	    var searchParam = { name: query };
 	    $.get('api/artists', searchParam, function (artists) {
 	      ApiActions.receiveAll(artists);
+	    });
+	  },
+	  fetchSingleArtist: function (id) {
+	    console.log('fetch initializes');
+	    $.get('api/artists/' + id, function (artist) {
+	      console.log(artist);
+	      ApiActions.receiveSingleArtist(artist);
 	    });
 	  },
 	  createArtist: function (data) {
@@ -31569,6 +31597,13 @@
 	    AppDispatcher.dispatch({
 	      actionType: ArtistConstants.ARTISTS_RECEIVED,
 	      artists: artists
+	    });
+	  },
+	  receiveSingleArtist: function (artist) {
+	    console.log('action initializes');
+	    AppDispatcher.dispatch({
+	      actionType: ArtistConstants.SINGLE_ARTIST_RECEIVED,
+	      artist: artist
 	    });
 	  }
 	};
@@ -31657,14 +31692,19 @@
 	var ArtistStore = __webpack_require__(216);
 	var ApiUtil = __webpack_require__(239);
 
+	var ArtistHeader = __webpack_require__(249);
+	var ArtistAbout = __webpack_require__(250);
+
+	var ArtistActivity = __webpack_require__(251);
+
 	var ArtistShow = React.createClass({
 	  displayName: 'ArtistShow',
-
 
 	  contextTypes: {
 	    router: React.PropTypes.func
 	  },
 	  getInitialState: function () {
+	    console.log('initial state working');
 	    var artistId = this.props.params.artistId;
 	    var artist = this._findArtistById(artistId) || {};
 	    return { artist: artist };
@@ -31680,7 +31720,8 @@
 	  },
 	  componentDidMount: function () {
 	    this.artistListener = ArtistStore.addListener(this._artistChanged);
-	    ApiUtil.fetchArtists();
+	    var artistId = this.props.params.artistId;
+	    ApiUtil.fetchSingleArtist(artistId);
 	  },
 	  componentWillUnmount: function () {
 	    this.artistListener.remove();
@@ -31694,15 +31735,9 @@
 	    return React.createElement(
 	      'div',
 	      { className: 'artist-show' },
-	      'Name: ',
-	      this.state.artist.name,
-	      React.createElement('img', { src: this.state.artist.photo, width: '500' }),
-	      'Genre: ',
-	      this.state.artist.genre,
-	      'Description: ',
-	      this.state.artist.description,
-	      'SongKick ID: ',
-	      this.state.artist.songkick_id
+	      React.createElement(ArtistHeader, { artist: this.state.artist }),
+	      React.createElement(ArtistAbout, { artist: this.state.artist }),
+	      React.createElement(ArtistActivity, { artist: this.state.artist })
 	    );
 	  }
 	});
@@ -31733,54 +31768,13 @@
 	module.exports = Home;
 
 /***/ },
-/* 245 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Store = __webpack_require__(217).Store;
-
-	var SearchConstants = __webpack_require__(246);
-	var AppDispatcher = __webpack_require__(236);
-	var ApiUtil = __webpack_require__(239);
-
-	var SearchParamsStore = new Store(AppDispatcher);
-
-	var _params = {};
-
-	SearchParamsStore.params = function () {
-	  return Object.assign({}, _params);
-	};
-
-	SearchParamsStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case SearchConstants.PARAMS_RECEIVED:
-	      _params.bounds = payload.bounds;
-	      SearchParamsStore.__emitChange();
-	      break;
-	  }
-	};
-
-	window.SearchParamsStore = SearchParamsStore;
-
-	module.exports = SearchParamsStore;
-
-/***/ },
-/* 246 */
-/***/ function(module, exports) {
-
-	var SearchConstants = {
-	  PARAMS_RECEIVED: "PARAMS_RECEIVED"
-	};
-
-	module.exports = SearchConstants;
-
-/***/ },
+/* 245 */,
+/* 246 */,
 /* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ArtistStore = __webpack_require__(216);
-	var SearchActions = __webpack_require__(248);
-	var SearchParamsStore = __webpack_require__(245);
 	var ApiUtil = __webpack_require__(239);
 
 	var ArtistIndex = __webpack_require__(241);
@@ -31809,23 +31803,143 @@
 	module.exports = ArtistSearch;
 
 /***/ },
-/* 248 */
+/* 248 */,
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var AppDispatcher = __webpack_require__(236);
-	var ArtistConstants = __webpack_require__(235);
-	var SearchConstants = __webpack_require__(246);
+	var React = __webpack_require__(1);
+	var ReactRouter = __webpack_require__(159);
 
-	SearchActions = {
-	  updateParams: function (params) {
-	    AppDispatcher.dispatch({
-	      actionType: SearchConstants.PARAMS_RECEIVED,
-	      params: params
-	    });
+	var ArtistHeader = React.createClass({
+	  displayName: 'ArtistHeader',
+
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'artist-header' },
+	      React.createElement(
+	        'h2',
+	        null,
+	        'Name: ',
+	        this.props.artist.name
+	      ),
+	      React.createElement('img', { src: this.props.artist.photo, width: '500' })
+	    );
 	  }
-	};
+	});
 
-	module.exports = SearchActions;
+	module.exports = ArtistHeader;
+
+/***/ },
+/* 250 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ReactRouter = __webpack_require__(159);
+
+	var ArtistAbout = React.createClass({
+	  displayName: 'ArtistAbout',
+
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'artist-about' },
+	      React.createElement(
+	        'ul',
+	        null,
+	        React.createElement(
+	          'li',
+	          null,
+	          'Genre: ',
+	          this.props.artist.genre
+	        ),
+	        React.createElement(
+	          'li',
+	          null,
+	          'Description: ',
+	          this.props.artist.description
+	        ),
+	        React.createElement(
+	          'li',
+	          null,
+	          'SongKick ID: ',
+	          this.props.artist.songkick_id
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = ArtistAbout;
+
+/***/ },
+/* 251 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ReactRouter = __webpack_require__(159);
+
+	var ActivityItem = __webpack_require__(252);
+
+	var ArtistActivity = React.createClass({
+	  displayName: 'ArtistActivity',
+
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'artist-activity' },
+	      React.createElement(
+	        'h2',
+	        null,
+	        'Artist Activity:'
+	      ),
+	      React.createElement(ActivityItem, null),
+	      React.createElement(ActivityItem, null),
+	      React.createElement(ActivityItem, null)
+	    );
+	  }
+	});
+
+	module.exports = ArtistActivity;
+
+/***/ },
+/* 252 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ReactRouter = __webpack_require__(159);
+
+	var ActivityItem = React.createClass({
+	  displayName: 'ActivityItem',
+
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'activity-item' },
+	      React.createElement(
+	        'ul',
+	        null,
+	        React.createElement(
+	          'li',
+	          null,
+	          'Pat Walls saw this artist on 9/23/15'
+	        ),
+	        React.createElement(
+	          'li',
+	          null,
+	          '4 Stars out of 5'
+	        ),
+	        React.createElement(
+	          'li',
+	          null,
+	          'This is one of the best concerts I have ever been to! So much fun.'
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = ActivityItem;
 
 /***/ }
 /******/ ]);

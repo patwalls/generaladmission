@@ -7,6 +7,13 @@ ApiActions = {
       actionType: ArtistConstants.ARTISTS_RECEIVED,
       artists: artists
     });
+  },
+  receiveSingleArtist: function(artist){
+    console.log('action initializes');
+    AppDispatcher.dispatch({
+      actionType: ArtistConstants.SINGLE_ARTIST_RECEIVED,
+      artist: artist
+    });
   }
 };
 

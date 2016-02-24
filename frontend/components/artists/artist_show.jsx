@@ -4,12 +4,17 @@ var ReactRouter = require('react-router');
 var ArtistStore = require('../../stores/artist');
 var ApiUtil = require('../../util/api_util');
 
-var ArtistShow = React.createClass({
+var ArtistHeader = require('./artist_header');
+var ArtistAbout = require('./artist_about');
 
+var ArtistActivity = require('./artist_activity');
+
+var ArtistShow = React.createClass({
   contextTypes: {
     router: React.PropTypes.func
   },
   getInitialState: function () {
+    console.log('initial state working')
     var artistId = this.props.params.artistId;
     var artist = this._findArtistById(artistId) || {} ;
     return { artist: artist };
@@ -25,7 +30,8 @@ var ArtistShow = React.createClass({
   },
   componentDidMount: function () {
     this.artistListener = ArtistStore.addListener(this._artistChanged);
-    ApiUtil.fetchArtists();
+    var artistId = this.props.params.artistId;
+    ApiUtil.fetchSingleArtist(artistId);
   },
   componentWillUnmount: function () {
     this.artistListener.remove();
@@ -38,11 +44,9 @@ var ArtistShow = React.createClass({
   render: function () {
     return (
         <div className='artist-show'>
-          Name: {this.state.artist.name}
-          <img src={this.state.artist.photo} width="500"/>
-          Genre: {this.state.artist.genre}
-          Description: {this.state.artist.description}
-          SongKick ID: {this.state.artist.songkick_id}
+          <ArtistHeader artist={this.state.artist}/>
+          <ArtistAbout artist={this.state.artist}/>
+          <ArtistActivity artist={this.state.artist}/>
         </div>
       );
   }

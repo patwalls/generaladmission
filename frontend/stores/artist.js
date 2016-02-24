@@ -6,14 +6,29 @@ var ApiUtil = require('../util/api_util.js');
 
 var ArtistStore = new Store(AppDispatcher);
 
-var _artists = [];
+var _artists = {};
 
 var resetArtists = function(artists){
-  _artists = artists.slice(0);
+  for (var i = 0; i < artists.length; i++) {
+      _artists[artists[i].id] = artists[i];
+    }
 };
 
 ArtistStore.all = function () {
-  return _artists.slice(0);
+  var _returnArtist = [];
+  Object.keys(_artists).map(function(key) {
+    _returnArtist.push(_artists[key]);
+  });
+  return _returnArtist;
+};
+
+ArtistStore.updateArtist = function(artist) {
+  console.log(artist);
+  _artists[artist.id] = artist;
+};
+
+ArtistStore.find = function (id) {
+  return _artists[id];
 };
 
 ArtistStore.__onDispatch = function (payload) {
@@ -21,6 +36,12 @@ ArtistStore.__onDispatch = function (payload) {
     case ArtistConstants.ARTISTS_RECEIVED:
       var result = resetArtists(payload.artists);
       ArtistStore.__emitChange();
+      break;
+    case ArtistConstants.SINGLE_ARTIST_RECEIVED:
+      console.log('case works');
+      this.updateArtist(payload.artist);
+      console.log(payload.artist);
+      this.__emitChange();
       break;
   }
 };

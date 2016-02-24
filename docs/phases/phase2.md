@@ -18,7 +18,6 @@ artists/show.json.jbuilder
   - ArtistActivity
     - CheckIn (in later phase)
     - Activity (in later phase)
-* NoteForm
 
 ### Stores
 * Artist
@@ -37,8 +36,8 @@ artists/show.json.jbuilder
 * ApiUtil.fetchAllArtists
 * ApiUtil.fetchSingleArtist
 * ApiUtil.createArtist
-* ApiUtil.editArtist
-* ApiUtil.destroyArtist
+* ApiUtil.editArtist (TO DO WHEN EXTERNAL API HOOKED UP)
+* ApiUtil.destroyArtist (TO DO WHEN EXTERNAL API HOOKED UP)
 
 ## Gems/Libraries
 * Flux Dispatcher (npm)
