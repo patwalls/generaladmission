@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160224030328) do
+ActiveRecord::Schema.define(version: 20160224195631) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,14 +28,14 @@ ActiveRecord::Schema.define(version: 20160224030328) do
 
   create_table "attends", force: :cascade do |t|
     t.text     "review"
-    t.integer  "rating",     null: false
+    t.integer  "rating",        null: false
     t.text     "photo"
-    t.date     "date",       null: false
-    t.integer  "user_id",    null: false
-    t.integer  "artist_id",  null: false
-    t.integer  "venue_id",   null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.date     "date_attended", null: false
+    t.integer  "user_id",       null: false
+    t.integer  "artist_id",     null: false
+    t.integer  "venue_id",      null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   add_index "attends", ["artist_id"], name: "index_attends_on_artist_id", using: :btree

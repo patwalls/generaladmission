@@ -6,7 +6,7 @@ var ActivityItem = React.createClass({
     return (
         <div className='activity-item'>
           <ul>
-            <li>User {this.props.attend.user_id} saw this artist on {this.props.attend.date}</li>
+            <li>User {this.props.attend.user_id} saw artist on {this.props.attend.date_attended}</li>
             <li>{this.props.attend.rating} Stars out of 5</li>
             <li>{this.props.attend.review}</li>
           </ul>

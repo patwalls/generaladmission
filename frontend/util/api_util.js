@@ -25,7 +25,12 @@ var ApiUtil = {
     $.get('api/attends', data, function(attends) {
       ApiActions.receiveAllAttendsForArtist(attends);
     });
-  }
+  },
+  createAttend: function(data){
+    $.post('api/attends', { attend: data }, function(attend) {
+      ApiActions.receiveSingleAttend([attend]);
+    });
+  },
 };
 window.ApiUtil = ApiUtil;
 module.exports = ApiUtil;

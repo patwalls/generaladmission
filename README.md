@@ -15,8 +15,8 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 - [x] Log in / Log out
 - [x] Search for artists
 - [x] Search results page
-- [ ] View artist rating, info, other check-ins, and other details
-- [ ] Check-In for an artist and submit review and other details
+- [x] View artist rating, info, other check-ins, and other details
+- [x] Check-In for an artist and submit review and other details
 - [ ] Edit User Details/Settings
 - [ ] View user's profiles, details, and other stats (including self)
 - [ ] Add friend
@@ -72,19 +72,21 @@ the API. Attends = one Activity React component.
 - [x] seed the database with a small amount of test data
 - [x] CRUD API for artists (`AttendsController`)
 - [x] jBuilder views for Attends (single User Page)
-- [ ] setup Webpack & Flux scaffold
-- [ ] setup `APIUtil` to interact with the API
-- [ ] test out API interaction in the console.
-- [ ] create `Activity` React component
-- [ ] create `Check In` React component
+- [x] setup Webpack & Flux scaffold
+- [x] setup `APIUtil` to interact with the API
+- [x] test out API interaction in the console.
+- [x] create `Activity` React component
+- [x] Artist aggregated rating on show page
+- [x] create `Check In` React component
+- [ ] Ability to delete review (later phase)
 
 ### Phase 4: Flux Architecture and Router (1.5 days)
 
 **Objective:** Artists and Attends can be created, read, edited and destroyed with the
 user interface.
 
-- [ ] setup the flux loop with skeleton files
-- [ ] setup React Router
+- [x] setup the flux loop with skeleton files
+- [x] setup React Router
 - implement each component, building out the flux loop as needed.
   - [ ] `User Profile`
   - [ ] `Artist Profile`

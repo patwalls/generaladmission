@@ -10,6 +10,7 @@ var ArtistIndex = require('./components/artists/artist_index.jsx');
 var ArtistShow = require('./components/artists/artist_show.jsx');
 var Home = require('./components/home.jsx');
 var AttendStore = require('./stores/attend.js');
+var UserShow = require('./components/users/user_show.jsx')
 
 var App = React.createClass({
   render: function(){
@@ -17,7 +18,7 @@ var App = React.createClass({
       <div>
         <header>
           <h1>
-            <Link to={IndexRoute}>General Admission</Link>
+            <Link to={"/"}>General Admission</Link>
           </h1>
         </header>
         {this.props.children}
@@ -30,6 +31,7 @@ var routes = (
   <Route path="/" component={App}>
     <IndexRoute component={Home}/>
     <Route path="artists/:artistId" component={ArtistShow}>
+    <Route path="users/:userId" component={UserShow}>
     </Route>
   </Route>
 );

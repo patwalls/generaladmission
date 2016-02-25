@@ -23,7 +23,6 @@ ArtistStore.all = function () {
 };
 
 ArtistStore.updateArtist = function(artist) {
-  console.log(artist);
   _artists[artist.id] = artist;
 };
 
@@ -38,9 +37,7 @@ ArtistStore.__onDispatch = function (payload) {
       ArtistStore.__emitChange();
       break;
     case ArtistConstants.SINGLE_ARTIST_RECEIVED:
-      console.log('case works');
       this.updateArtist(payload.artist);
-      console.log(payload.artist);
       this.__emitChange();
       break;
     case ArtistConstants.RESET_ARTISTS:

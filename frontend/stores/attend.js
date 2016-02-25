@@ -23,11 +23,21 @@ AttendStore.all = function () {
   return attends;
 };
 
+AttendStore.updateAttend = function(attend) {
+  _attends[attend.id] = attend;
+};
+
 AttendStore.__onDispatch = function (payload) {
   switch(payload.actionType) {
     case AttendsConstants.ATTENDS_RECEIVED:
       var result = resetAttends(payload.attends);
       AttendStore.__emitChange();
+      break;
+    case AttendsConstants.SINGLE_ATTEND_RECEIVED:
+      AttendStore.updateAttend(payload.attend);
+      AttendStore.__emitChange();
+      console.log('it made it this far');
+      console.log(payload.artist);
       break;
   }
 };

@@ -16,7 +16,7 @@ class Api::AttendsController < ApplicationController
   end
 
   def index
-    @attend = Attend.where('artist_id = ?', params[:artist_id])
+    @attend_artists = Attend.where('artist_id = ?', params[:artist_id])
   end
 
   def show
@@ -26,6 +26,6 @@ class Api::AttendsController < ApplicationController
   private
 
   def attend_params
-    params.require(:attend).permit(:review, :rating, :photo, :date, :user_id, :artist_id, :venue_id)
+    params.require(:attend).permit(:review, :rating, :photo, :date_attended, :user_id, :artist_id, :venue_id)
   end
 end

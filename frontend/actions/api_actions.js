@@ -25,6 +25,12 @@ ApiActions = {
       actionType: AttendsConstants.ATTENDS_RECEIVED,
       attends: attends
     });
+  },
+  receiveSingleAttend: function(attend){
+    AppDispatcher.dispatch({
+      actionType: AttendsConstants.SINGLE_ATTEND_RECEIVED,
+      attend: attend
+    });
   }
 };
 
