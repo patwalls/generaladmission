@@ -14,7 +14,7 @@ var NewActivityItem = React.createClass({
     return {
       review: "",
       rating: "",
-      user_id: window.getId,
+      user_id: window.getCurrentUserId,
       artist_id: this.props.artist.id,
       date_attended: "",
       venue_id: 1

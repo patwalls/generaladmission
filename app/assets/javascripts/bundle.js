@@ -56,6 +56,7 @@
 	var ArtistShow = __webpack_require__(236);
 	var Home = __webpack_require__(247);
 	var AttendStore = __webpack_require__(237);
+	var UserShow = __webpack_require__(249);
 
 	var App = React.createClass({
 	  displayName: 'App',
@@ -75,6 +76,15 @@
 	            { to: "/" },
 	            'General Admission'
 	          )
+	        ),
+	        React.createElement(
+	          'h4',
+	          null,
+	          React.createElement(
+	            Link,
+	            { to: "/users/" + window.getCurrentUserId },
+	            'My Profile'
+	          )
 	        )
 	      ),
 	      this.props.children
@@ -86,7 +96,8 @@
 	  Route,
 	  { path: '/', component: App },
 	  React.createElement(IndexRoute, { component: Home }),
-	  React.createElement(Route, { path: 'artists/:artistId', component: ArtistShow })
+	  React.createElement(Route, { path: 'artists/:artistId', component: ArtistShow }),
+	  React.createElement(Route, { path: 'users/:userId', component: UserShow })
 	);
 
 	$(document).on('DOMContentLoaded', function () {
@@ -31202,9 +31213,20 @@
 	      ApiActions.receiveAllAttendsForArtist(attends);
 	    });
 	  },
+	  fetchAttendsForUser: function (id) {
+	    var data = { user_id: id };
+	    $.get('api/attends', data, function (attends) {
+	      ApiActions.receiveAllAttendsForUser(attends);
+	    });
+	  },
 	  createAttend: function (data) {
 	    $.post('api/attends', { attend: data }, function (attend) {
 	      ApiActions.receiveSingleAttend([attend]);
+	    });
+	  },
+	  fetchUser: function (id) {
+	    $.get('api/users/' + id, function (user) {
+	      ApiActions.receiveUser(user);
 	    });
 	  }
 	};
@@ -31218,6 +31240,7 @@
 	var AppDispatcher = __webpack_require__(228);
 	var ArtistConstants = __webpack_require__(227);
 	var AttendsConstants = __webpack_require__(233);
+	var UserConstants = __webpack_require__(250);
 
 	ApiActions = {
 	  receiveAll: function (artists) {
@@ -31243,10 +31266,22 @@
 	      attends: attends
 	    });
 	  },
+	  receiveAllAttendsForUser: function (attends) {
+	    AppDispatcher.dispatch({
+	      actionType: AttendsConstants.ATTENDS_RECEIVED_FOR_USER,
+	      attends: attends
+	    });
+	  },
 	  receiveSingleAttend: function (attend) {
 	    AppDispatcher.dispatch({
 	      actionType: AttendsConstants.SINGLE_ATTEND_RECEIVED,
 	      attend: attend
+	    });
+	  },
+	  receiveUser: function (user) {
+	    AppDispatcher.dispatch({
+	      actionType: UserConstants.USER_RECEIVED,
+	      user: user
 	    });
 	  }
 	};
@@ -31259,7 +31294,8 @@
 
 	var AttendsConstants = {
 	  ATTENDS_RECEIVED: "ATTENDS_RECEIVED",
-	  SINGLE_ATTEND_RECEIVED: "SINGLE_ATTEND_RECEIVED"
+	  SINGLE_ATTEND_RECEIVED: "SINGLE_ATTEND_RECEIVED",
+	  ATTENDS_RECEIVED_FOR_USER: "ATTENDS_RECEIVED_FOR_USER"
 	};
 
 	module.exports = AttendsConstants;
@@ -31458,8 +31494,10 @@
 	    case AttendsConstants.SINGLE_ATTEND_RECEIVED:
 	      AttendStore.updateAttend(payload.attend);
 	      AttendStore.__emitChange();
-	      console.log('it made it this far');
-	      console.log(payload.artist);
+	      break;
+	    case AttendsConstants.ATTENDS_RECEIVED_FOR_USER:
+	      var result = resetAttends(payload.attends);
+	      AttendStore.__emitChange();
 	      break;
 	  }
 	};
@@ -31565,7 +31603,7 @@
 	    return {
 	      review: "",
 	      rating: "",
-	      user_id: window.getId,
+	      user_id: window.getCurrentUserId,
 	      artist_id: this.props.artist.id,
 	      date_attended: "",
 	      venue_id: 1
@@ -32008,6 +32046,234 @@
 	window.ArtistSearch = ArtistSearch;
 
 	module.exports = ArtistSearch;
+
+/***/ },
+/* 249 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ReactRouter = __webpack_require__(159);
+
+	var UserStore = __webpack_require__(251);
+	var AttendStore = __webpack_require__(237);
+	var ApiUtil = __webpack_require__(231);
+
+	var UserHeader = __webpack_require__(252);
+	var UserStats = __webpack_require__(253);
+	var UserActivity = __webpack_require__(254);
+
+	var UserShow = React.createClass({
+	  displayName: 'UserShow',
+
+	  contextTypes: {
+	    router: React.PropTypes.func
+	  },
+	  getInitialState: function () {
+	    var userId = this.props.params.userId;
+	    ApiUtil.fetchUser(userId);
+	    var user = this._findUserById(userId) || {};
+	    ApiUtil.fetchAttendsForUser(userId);
+	    return { user: user, attends: AttendStore.all() };
+	  },
+	  _findUserById: function (id) {
+	    var res;
+	    UserStore.all().forEach(function (user) {
+	      if (id == user.id) {
+	        res = user;
+	      }
+	    }.bind(this));
+	    return res;
+	  },
+	  componentDidMount: function () {
+	    this.userListener = UserStore.addListener(this._userChanged);
+	    this.attendListener = AttendStore.addListener(this._artistChanged);
+	    var userId = this.props.params.userId;
+	    ApiUtil.fetchUser(userId);
+	  },
+	  componentWillUnmount: function () {
+	    this.userListener.remove();
+	    this.attendListener.remove();
+	  },
+	  _userChanged: function () {
+	    var userId = this.props.params.userId;
+	    var user = this._findUserById(userId);
+	    this.setState({ user: user, attends: AttendStore.all() });
+	  },
+	  totalShows: function () {
+	    return this.state.attends.length;
+	  },
+	  render: function () {
+	    console.log(this.state.attends);
+	    return React.createElement(
+	      'div',
+	      { className: 'user-show' },
+	      React.createElement(UserHeader, { user: this.state.user }),
+	      React.createElement(UserStats, { attends: this.state.attends }),
+	      React.createElement(UserActivity, { attends: this.state.attends })
+	    );
+	  }
+	});
+
+	module.exports = UserShow;
+
+/***/ },
+/* 250 */
+/***/ function(module, exports) {
+
+	var UserConstants = {
+	  USER_RECEIVED: "USER_RECEIVED"
+	};
+
+	module.exports = UserConstants;
+
+/***/ },
+/* 251 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(209).Store;
+
+	var UserConstants = __webpack_require__(250);
+	var AppDispatcher = __webpack_require__(228);
+	var ApiUtil = __webpack_require__(231);
+
+	var UserStore = new Store(AppDispatcher);
+
+	var _users = {};
+
+	var resetUsers = function (users) {
+	  _users = {};
+	  users.forEach(function (user) {
+	    _users[user.id] = user;
+	  });
+	};
+
+	UserStore.all = function () {
+	  var users = [];
+	  for (var id in _users) {
+	    users.push(_users[id]);
+	  }
+	  return users;
+	};
+
+	UserStore.updateUser = function (user) {
+	  _users[user.id] = user;
+	};
+
+	UserStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case UserConstants.USER_RECEIVED:
+	      UserStore.updateUser(payload.user);
+	      UserStore.__emitChange();
+	      break;
+	  }
+	};
+
+	window.UserStore = UserStore;
+
+	module.exports = UserStore;
+
+/***/ },
+/* 252 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ReactRouter = __webpack_require__(159);
+
+	var UserHeader = React.createClass({
+	  displayName: 'UserHeader',
+
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'artist-header' },
+	      React.createElement(
+	        'h2',
+	        null,
+	        'Name: ',
+	        this.props.user.username
+	      ),
+	      React.createElement(
+	        'h2',
+	        null,
+	        'Name: ',
+	        this.props.user.name
+	      ),
+	      React.createElement(
+	        'h3',
+	        null,
+	        'Photo: TBD '
+	      )
+	    );
+	  }
+	});
+
+	module.exports = UserHeader;
+
+/***/ },
+/* 253 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ReactRouter = __webpack_require__(159);
+
+	var UserStats = React.createClass({
+	  displayName: 'UserStats',
+
+	  totalShows: function () {
+	    return this.props.attends.length;
+	  },
+	  totalUniqueShows: function () {
+	    var unique_shows = [];
+	    for (var i = 0; i < this.props.attends.length; i++) {
+	      var artist = this.props.attends[i].artist_id;
+	      if (!unique_shows.includes(artist)) {
+	        unique_shows.push(this.props.attends[i].artist_id);
+	      }
+	    }
+	    return unique_shows.length;
+	  },
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'user-stats' },
+	      'Total Shows: ',
+	      this.totalShows(),
+	      'Total Unique Shows: ',
+	      this.totalUniqueShows(),
+	      'Total Friends: 0'
+	    );
+	  }
+	});
+
+	module.exports = UserStats;
+
+/***/ },
+/* 254 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ReactRouter = __webpack_require__(159);
+	var ActivityItem = __webpack_require__(246);
+
+	var UserActivity = React.createClass({
+	  displayName: 'UserActivity',
+
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'user-activity' },
+	      React.createElement(
+	        'ul',
+	        null,
+	        this.props.attends.map(function (attend) {
+	          return React.createElement(ActivityItem, { attend: attend, key: attend.id });
+	        }, this)
+	      )
+	    );
+	  }
+	});
+
+	module.exports = UserActivity;
 
 /***/ }
 /******/ ]);

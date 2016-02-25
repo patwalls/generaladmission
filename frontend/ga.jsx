@@ -20,6 +20,9 @@ var App = React.createClass({
           <h1>
             <Link to={"/"}>General Admission</Link>
           </h1>
+          <h4>
+            <Link to={"/users/" + window.getCurrentUserId}>My Profile</Link>
+          </h4>
         </header>
         {this.props.children}
       </div>
@@ -30,9 +33,8 @@ var App = React.createClass({
 var routes = (
   <Route path="/" component={App}>
     <IndexRoute component={Home}/>
-    <Route path="artists/:artistId" component={ArtistShow}>
-    <Route path="users/:userId" component={UserShow}>
-    </Route>
+    <Route path="artists/:artistId" component={ArtistShow}/>
+    <Route path="users/:userId" component={UserShow}/>
   </Route>
 );
 

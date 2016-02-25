@@ -16,7 +16,11 @@ class Api::AttendsController < ApplicationController
   end
 
   def index
-    @attend_artists = Attend.where('artist_id = ?', params[:artist_id])
+    if params[:artist_id]
+      @attend_artists = Attend.where('artist_id = ?', params[:artist_id])
+    else
+      @attend_artists = Attend.where('user_id = ?', params[:user_id])
+    end
   end
 
   def show

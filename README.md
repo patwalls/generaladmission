@@ -18,7 +18,7 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 - [x] View artist rating, info, other check-ins, and other details
 - [x] Check-In for an artist and submit review and other details
 - [ ] Edit User Details/Settings
-- [ ] View user's profiles, details, and other stats (including self)
+- [x] View user's profiles, details, and other stats (including self)
 - [ ] Add friend
 - [ ] View feed (global, friends, & self) (if time permits)
 
@@ -88,9 +88,9 @@ user interface.
 - [x] setup the flux loop with skeleton files
 - [x] setup React Router
 - implement each component, building out the flux loop as needed.
-  - [ ] `User Profile`
-  - [ ] `Artist Profile`
-  - [ ] `Activity`
+  - [x] `User Profile`
+  - [x] `Artist Profile`
+  - [x] `Activity`
 
 ### Phase 5: Start Styling (0.5 days)
 

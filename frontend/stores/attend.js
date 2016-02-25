@@ -36,8 +36,10 @@ AttendStore.__onDispatch = function (payload) {
     case AttendsConstants.SINGLE_ATTEND_RECEIVED:
       AttendStore.updateAttend(payload.attend);
       AttendStore.__emitChange();
-      console.log('it made it this far');
-      console.log(payload.artist);
+      break;
+    case AttendsConstants.ATTENDS_RECEIVED_FOR_USER:
+      var result = resetAttends(payload.attends);
+      AttendStore.__emitChange();
       break;
   }
 };

@@ -26,11 +26,22 @@ var ApiUtil = {
       ApiActions.receiveAllAttendsForArtist(attends);
     });
   },
+  fetchAttendsForUser: function(id) {
+    var data = {user_id: id};
+    $.get('api/attends', data, function(attends) {
+      ApiActions.receiveAllAttendsForUser(attends);
+    });
+  },
   createAttend: function(data){
     $.post('api/attends', { attend: data }, function(attend) {
       ApiActions.receiveSingleAttend([attend]);
     });
   },
+  fetchUser: function(id) {
+    $.get('api/users/' + id, function(user) {
+      ApiActions.receiveUser(user);
+    });
+  }
 };
 window.ApiUtil = ApiUtil;
 module.exports = ApiUtil;
