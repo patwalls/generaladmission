@@ -64,18 +64,21 @@ var ArtistShow = React.createClass({
   render: function () {
     // this.getAverageRating();
     return (
-      <div className='artist-show'>
-        <div className='artist-show-left'>
-          <ArtistHeader artist={this.state.artist}/>
-          <ArtistAbout artist={this.state.artist}/>
-          <NewActivityItem artist={this.state.artist}/>
-          <ArtistActivity artist={this.state.artist}/>
-        </div>
-        <div className='artist-show-right'>
-          <div className='upcoming-shows'>Upcoming Shows</div>
-          <div className='loyal-fans'>Loyal Fans</div>
-          <div className='similar-artists'>Similar Artists</div>
-          <div className='popular-venues'>Popular Venues</div>
+      <div className='container'>
+        <div className='row'>
+          <div className='col-lg-9 col-md-9 col-sm-12 col-xs-12'>
+            <ArtistHeader artist={this.state.artist}/>
+            <ArtistAbout artist={this.state.artist}/>
+            <NewActivityItem artist={this.state.artist}/>
+            <ArtistActivity artist={this.state.artist}/>
+          </div>
+          <div class='clearfix visible-sm'></div>
+          <div className='col-lg-3 col-md-3 col-sm-12 col-xs-12'>
+            <div className='upcoming-shows'>Upcoming Shows</div>
+            <div className='loyal-fans'>Loyal Fans</div>
+            <div className='similar-artists'>Similar Artists</div>
+            <div className='popular-venues'>Popular Venues</div>
+          </div>
         </div>
       </div>
       );

@@ -47,7 +47,7 @@ var NewActivityItem = React.createClass({
             <label>Date Attended?</label>
                <input type="date" valueLink={this.linkState('date_attended')}/>
                <br/>
-            <input type="submit" value="Submit!"/>
+            <input className='btn btn-info' role='button' type="submit" value="Submit!"/>
          </form>
       </div>
       );

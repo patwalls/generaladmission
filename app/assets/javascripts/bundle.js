@@ -68,16 +68,27 @@
 	    if (this.signedIn()) {
 	      return React.createElement(
 	        'div',
-	        { className: 'page' },
+	        { className: 'container' },
 	        React.createElement(
-	          'div',
-	          { className: 'nav-bar' },
+	          'nav',
+	          { className: 'navbar navbar-static-top', role: 'navigation' },
 	          React.createElement(
 	            'div',
-	            { className: 'nav-bar-left' },
+	            { className: 'navbar-inner' },
+	            React.createElement(
+	              'button',
+	              { type: 'button', className: 'navbar-toggle', 'data-toggle': 'collapse', 'data-target': '.navbar-collapse' },
+	              React.createElement('span', { className: 'icon-bar' }),
+	              React.createElement('span', { className: 'icon-bar' }),
+	              React.createElement('span', { className: 'icon-bar' })
+	            )
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'navbar-collapse collapse' },
 	            React.createElement(
 	              'ul',
-	              null,
+	              { className: 'nav navbar-nav navbar-left' },
 	              React.createElement(
 	                'li',
 	                null,
@@ -87,14 +98,10 @@
 	                  'General Admission'
 	                )
 	              )
-	            )
-	          ),
-	          React.createElement(
-	            'div',
-	            { className: 'nav-bar-right' },
+	            ),
 	            React.createElement(
 	              'ul',
-	              null,
+	              { className: 'nav navbar-nav navbar-right' },
 	              React.createElement(
 	                'li',
 	                null,
@@ -121,51 +128,35 @@
 	    } else {
 	      return React.createElement(
 	        'div',
-	        { className: 'page' },
+	        { className: 'container' },
 	        React.createElement(
-	          'div',
-	          { className: 'nav-bar' },
+	          'ul',
+	          { className: 'list-inline' },
 	          React.createElement(
-	            'div',
-	            { className: 'nav-bar-left' },
+	            'li',
+	            null,
 	            React.createElement(
-	              'ul',
-	              null,
-	              React.createElement(
-	                'li',
-	                null,
-	                React.createElement(
-	                  Link,
-	                  { to: "/" },
-	                  'General Admission'
-	                )
-	              )
+	              Link,
+	              { to: "/" },
+	              'General Admission'
 	            )
 	          ),
 	          React.createElement(
-	            'div',
-	            { className: 'nav-bar-right' },
+	            'li',
+	            null,
 	            React.createElement(
-	              'ul',
-	              null,
-	              React.createElement(
-	                'li',
-	                null,
-	                React.createElement(
-	                  'a',
-	                  { href: '/session/new' },
-	                  'Sign In'
-	                )
-	              ),
-	              React.createElement(
-	                'li',
-	                null,
-	                React.createElement(
-	                  'a',
-	                  { href: '/users/new' },
-	                  'Sign Up'
-	                )
-	              )
+	              'a',
+	              { href: '/session/new' },
+	              'Sign In'
+	            )
+	          ),
+	          React.createElement(
+	            'li',
+	            null,
+	            React.createElement(
+	              'a',
+	              { href: '/users/new' },
+	              'Sign Up'
 	            )
 	          )
 	        ),
@@ -31561,37 +31552,42 @@
 	    // this.getAverageRating();
 	    return React.createElement(
 	      'div',
-	      { className: 'artist-show' },
+	      { className: 'container' },
 	      React.createElement(
 	        'div',
-	        { className: 'artist-show-left' },
-	        React.createElement(ArtistHeader, { artist: this.state.artist }),
-	        React.createElement(ArtistAbout, { artist: this.state.artist }),
-	        React.createElement(NewActivityItem, { artist: this.state.artist }),
-	        React.createElement(ArtistActivity, { artist: this.state.artist })
-	      ),
-	      React.createElement(
-	        'div',
-	        { className: 'artist-show-right' },
+	        { className: 'row' },
 	        React.createElement(
 	          'div',
-	          { className: 'upcoming-shows' },
-	          'Upcoming Shows'
+	          { className: 'col-lg-9 col-md-9 col-sm-12 col-xs-12' },
+	          React.createElement(ArtistHeader, { artist: this.state.artist }),
+	          React.createElement(ArtistAbout, { artist: this.state.artist }),
+	          React.createElement(NewActivityItem, { artist: this.state.artist }),
+	          React.createElement(ArtistActivity, { artist: this.state.artist })
 	        ),
+	        React.createElement('div', { 'class': 'clearfix visible-sm' }),
 	        React.createElement(
 	          'div',
-	          { className: 'loyal-fans' },
-	          'Loyal Fans'
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'similar-artists' },
-	          'Similar Artists'
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'popular-venues' },
-	          'Popular Venues'
+	          { className: 'col-lg-3 col-md-3 col-sm-12 col-xs-12' },
+	          React.createElement(
+	            'div',
+	            { className: 'upcoming-shows' },
+	            'Upcoming Shows'
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'loyal-fans' },
+	            'Loyal Fans'
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'similar-artists' },
+	            'Similar Artists'
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'popular-venues' },
+	            'Popular Venues'
+	          )
 	        )
 	      )
 	    );
@@ -31667,19 +31663,23 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { className: 'artist-header' },
+	      { className: 'jumbotron' },
 	      React.createElement(
-	        'h2',
-	        null,
-	        'Name: ',
-	        this.props.artist.name
+	        'div',
+	        { className: 'page-header' },
+	        React.createElement(
+	          'h2',
+	          null,
+	          'Name: ',
+	          this.props.artist.name
+	        )
 	      ),
 	      React.createElement(
 	        'h3',
 	        null,
 	        'Average Rating:'
 	      ),
-	      React.createElement('img', { src: this.props.artist.photo, width: '500' })
+	      React.createElement('img', { src: this.props.artist.photo, className: 'img-responsive', alt: 'Responsive Image' })
 	    );
 	  }
 	});
@@ -31824,7 +31824,7 @@
 	        ),
 	        React.createElement('input', { type: 'date', valueLink: this.linkState('date_attended') }),
 	        React.createElement('br', null),
-	        React.createElement('input', { type: 'submit', value: 'Submit!' })
+	        React.createElement('input', { className: 'btn btn-info', role: 'button', type: 'submit', value: 'Submit!' })
 	      )
 	    );
 	  }
@@ -32101,13 +32101,17 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { className: 'artist-activity' },
+	      { className: 'container' },
 	      React.createElement(
-	        'ul',
-	        null,
-	        this.state.attends.map(function (attend) {
-	          return React.createElement(ActivityItem, { attend: attend, key: attend.id });
-	        }, this)
+	        'div',
+	        { className: 'row' },
+	        React.createElement(
+	          'ul',
+	          null,
+	          this.state.attends.map(function (attend) {
+	            return React.createElement(ActivityItem, { attend: attend, key: attend.id });
+	          }, this)
+	        )
 	      )
 	    );
 	  }

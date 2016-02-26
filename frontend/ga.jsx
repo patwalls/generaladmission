@@ -10,7 +10,7 @@ var ArtistIndex = require('./components/artists/artist_index.jsx');
 var ArtistShow = require('./components/artists/artist_show.jsx');
 var Home = require('./components/home.jsx');
 var AttendStore = require('./stores/attend.js');
-var UserShow = require('./components/users/user_show.jsx')
+var UserShow = require('./components/users/user_show.jsx');
 
 var App = React.createClass({
   signedIn: function () {
@@ -19,39 +19,30 @@ var App = React.createClass({
   render: function() {
     if (this.signedIn()) {
       return (
-        <div className='page'>
-          <div className='nav-bar'>
-            <div className='nav-bar-left'>
-              <ul>
-                <li><Link to={"/"}>General Admission</Link></li>
-              </ul>
+        <div className='container'>
+          <nav className="navbar navbar-static-top" role="navigation">
+            <div className="navbar-inner">
+              <div className="navbar-collapse collapse">
+                <ul className="nav navbar-nav navbar-left">
+                  <li><Link to={"/"}>General Admission</Link></li>
+                </ul>
+                <ul className="nav navbar-nav navbar-right">
+                  <li><Link to={"/users/" + window.getCurrentUserId}>My Profile</Link></li>
+                  <li><Link to={"#"}>Sign Out</Link></li>
+                </ul>
             </div>
-            <div className='nav-bar-right'>
-              <ul>
-                <li><Link to={"/users/" + window.getCurrentUserId}>My Profile</Link></li>
-                <li><Link to={"#"}>Sign Out</Link></li>
-              </ul>
-            </div>
-          </div>
+          </nav>
           {this.props.children}
         </div>
       );
     } else {
       return (
-        <div className='page'>
-          <div className='nav-bar'>
-            <div className='nav-bar-left'>
-              <ul>
-                <li><Link to={"/"}>General Admission</Link></li>
-              </ul>
-            </div>
-            <div className='nav-bar-right'>
-              <ul>
-                <li><a href="/session/new">Sign In</a></li>
-                <li><a href="/users/new">Sign Up</a></li>
-              </ul>
-            </div>
-          </div>
+        <div className='container'>
+          <ul className='list-inline'>
+            <li><Link to={"/"}>General Admission</Link></li>
+            <li><a href="/session/new">Sign In</a></li>
+            <li><a href="/users/new">Sign Up</a></li>
+          </ul>
           {this.props.children}
         </div>
       );
