@@ -6,7 +6,7 @@ var ArtistHeader = React.createClass({
     return (
         <div className='artist-header'>
           <h2>Name: {this.props.artist.name}</h2>
-          <h3>Average Rating: {this.props.rating}</h3>
+          <h3>Average Rating:</h3>
           <img src={this.props.artist.photo} width='500'></img>
         </div>
       );

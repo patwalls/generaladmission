@@ -41,6 +41,17 @@ var ApiUtil = {
     $.get('api/users/' + id, function(user) {
       ApiActions.receiveUser(user);
     });
+  },
+  fetchFriendsForUser: function(id) {
+    var data = {user_id: id};
+    $.get('api/friends', data, function(friends) {
+      ApiActions.receiveAllFriendsForUser(friends);
+    });
+  },
+  addFriend: function(data){
+    $.post('api/friends', { friend: data }, function(friend) {
+      console.log('success!');
+    });
   }
 };
 window.ApiUtil = ApiUtil;

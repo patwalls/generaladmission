@@ -17,9 +17,9 @@ class Api::AttendsController < ApplicationController
 
   def index
     if params[:artist_id]
-      @attend_artists = Attend.where('artist_id = ?', params[:artist_id])
+      @attend_artists = Attend.includes(:artist, :user).where('artist_id = ?', params[:artist_id])
     else
-      @attend_artists = Attend.where('user_id = ?', params[:user_id])
+      @attend_artists = Attend.includes(:artist, :user).where('user_id = ?', params[:user_id])
     end
   end
 

@@ -1,0 +1,103 @@
+
+*{font-family:"Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;}
+
+.nav-bar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+.nav-bar-left li {
+  float: left;
+}
+
+.nav-bar-right li {
+  float: right;
+}
+
+
+.nav-bar li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+
+#background-image-do-later {
+  background: url(https://media.giphy.com/media/K1Vruj67y4lLG/giphy.gif) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+body {
+  height: 100%;
+  margin: 0
+}
+
+.something {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+
+#home-page {
+    height: 100%;
+    width: 100%;
+    flex: 1 1 auto;
+}
+
+#search-and-results {
+    height: 400px;
+    width: 600px;
+    margin: 100px;
+    top: 200px;
+    bottom: 200px;
+    left: 200px;
+    right: 200px;
+}
+
+#search-query {
+    height:100px;
+    width:600px;
+    font-size:40pt;
+    box-shadow: 0px 1px 0px 1px #888888;
+}
+
+#search-results {
+    width:600px;
+    font-size:40pt;
+}
+
+#search-results ul {
+    padding-left: 0px;
+    margin: 0px;
+    list-style-type: none;
+    box-shadow: 0px 1px 0px 1px #888888;
+
+}
+
+#search-results li {
+    padding: 5px;
+    border: 1px solid gray;
+}
+
+#search-results li:hover {
+    padding: 5px;
+    border: 1px solid gray;
+}
+
+.input{
+    width:190px;
+    height:16px;
+    padding-top:2px;
+    padding-left:6px;
+    color:#000;
+    font-size: 0.688em;
+    border:#8c9cad 1px solid;
+}

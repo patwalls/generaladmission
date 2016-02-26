@@ -1,3 +1,63 @@
 // Place all the styles related to the api/artists controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.artist-show {
+  border: 4px solid black;
+}
+
+.artist-header {
+  border: 1px solid black;
+}
+
+.artist-about {
+  border: 1px solid black;
+}
+
+.new-activity-item {
+  border: 1px solid black;
+}
+
+.artist-show {
+  width:100%;
+}
+
+.artist-show-left {
+  float: left;
+  width: 70%;
+}
+.artist-show-right {
+  float: right;
+  width: 30%;
+}
+.cleared {
+  clear: both;
+}
+
+.upcoming-shows {
+  border: 1px solid black;
+  height: 200px;
+}
+
+.loyal-fans {
+  border: 1px solid black;
+  height: 200px;
+}
+
+.similar-artists {
+  border: 1px solid black;
+  height: 200px;
+}
+
+.popular-venues {
+  border: 1px solid black;
+  height: 200px;
+}
+
+.artist-activity {
+  border: 1px solid black;
+}
+
+.activity-item {
+  border: 1px solid black;
+}

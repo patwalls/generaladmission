@@ -2,6 +2,7 @@ var AppDispatcher = require('../dispatcher/dispatcher');
 var ArtistConstants = require('../constants/artist_constants');
 var AttendsConstants = require('../constants/attends_constants');
 var UserConstants = require('../constants/user_constants');
+var FriendConstants = require('../constants/friend_constants');
 
 ApiActions = {
   receiveAll: function(artists){
@@ -44,7 +45,19 @@ ApiActions = {
       actionType: UserConstants.USER_RECEIVED,
       user: user
     });
+  },
+  receiveAllFriendsForUser: function(friends){
+    AppDispatcher.dispatch({
+      actionType: FriendConstants.FRIENDS_RECEIVED_FOR_USER,
+      friends: friends
+    });
   }
+  // receiveSingleAddFriend: function(friend){
+  //   AppDispatcher.dispatch({
+  //     actionType: UserConstants.SINGLE_ADD_FRIEND_RECEIVED,
+  //     friend: friend
+  //   });
+  // },
 };
 
 module.exports = ApiActions;

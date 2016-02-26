@@ -6,3 +6,11 @@
   description: "Extremely annoying.",
   songkick_id: 313388)
 }
+
+<ul>
+{
+  this.props.attends.map( function (attend) {
+      return <ActivityItem attend={attend} key={attend.id}/>
+  }, this)
+}
+</ul>

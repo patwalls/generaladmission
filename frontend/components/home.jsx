@@ -8,9 +8,11 @@ var Home = React.createClass({
   },
   render: function () {
     return (
-      <div id='general-admission'>
-        <ArtistSearch />
-        <ArtistIndex />
+      <div id='home-page'>
+        <div id='search-and-results'>
+          <div id='search-box'><ArtistSearch /></div>
+          <div id='search-results'><ArtistIndex /></div>
+        </div>
       </div>
     );
   }

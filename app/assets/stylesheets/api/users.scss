@@ -1,3 +1,41 @@
 // Place all the styles related to the api/users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.user-show {
+  width:100%;
+}
+
+.user-top {
+  width:100%;
+}
+
+.user-left {
+  float: left;
+  width: 68%;
+}
+.user-right {
+  float: right;
+  width: 28%;
+  border: 1px solid black;
+}
+.cleared {
+  clear: both;
+}
+
+.user-stats {
+  border: 1px solid black;
+  height: 100px
+}
+
+.user-activity {
+  border: 1px solid black;
+}
+
+.top-artists {
+  height: 200px;
+}
+
+.top-venues {
+  height: 200px;
+}

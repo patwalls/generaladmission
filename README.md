@@ -97,7 +97,7 @@ user interface.
 **Objective:** Existing pages (including singup/signin) will look good.
 
 - [ ] create a basic style guide
-- [ ] position elements on the page
+- [x] position elements on the page
 - [ ] add basic colors & styles
 
 ### Phase 6: User Profiles & Friends (1.5 days)

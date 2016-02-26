@@ -8,6 +8,7 @@ var ApiUtil = require('../../util/api_util');
 var UserHeader = require('./user_header');
 var UserStats = require('./user_stats');
 var UserActivity = require('./user_activity');
+var UserFriends = require('./user_friends');
 
 
 var UserShow = React.createClass({
@@ -16,10 +17,8 @@ var UserShow = React.createClass({
   },
   getInitialState: function () {
     var userId = this.props.params.userId;
-    ApiUtil.fetchUser(userId);
     var user = this._findUserById(userId) || {} ;
-    ApiUtil.fetchAttendsForUser(userId);
-    return { user: user , attends: AttendStore.all()};
+    return { user: user };
   },
   _findUserById: function (id) {
     var res;
@@ -32,29 +31,36 @@ var UserShow = React.createClass({
   },
   componentDidMount: function () {
     this.userListener = UserStore.addListener(this._userChanged);
-    this.attendListener = AttendStore.addListener(this._artistChanged);
     var userId = this.props.params.userId;
+    ApiUtil.fetchUser(userId);
+  },
+  componentWillReceiveProps: function (newProps) {
+    var userId = newProps.params.userId;
     ApiUtil.fetchUser(userId);
   },
   componentWillUnmount: function () {
     this.userListener.remove();
-    this.attendListener.remove();
   },
   _userChanged: function () {
     var userId = this.props.params.userId;
     var user = this._findUserById(userId);
-    this.setState({ user: user , attends: AttendStore.all()});
-  },
-  totalShows: function() {
-    return this.state.attends.length;
+    this.setState({ user: user });
   },
   render: function () {
-    console.log(this.state.attends);
     return(
       <div className='user-show'>
-        <UserHeader user={this.state.user} />
-        <UserStats attends={this.state.attends} />
-        <UserActivity attends={this.state.attends} />
+        <div className='user-top'>
+          <UserHeader user={this.state.user} />
+          <button>Add Friend!</button>
+        </div>
+        <div className='user-left'>
+          <UserActivity user={this.state.user} />
+        </div>
+        <div className='user-right'>
+          <UserFriends user={this.state.user} />
+          <div className='top-artists'>Top Artists</div>
+          <div className='top-venues'>Top Venues</div>
+        </div>
       </div>
     );
   }

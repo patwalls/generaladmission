@@ -38,7 +38,7 @@ Attend.create(
   review: "What a pleasant experience!",
   rating: 4,
   photo: "http://images.musictimes.com/data/images/full/47820/vitaminwater-and-the-fader-unite-to-hydrate-the-hustle-for-fifth-anniversary-of-uncapped-concert-series.jpg?w=775",
-  date: '2015-08-24',
+  date_attended: '2015-08-24',
   user_id: 1,
   artist_id: 1,
   venue_id: 1,
@@ -48,8 +48,22 @@ Attend.create(
   review: "What a terrible concert. Chance didn't even play Sunday Candy and the set was only 40 mins",
   rating: 2,
   photo: "http://images.musictimes.com/data/images/full/47820/vitaminwater-and-the-fader-unite-to-hydrate-the-hustle-for-fifth-anniversary-of-uncapped-concert-series.jpg?w=775",
-  date: '2015-10-02',
+  date_attended: '2015-10-02',
   user_id: 2,
   artist_id: 1,
   venue_id: 2
 )
+User.create(username: 'patwalls', password: '123456', name: 'Pat Walls')
+User.create(username: 'spyqsklar', password: '123456', name: 'Spyq Sklar')
+User.create(username: 'jole', password: '123456', name: 'Jole Klonoff')
+User.create(username: 'pejmanaftalion', password: '123456', name: 'Pejman Aftalion')
+User.create(username: 'austinmiller', password: '123456', name: 'Austin Miller')
+
+Friend.create(user_id: 1, friend_id: 3)
+Friend.create(user_id: 1, friend_id: 4)
+Friend.create(user_id: 1, friend_id: 5)
+Friend.create(user_id: 1, friend_id: 6)
+Friend.create(user_id: 3, friend_id: 1)
+Friend.create(user_id: 3, friend_id: 4)
+Friend.create(user_id: 3, friend_id: 5)
+Friend.create(user_id: 3, friend_id: 6)

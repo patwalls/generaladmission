@@ -1,0 +1,6 @@
+var FriendConstants = {
+  FRIENDS_RECEIVED_FOR_USER: "FRIENDS_RECEIVED_FOR_USER"
+  // SINGLE_ADD_FRIEND_RECEIVED: "SINGLE_ADD_FRIEND_RECEIVED"
+};
+
+module.exports = FriendConstants;
