@@ -29,8 +29,6 @@ var ArtistActivity = React.createClass({
   },
   render: function () {
     return (
-      <div className='container'>
-        <div className='row'>
           <ul>
             {
               this.state.attends.map( function (attend) {
@@ -38,8 +36,6 @@ var ArtistActivity = React.createClass({
               }, this)
             }
           </ul>
-        </div>
-      </div>
       );
   }
 });

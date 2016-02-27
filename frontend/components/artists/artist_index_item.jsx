@@ -11,7 +11,7 @@ var ArtistIndexItem = React.createClass({
   },
   render: function () {
     return(
-      <li className='artist-index-item' onClick={this.showDetail}>
+      <li onClick={this.showDetail}>
         {this.props.artist.name}
       </li>
     );

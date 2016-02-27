@@ -2,14 +2,17 @@ var React = require('react');
 var ReactRouter = require('react-router');
 
 var ArtistHeader = React.createClass({
+  upperCaseName: function () {
+    if (typeof this.props.artist.name !== 'undefined') {
+      return this.props.artist.name.toUpperCase();
+    }
+  },
   render: function () {
     return (
-        <div className='jumbotron'>
-          <div className='page-header'>
-            <h2>Name: {this.props.artist.name}</h2>
-          </div>
-          <h3>Average Rating:</h3>
-          <img src={this.props.artist.photo} className='img-responsive' alt='Responsive Image'></img>
+        <div className='row'>
+          <img src={this.props.artist.photo} className='img-responsive' alt='Responsive Image'>
+            <div className='artist-photo-text'>{this.upperCaseName()}</div>
+          </img>
         </div>
       );
   }

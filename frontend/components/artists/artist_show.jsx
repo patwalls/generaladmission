@@ -43,6 +43,9 @@ var ArtistShow = React.createClass({
   componentWillUnmount: function () {
     this.artistListener.remove();
   },
+  // upperCaseName: function () {
+  //
+  // },
   _artistChanged: function () {
     var artistId = this.props.params.artistId;
     var artist = this._findArtistById(artistId);
@@ -64,22 +67,28 @@ var ArtistShow = React.createClass({
   render: function () {
     // this.getAverageRating();
     return (
-      <div className='container'>
+      <div>
+      <div className='container-fluid nopadding'>
         <div className='row'>
-          <div className='col-lg-9 col-md-9 col-sm-12 col-xs-12'>
+          <div className='col-md-12 nopadding'>
             <ArtistHeader artist={this.state.artist}/>
             <ArtistAbout artist={this.state.artist}/>
-            <NewActivityItem artist={this.state.artist}/>
-            <ArtistActivity artist={this.state.artist}/>
-          </div>
-          <div class='clearfix visible-sm'></div>
-          <div className='col-lg-3 col-md-3 col-sm-12 col-xs-12'>
-            <div className='upcoming-shows'>Upcoming Shows</div>
-            <div className='loyal-fans'>Loyal Fans</div>
-            <div className='similar-artists'>Similar Artists</div>
-            <div className='popular-venues'>Popular Venues</div>
           </div>
         </div>
+      </div>
+      <div className='container-fluid nopadding'>
+        <div className='row'>
+          <div className='col-lg-8 col-md-8 col-sm-12 col-xs-12 nopadding'>
+            <ArtistActivity artist={this.state.artist}/>
+          </div>
+          <div className='col-lg-4 col-md-4 col-sm-12 col-xs-12'>
+            <div className='right-sidebar'>Upcoming Shows</div>
+            <div className='right-sidebar'>Loyal Fans</div>
+            <div className='right-sidebar'>Similar Artists</div>
+            <div className='right-sidebar'>Popular Venues</div>
+          </div>
+        </div>
+      </div>
       </div>
       );
   }

@@ -19,19 +19,22 @@ var App = React.createClass({
   render: function() {
     if (this.signedIn()) {
       return (
-        <div className='container'>
-          <nav className="navbar navbar-static-top" role="navigation">
-            <div className="navbar-inner">
-              <div className="navbar-collapse collapse">
-                <ul className="nav navbar-nav navbar-left">
-                  <li><Link to={"/"}>General Admission</Link></li>
-                </ul>
-                <ul className="nav navbar-nav navbar-right">
-                  <li><Link to={"/users/" + window.getCurrentUserId}>My Profile</Link></li>
-                  <li><Link to={"#"}>Sign Out</Link></li>
-                </ul>
-            </div>
-          </nav>
+        <div className='doc'>
+          <div className='container-fluid'>
+            <nav className="navbar navbar-static-top" role="navigation">
+              <div className="navbar-inner">
+                <div className="navbar-collapse collapse">
+                  <ul className="nav navbar-nav navbar-left">
+                    <li><Link to={"/"}>General Admission</Link></li>
+                  </ul>
+                  <ul className="nav navbar-nav navbar-right">
+                    <li><Link to={"/users/" + window.getCurrentUserId}>My Profile</Link></li>
+                    <li><Link to={"#"}>Sign Out</Link></li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
+          </div>
           {this.props.children}
         </div>
       );

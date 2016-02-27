@@ -8,10 +8,11 @@ var Home = React.createClass({
   },
   render: function () {
     return (
-      <div id='home-page'>
-        <div id='search-and-results'>
-          <div id='search-box'><ArtistSearch /></div>
-          <div id='search-results'><ArtistIndex /></div>
+      <div className='container-fluid search-container'>
+        <img className='bgimage' src='http://www.diyphotography.net/wordpress/wp-content/uploads/2014/03/adam-elmakias-08.jpg' />
+        <div className='search-bar'>
+          <ArtistSearch />
+          <ArtistIndex />
         </div>
       </div>
     );

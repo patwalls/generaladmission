@@ -52,11 +52,11 @@
 	var IndexRoute = ReactRouter.IndexRoute;
 	var Link = __webpack_require__(159).Link;
 	var ArtistStore = __webpack_require__(208);
-	var ArtistIndex = __webpack_require__(235);
-	var ArtistShow = __webpack_require__(237);
-	var Home = __webpack_require__(248);
-	var AttendStore = __webpack_require__(238);
-	var UserShow = __webpack_require__(250);
+	var ArtistIndex = __webpack_require__(236);
+	var ArtistShow = __webpack_require__(238);
+	var Home = __webpack_require__(249);
+	var AttendStore = __webpack_require__(239);
+	var UserShow = __webpack_require__(251);
 
 	var App = React.createClass({
 	  displayName: 'App',
@@ -68,56 +68,53 @@
 	    if (this.signedIn()) {
 	      return React.createElement(
 	        'div',
-	        { className: 'container' },
+	        { className: 'doc' },
 	        React.createElement(
-	          'nav',
-	          { className: 'navbar navbar-static-top', role: 'navigation' },
+	          'div',
+	          { className: 'container-fluid' },
 	          React.createElement(
-	            'div',
-	            { className: 'navbar-inner' },
+	            'nav',
+	            { className: 'navbar navbar-static-top', role: 'navigation' },
 	            React.createElement(
-	              'button',
-	              { type: 'button', className: 'navbar-toggle', 'data-toggle': 'collapse', 'data-target': '.navbar-collapse' },
-	              React.createElement('span', { className: 'icon-bar' }),
-	              React.createElement('span', { className: 'icon-bar' }),
-	              React.createElement('span', { className: 'icon-bar' })
-	            )
-	          ),
-	          React.createElement(
-	            'div',
-	            { className: 'navbar-collapse collapse' },
-	            React.createElement(
-	              'ul',
-	              { className: 'nav navbar-nav navbar-left' },
+	              'div',
+	              { className: 'navbar-inner' },
 	              React.createElement(
-	                'li',
-	                null,
+	                'div',
+	                { className: 'navbar-collapse collapse' },
 	                React.createElement(
-	                  Link,
-	                  { to: "/" },
-	                  'General Admission'
-	                )
-	              )
-	            ),
-	            React.createElement(
-	              'ul',
-	              { className: 'nav navbar-nav navbar-right' },
-	              React.createElement(
-	                'li',
-	                null,
+	                  'ul',
+	                  { className: 'nav navbar-nav navbar-left' },
+	                  React.createElement(
+	                    'li',
+	                    null,
+	                    React.createElement(
+	                      Link,
+	                      { to: "/" },
+	                      'General Admission'
+	                    )
+	                  )
+	                ),
 	                React.createElement(
-	                  Link,
-	                  { to: "/users/" + window.getCurrentUserId },
-	                  'My Profile'
-	                )
-	              ),
-	              React.createElement(
-	                'li',
-	                null,
-	                React.createElement(
-	                  Link,
-	                  { to: "#" },
-	                  'Sign Out'
+	                  'ul',
+	                  { className: 'nav navbar-nav navbar-right' },
+	                  React.createElement(
+	                    'li',
+	                    null,
+	                    React.createElement(
+	                      Link,
+	                      { to: "/users/" + window.getCurrentUserId },
+	                      'My Profile'
+	                    )
+	                  ),
+	                  React.createElement(
+	                    'li',
+	                    null,
+	                    React.createElement(
+	                      Link,
+	                      { to: "#" },
+	                      'Sign Out'
+	                    )
+	                  )
 	                )
 	              )
 	            )
@@ -31326,7 +31323,7 @@
 	var ArtistConstants = __webpack_require__(227);
 	var AttendsConstants = __webpack_require__(233);
 	var UserConstants = __webpack_require__(234);
-	var FriendConstants = __webpack_require__(259);
+	var FriendConstants = __webpack_require__(235);
 
 	ApiActions = {
 	  receiveAll: function (artists) {
@@ -31411,13 +31408,24 @@
 
 /***/ },
 /* 235 */
+/***/ function(module, exports) {
+
+	var FriendConstants = {
+	  FRIENDS_RECEIVED_FOR_USER: "FRIENDS_RECEIVED_FOR_USER"
+	  // SINGLE_ADD_FRIEND_RECEIVED: "SINGLE_ADD_FRIEND_RECEIVED"
+	};
+
+	module.exports = FriendConstants;
+
+/***/ },
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ArtistStore = __webpack_require__(208);
 	var ApiUtil = __webpack_require__(231);
 
-	var ArtistIndexItem = __webpack_require__(236);
+	var ArtistIndexItem = __webpack_require__(237);
 
 	var ArtistIndex = React.createClass({
 	  displayName: 'ArtistIndex',
@@ -31453,7 +31461,7 @@
 	module.exports = ArtistIndex;
 
 /***/ },
-/* 236 */
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -31472,7 +31480,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'li',
-	      { className: 'artist-index-item', onClick: this.showDetail },
+	      { onClick: this.showDetail },
 	      this.props.artist.name
 	    );
 	  }
@@ -31481,21 +31489,21 @@
 	module.exports = ArtistIndexItem;
 
 /***/ },
-/* 237 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
 
 	var ArtistStore = __webpack_require__(208);
-	var AttendStore = __webpack_require__(238);
+	var AttendStore = __webpack_require__(239);
 	var ApiUtil = __webpack_require__(231);
 
-	var ArtistHeader = __webpack_require__(239);
-	var ArtistAbout = __webpack_require__(240);
+	var ArtistHeader = __webpack_require__(240);
+	var ArtistAbout = __webpack_require__(241);
 
-	var NewActivityItem = __webpack_require__(241);
-	var ArtistActivity = __webpack_require__(246);
+	var NewActivityItem = __webpack_require__(242);
+	var ArtistActivity = __webpack_require__(247);
 
 	var ArtistShow = React.createClass({
 	  displayName: 'ArtistShow',
@@ -31530,6 +31538,9 @@
 	  componentWillUnmount: function () {
 	    this.artistListener.remove();
 	  },
+	  // upperCaseName: function () {
+	  //
+	  // },
 	  _artistChanged: function () {
 	    var artistId = this.props.params.artistId;
 	    var artist = this._findArtistById(artistId);
@@ -31552,41 +31563,55 @@
 	    // this.getAverageRating();
 	    return React.createElement(
 	      'div',
-	      { className: 'container' },
+	      null,
 	      React.createElement(
 	        'div',
-	        { className: 'row' },
+	        { className: 'container-fluid nopadding' },
 	        React.createElement(
 	          'div',
-	          { className: 'col-lg-9 col-md-9 col-sm-12 col-xs-12' },
-	          React.createElement(ArtistHeader, { artist: this.state.artist }),
-	          React.createElement(ArtistAbout, { artist: this.state.artist }),
-	          React.createElement(NewActivityItem, { artist: this.state.artist }),
-	          React.createElement(ArtistActivity, { artist: this.state.artist })
-	        ),
-	        React.createElement('div', { 'class': 'clearfix visible-sm' }),
+	          { className: 'row' },
+	          React.createElement(
+	            'div',
+	            { className: 'col-md-12 nopadding' },
+	            React.createElement(ArtistHeader, { artist: this.state.artist }),
+	            React.createElement(ArtistAbout, { artist: this.state.artist })
+	          )
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'container-fluid nopadding' },
 	        React.createElement(
 	          'div',
-	          { className: 'col-lg-3 col-md-3 col-sm-12 col-xs-12' },
+	          { className: 'row' },
 	          React.createElement(
 	            'div',
-	            { className: 'upcoming-shows' },
-	            'Upcoming Shows'
+	            { className: 'col-lg-8 col-md-8 col-sm-12 col-xs-12 nopadding' },
+	            React.createElement(ArtistActivity, { artist: this.state.artist })
 	          ),
 	          React.createElement(
 	            'div',
-	            { className: 'loyal-fans' },
-	            'Loyal Fans'
-	          ),
-	          React.createElement(
-	            'div',
-	            { className: 'similar-artists' },
-	            'Similar Artists'
-	          ),
-	          React.createElement(
-	            'div',
-	            { className: 'popular-venues' },
-	            'Popular Venues'
+	            { className: 'col-lg-4 col-md-4 col-sm-12 col-xs-12' },
+	            React.createElement(
+	              'div',
+	              { className: 'right-sidebar' },
+	              'Upcoming Shows'
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: 'right-sidebar' },
+	              'Loyal Fans'
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: 'right-sidebar' },
+	              'Similar Artists'
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: 'right-sidebar' },
+	              'Popular Venues'
+	            )
 	          )
 	        )
 	      )
@@ -31597,7 +31622,7 @@
 	module.exports = ArtistShow;
 
 /***/ },
-/* 238 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(209).Store;
@@ -31651,7 +31676,7 @@
 	module.exports = AttendStore;
 
 /***/ },
-/* 239 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -31660,26 +31685,24 @@
 	var ArtistHeader = React.createClass({
 	  displayName: 'ArtistHeader',
 
+	  upperCaseName: function () {
+	    if (typeof this.props.artist.name !== 'undefined') {
+	      return this.props.artist.name.toUpperCase();
+	    }
+	  },
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { className: 'jumbotron' },
+	      { className: 'row' },
 	      React.createElement(
-	        'div',
-	        { className: 'page-header' },
+	        'img',
+	        { src: this.props.artist.photo, className: 'img-responsive', alt: 'Responsive Image' },
 	        React.createElement(
-	          'h2',
-	          null,
-	          'Name: ',
-	          this.props.artist.name
+	          'div',
+	          { className: 'artist-photo-text' },
+	          this.upperCaseName()
 	        )
-	      ),
-	      React.createElement(
-	        'h3',
-	        null,
-	        'Average Rating:'
-	      ),
-	      React.createElement('img', { src: this.props.artist.photo, className: 'img-responsive', alt: 'Responsive Image' })
+	      )
 	    );
 	  }
 	});
@@ -31687,7 +31710,7 @@
 	module.exports = ArtistHeader;
 
 /***/ },
-/* 240 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -31699,27 +31722,33 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { className: 'artist-about' },
+	      null,
 	      React.createElement(
-	        'ul',
-	        null,
+	        'button',
+	        { className: 'btn btn-lg btn-success btn-block', type: 'button', 'data-toggle': 'collapse', 'data-target': '#collapseExample', 'aria-expanded': 'false', 'aria-controls': 'collapseExample' },
+	        'About This Artist',
+	        React.createElement('span', { className: 'glyphicon glyphicon-menu-down', 'aria-hidden': 'true' })
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'collapse', id: 'collapseExample' },
 	        React.createElement(
-	          'li',
-	          null,
-	          'Genre: ',
-	          this.props.artist.genre
-	        ),
-	        React.createElement(
-	          'li',
-	          null,
-	          'Description: ',
-	          this.props.artist.description
-	        ),
-	        React.createElement(
-	          'li',
-	          null,
-	          'SongKick ID: ',
-	          this.props.artist.songkick_id
+	          'div',
+	          { className: 'well' },
+	          React.createElement(
+	            'ul',
+	            { className: 'list-group' },
+	            React.createElement(
+	              'li',
+	              { className: 'list-group-item' },
+	              this.props.artist.genre
+	            ),
+	            React.createElement(
+	              'li',
+	              { className: 'list-group-item' },
+	              this.props.artist.description
+	            )
+	          )
 	        )
 	      )
 	    );
@@ -31729,14 +31758,14 @@
 	module.exports = ArtistAbout;
 
 /***/ },
-/* 241 */
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var LinkedStateMixin = __webpack_require__(242);
+	var LinkedStateMixin = __webpack_require__(243);
 
-	var AttendStore = __webpack_require__(238);
+	var AttendStore = __webpack_require__(239);
 	var ApiUtil = __webpack_require__(231);
 
 	var NewActivityItem = React.createClass({
@@ -31766,65 +31795,91 @@
 	    var attend = Object.assign({}, this.state);
 	    return React.createElement(
 	      'div',
-	      { className: 'new-activity-item' },
+	      null,
 	      React.createElement(
-	        'h3',
-	        null,
-	        'Ive Seen this Artist!'
+	        'button',
+	        { type: 'button', className: 'btn btn-lg btn-success btn-block', 'data-toggle': 'modal', 'data-target': '.bs-example-modal-lg' },
+	        React.createElement(
+	          'h4',
+	          null,
+	          React.createElement('span', { className: 'glyphicon glyphicon-plus', 'aria-hidden': 'true' }),
+	          this.props.artist.name
+	        )
 	      ),
 	      React.createElement(
-	        'form',
-	        { onSubmit: this.handleSubmit },
+	        'div',
+	        { className: 'modal fade bs-example-modal-lg', tabindex: '-1', role: 'dialog', 'aria-labelledby': 'myLargeModalLabel' },
 	        React.createElement(
-	          'label',
-	          null,
-	          'Rating?'
-	        ),
-	        React.createElement(
-	          'select',
-	          { id: 'rating', valueLink: this.linkState('rating') },
+	          'div',
+	          { className: 'modal-dialog modal-lg' },
 	          React.createElement(
-	            'option',
-	            { value: '1' },
-	            '1'
-	          ),
-	          React.createElement(
-	            'option',
-	            { value: '2' },
-	            '2'
-	          ),
-	          React.createElement(
-	            'option',
-	            { value: '3' },
-	            '3'
-	          ),
-	          React.createElement(
-	            'option',
-	            { value: '4' },
-	            '4'
-	          ),
-	          React.createElement(
-	            'option',
-	            { value: '5' },
-	            '5'
+	            'div',
+	            { className: 'modal-content' },
+	            React.createElement(
+	              'div',
+	              { className: 'new-activity-item' },
+	              React.createElement(
+	                'h3',
+	                null,
+	                'Ive Seen this Artist!'
+	              ),
+	              React.createElement(
+	                'form',
+	                { onSubmit: this.handleSubmit },
+	                React.createElement(
+	                  'label',
+	                  null,
+	                  'Rating?'
+	                ),
+	                React.createElement(
+	                  'select',
+	                  { id: 'rating', valueLink: this.linkState('rating') },
+	                  React.createElement(
+	                    'option',
+	                    { value: '1' },
+	                    '1'
+	                  ),
+	                  React.createElement(
+	                    'option',
+	                    { value: '2' },
+	                    '2'
+	                  ),
+	                  React.createElement(
+	                    'option',
+	                    { value: '3' },
+	                    '3'
+	                  ),
+	                  React.createElement(
+	                    'option',
+	                    { value: '4' },
+	                    '4'
+	                  ),
+	                  React.createElement(
+	                    'option',
+	                    { value: '5' },
+	                    '5'
+	                  )
+	                ),
+	                React.createElement('br', null),
+	                React.createElement(
+	                  'label',
+	                  null,
+	                  'How was the concert?'
+	                ),
+	                React.createElement('input', { type: 'text', valueLink: this.linkState('review') }),
+	                React.createElement('br', null),
+	                React.createElement(
+	                  'label',
+	                  null,
+	                  'Date Attended?'
+	                ),
+	                React.createElement('input', { type: 'date', valueLink: this.linkState('date_attended') }),
+	                React.createElement('br', null),
+	                React.createElement('input', { className: 'btn btn-info', role: 'button', type: 'submit', value: 'Submit!' })
+	              )
+	            )
 	          )
-	        ),
-	        React.createElement('br', null),
-	        React.createElement(
-	          'label',
-	          null,
-	          'How was the concert?'
-	        ),
-	        React.createElement('input', { type: 'text', valueLink: this.linkState('review') }),
-	        React.createElement('br', null),
-	        React.createElement(
-	          'label',
-	          null,
-	          'Date Attended?'
-	        ),
-	        React.createElement('input', { type: 'date', valueLink: this.linkState('date_attended') }),
-	        React.createElement('br', null),
-	        React.createElement('input', { className: 'btn btn-info', role: 'button', type: 'submit', value: 'Submit!' })
+	        )
 	      )
 	    );
 	  }
@@ -31834,13 +31889,13 @@
 	module.exports = NewActivityItem;
 
 /***/ },
-/* 242 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(243);
+	module.exports = __webpack_require__(244);
 
 /***/ },
-/* 243 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -31857,8 +31912,8 @@
 
 	'use strict';
 
-	var ReactLink = __webpack_require__(244);
-	var ReactStateSetters = __webpack_require__(245);
+	var ReactLink = __webpack_require__(245);
+	var ReactStateSetters = __webpack_require__(246);
 
 	/**
 	 * A simple mixin around ReactLink.forState().
@@ -31881,7 +31936,7 @@
 	module.exports = LinkedStateMixin;
 
 /***/ },
-/* 244 */
+/* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -31955,7 +32010,7 @@
 	module.exports = ReactLink;
 
 /***/ },
-/* 245 */
+/* 246 */
 /***/ function(module, exports) {
 
 	/**
@@ -32064,16 +32119,16 @@
 	module.exports = ReactStateSetters;
 
 /***/ },
-/* 246 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
 
-	var AttendStore = __webpack_require__(238);
+	var AttendStore = __webpack_require__(239);
 	var ApiUtil = __webpack_require__(231);
 
-	var ActivityItem = __webpack_require__(247);
+	var ActivityItem = __webpack_require__(248);
 
 	var ArtistActivity = React.createClass({
 	  displayName: 'ArtistActivity',
@@ -32100,19 +32155,11 @@
 	  },
 	  render: function () {
 	    return React.createElement(
-	      'div',
-	      { className: 'container' },
-	      React.createElement(
-	        'div',
-	        { className: 'row' },
-	        React.createElement(
-	          'ul',
-	          null,
-	          this.state.attends.map(function (attend) {
-	            return React.createElement(ActivityItem, { attend: attend, key: attend.id });
-	          }, this)
-	        )
-	      )
+	      'ul',
+	      null,
+	      this.state.attends.map(function (attend) {
+	        return React.createElement(ActivityItem, { attend: attend, key: attend.id });
+	      }, this)
 	    );
 	  }
 	});
@@ -32121,7 +32168,7 @@
 	module.exports = ArtistActivity;
 
 /***/ },
-/* 247 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -32133,29 +32180,42 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { className: 'activity-item' },
+	      { className: 'col-lg-6 col-md-6 col-sm-12 col-xs-12 activity-item' },
 	      React.createElement(
-	        'ul',
-	        null,
+	        'div',
+	        { className: 'row' },
+	        React.createElement('div', { className: 'col-lg-1 col-md-1 col-sm-1 col-xs-1' }),
 	        React.createElement(
-	          'li',
-	          null,
-	          'User ',
-	          this.props.attend.user_id,
-	          ' saw artist on ',
-	          this.props.attend.date_attended
+	          'div',
+	          { className: 'col-lg-3 col-md-3 col-sm-3 col-xs-3' },
+	          React.createElement(
+	            'div',
+	            { className: 'row' },
+	            React.createElement('img', { src: 'https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/128/ticket.png', width: '40' })
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'row' },
+	            React.createElement('img', { src: 'http://i.imgur.com/wEml88p.png', className: 'img-circle', alt: 'Cinque Terre', width: '40', height: '40' })
+	          )
 	        ),
 	        React.createElement(
-	          'li',
-	          null,
-	          this.props.attend.rating,
-	          ' Stars out of 5'
+	          'div',
+	          { className: 'col-lg-7 col-md-7 col-sm-7 col-xs-7' },
+	          React.createElement(
+	            'div',
+	            { className: 'row' },
+	            this.props.attend.review
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'row' },
+	            this.props.attend.username,
+	            ' | Date: ',
+	            this.props.attend.date_attended
+	          )
 	        ),
-	        React.createElement(
-	          'li',
-	          null,
-	          this.props.attend.review
-	        )
+	        React.createElement('div', { className: 'col-lg-1 col-md-1 col-sm-1 col-xs-1' })
 	      )
 	    );
 	  }
@@ -32164,12 +32224,12 @@
 	module.exports = ActivityItem;
 
 /***/ },
-/* 248 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var ArtistIndex = __webpack_require__(235);
-	var ArtistSearch = __webpack_require__(249);
+	var ArtistIndex = __webpack_require__(236);
+	var ArtistSearch = __webpack_require__(250);
 
 	var Home = React.createClass({
 	  displayName: 'Home',
@@ -32180,20 +32240,13 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { id: 'home-page' },
+	      { className: 'container-fluid search-container' },
+	      React.createElement('img', { className: 'bgimage', src: 'http://www.diyphotography.net/wordpress/wp-content/uploads/2014/03/adam-elmakias-08.jpg' }),
 	      React.createElement(
 	        'div',
-	        { id: 'search-and-results' },
-	        React.createElement(
-	          'div',
-	          { id: 'search-box' },
-	          React.createElement(ArtistSearch, null)
-	        ),
-	        React.createElement(
-	          'div',
-	          { id: 'search-results' },
-	          React.createElement(ArtistIndex, null)
-	        )
+	        { className: 'search-bar' },
+	        React.createElement(ArtistSearch, null),
+	        React.createElement(ArtistIndex, null)
 	      )
 	    );
 	  }
@@ -32202,14 +32255,14 @@
 	module.exports = Home;
 
 /***/ },
-/* 249 */
+/* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ArtistStore = __webpack_require__(208);
 	var ApiUtil = __webpack_require__(231);
 
-	var ArtistIndex = __webpack_require__(235);
+	var ArtistIndex = __webpack_require__(236);
 
 	var ArtistSearch = React.createClass({
 	  displayName: 'ArtistSearch',
@@ -32235,20 +32288,20 @@
 	module.exports = ArtistSearch;
 
 /***/ },
-/* 250 */
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
 
-	var UserStore = __webpack_require__(251);
-	var AttendStore = __webpack_require__(238);
+	var UserStore = __webpack_require__(252);
+	var AttendStore = __webpack_require__(239);
 	var ApiUtil = __webpack_require__(231);
 
-	var UserHeader = __webpack_require__(252);
-	var UserStats = __webpack_require__(253);
-	var UserActivity = __webpack_require__(254);
-	var UserFriends = __webpack_require__(255);
+	var UserHeader = __webpack_require__(253);
+	var UserStats = __webpack_require__(254);
+	var UserActivity = __webpack_require__(255);
+	var UserFriends = __webpack_require__(257);
 
 	var UserShow = React.createClass({
 	  displayName: 'UserShow',
@@ -32328,7 +32381,7 @@
 	module.exports = UserShow;
 
 /***/ },
-/* 251 */
+/* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(209).Store;
@@ -32374,7 +32427,7 @@
 	module.exports = UserStore;
 
 /***/ },
-/* 252 */
+/* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -32411,7 +32464,7 @@
 	module.exports = UserHeader;
 
 /***/ },
-/* 253 */
+/* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -32449,16 +32502,16 @@
 	module.exports = UserStats;
 
 /***/ },
-/* 254 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var ActivityItem = __webpack_require__(247);
-	var AttendStore = __webpack_require__(238);
+	var ActivityItem = __webpack_require__(248);
+	var AttendStore = __webpack_require__(239);
 	var ApiUtil = __webpack_require__(231);
-	var UserActivityFeed = __webpack_require__(257);
-	var UserActivityStats = __webpack_require__(253);
+	var UserActivityFeed = __webpack_require__(256);
+	var UserActivityStats = __webpack_require__(254);
 
 	var UserActivity = React.createClass({
 	  displayName: 'UserActivity',
@@ -32497,13 +32550,41 @@
 	module.exports = UserActivity;
 
 /***/ },
-/* 255 */
+/* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var FriendItem = __webpack_require__(256);
-	var FriendStore = __webpack_require__(258);
+	var ActivityItem = __webpack_require__(248);
+
+	var UserActivityFeed = React.createClass({
+	  displayName: 'UserActivityFeed',
+
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'user-activity' },
+	      React.createElement(
+	        'ul',
+	        null,
+	        this.props.attends.map(function (attend) {
+	          return React.createElement(ActivityItem, { attend: attend, key: attend.id });
+	        }, this)
+	      )
+	    );
+	  }
+	});
+
+	module.exports = UserActivityFeed;
+
+/***/ },
+/* 257 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ReactRouter = __webpack_require__(159);
+	var FriendItem = __webpack_require__(258);
+	var FriendStore = __webpack_require__(259);
 
 	var UserFriends = React.createClass({
 	  displayName: 'UserFriends',
@@ -32552,7 +32633,7 @@
 	module.exports = UserFriends;
 
 /***/ },
-/* 256 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -32591,40 +32672,12 @@
 	module.exports = FriendItem;
 
 /***/ },
-/* 257 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var ReactRouter = __webpack_require__(159);
-	var ActivityItem = __webpack_require__(247);
-
-	var UserActivityFeed = React.createClass({
-	  displayName: 'UserActivityFeed',
-
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { className: 'user-activity' },
-	      React.createElement(
-	        'ul',
-	        null,
-	        this.props.attends.map(function (attend) {
-	          return React.createElement(ActivityItem, { attend: attend, key: attend.id });
-	        }, this)
-	      )
-	    );
-	  }
-	});
-
-	module.exports = UserActivityFeed;
-
-/***/ },
-/* 258 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(209).Store;
 
-	var FriendConstants = __webpack_require__(259);
+	var FriendConstants = __webpack_require__(235);
 	var AppDispatcher = __webpack_require__(228);
 	var ApiUtil = __webpack_require__(231);
 
@@ -32659,17 +32712,6 @@
 	window.FriendStore = FriendStore;
 
 	module.exports = FriendStore;
-
-/***/ },
-/* 259 */
-/***/ function(module, exports) {
-
-	var FriendConstants = {
-	  FRIENDS_RECEIVED_FOR_USER: "FRIENDS_RECEIVED_FOR_USER"
-	  // SINGLE_ADD_FRIEND_RECEIVED: "SINGLE_ADD_FRIEND_RECEIVED"
-	};
-
-	module.exports = FriendConstants;
 
 /***/ }
 /******/ ]);
