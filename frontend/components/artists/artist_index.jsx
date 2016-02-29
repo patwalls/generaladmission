@@ -24,7 +24,7 @@ var ArtistIndex = React.createClass({
 
   render: function () {
     return(
-      <ul>
+      <ul className='results'>
         {
           this.state.artists.map( function (artist) {
               return <ArtistIndexItem artist={artist} key={artist.id} />

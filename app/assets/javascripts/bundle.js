@@ -57,10 +57,14 @@
 	var Home = __webpack_require__(249);
 	var AttendStore = __webpack_require__(239);
 	var UserShow = __webpack_require__(251);
+	var ApiUtil = __webpack_require__(231);
 
 	var App = React.createClass({
 	  displayName: 'App',
 
+	  signOut: function () {
+	    ApiUtil.signOut();
+	  },
 	  signedIn: function () {
 	    return typeof window.getCurrentUserId !== "undefined";
 	  },
@@ -68,54 +72,42 @@
 	    if (this.signedIn()) {
 	      return React.createElement(
 	        'div',
-	        { className: 'doc' },
+	        { className: 'container-fluid' },
 	        React.createElement(
-	          'div',
-	          { className: 'container-fluid' },
+	          'nav',
+	          { className: 'navbar navbar-dark bg-inverse' },
 	          React.createElement(
-	            'nav',
-	            { className: 'navbar navbar-static-top', role: 'navigation' },
+	            'ul',
+	            { className: 'nav navbar-nav navbar-left' },
 	            React.createElement(
-	              'div',
-	              { className: 'navbar-inner' },
+	              'li',
+	              null,
 	              React.createElement(
-	                'div',
-	                { className: 'navbar-collapse collapse' },
-	                React.createElement(
-	                  'ul',
-	                  { className: 'nav navbar-nav navbar-left' },
-	                  React.createElement(
-	                    'li',
-	                    null,
-	                    React.createElement(
-	                      Link,
-	                      { to: "/" },
-	                      'General Admission'
-	                    )
-	                  )
-	                ),
-	                React.createElement(
-	                  'ul',
-	                  { className: 'nav navbar-nav navbar-right' },
-	                  React.createElement(
-	                    'li',
-	                    null,
-	                    React.createElement(
-	                      Link,
-	                      { to: "/users/" + window.getCurrentUserId },
-	                      'My Profile'
-	                    )
-	                  ),
-	                  React.createElement(
-	                    'li',
-	                    null,
-	                    React.createElement(
-	                      Link,
-	                      { to: "#" },
-	                      'Sign Out'
-	                    )
-	                  )
-	                )
+	                Link,
+	                { to: "/" },
+	                'GENERAL ADMISSION'
+	              )
+	            )
+	          ),
+	          React.createElement(
+	            'ul',
+	            { className: 'nav navbar-nav navbar-right' },
+	            React.createElement(
+	              'li',
+	              null,
+	              React.createElement(
+	                Link,
+	                { to: "/users/" + window.getCurrentUserId },
+	                'MY PROFILE'
+	              )
+	            ),
+	            React.createElement(
+	              'li',
+	              null,
+	              React.createElement(
+	                'a',
+	                { href: '/', onClick: this.signOut },
+	                'SIGN OUT'
 	              )
 	            )
 	          )
@@ -135,7 +127,7 @@
 	            React.createElement(
 	              Link,
 	              { to: "/" },
-	              'General Admission'
+	              'GENERAL ADMISSION'
 	            )
 	          ),
 	          React.createElement(
@@ -144,7 +136,7 @@
 	            React.createElement(
 	              'a',
 	              { href: '/session/new' },
-	              'Sign In'
+	              'SIGN IN'
 	            )
 	          ),
 	          React.createElement(
@@ -153,7 +145,7 @@
 	            React.createElement(
 	              'a',
 	              { href: '/users/new' },
-	              'Sign Up'
+	              'SIGN UP'
 	            )
 	          )
 	        ),
@@ -31259,6 +31251,15 @@
 	var ApiActions = __webpack_require__(232);
 
 	var ApiUtil = {
+	  signOut: function () {
+	    $.ajax({
+	      url: '/session',
+	      type: 'DELETE',
+	      success: function (result) {
+	        console.log(result);
+	      }
+	    });
+	  },
 	  fetchArtists: function (query) {
 	    var searchParam = { name: query };
 	    $.get('api/artists', searchParam, function (artists) {
@@ -31450,7 +31451,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'ul',
-	      null,
+	      { className: 'results' },
 	      this.state.artists.map(function (artist) {
 	        return React.createElement(ArtistIndexItem, { artist: artist, key: artist.id });
 	      }, this)
@@ -31560,7 +31561,9 @@
 	  //   }
 	  // },
 	  render: function () {
-	    // this.getAverageRating();
+	    var photoDivStyle = {
+	      backgroundImage: 'url(' + this.state.artist.photo + ')'
+	    };
 	    return React.createElement(
 	      'div',
 	      null,
@@ -31572,8 +31575,16 @@
 	          { className: 'row' },
 	          React.createElement(
 	            'div',
+	            { className: 'col-md-12 nopadding header-photo', style: photoDivStyle },
+	            React.createElement(ArtistHeader, { artist: this.state.artist })
+	          )
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'row' },
+	          React.createElement(
+	            'div',
 	            { className: 'col-md-12 nopadding' },
-	            React.createElement(ArtistHeader, { artist: this.state.artist }),
 	            React.createElement(ArtistAbout, { artist: this.state.artist })
 	          )
 	        )
@@ -31681,6 +31692,7 @@
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
+	var ArtistStats = __webpack_require__(260);
 
 	var ArtistHeader = React.createClass({
 	  displayName: 'ArtistHeader',
@@ -31691,16 +31703,25 @@
 	    }
 	  },
 	  render: function () {
+	    var photoDivStyle = {
+	      backgroundImage: 'url(' + this.props.artist.photo + ')'
+	    };
 	    return React.createElement(
 	      'div',
 	      { className: 'row' },
 	      React.createElement(
-	        'img',
-	        { src: this.props.artist.photo, className: 'img-responsive', alt: 'Responsive Image' },
+	        'div',
+	        { className: 'delete' },
 	        React.createElement(
 	          'div',
-	          { className: 'artist-photo-text' },
-	          this.upperCaseName()
+	          { className: 'ratio', style: photoDivStyle },
+	          React.createElement(
+	            'div',
+	            { className: 'artist-photo-text' },
+	            this.upperCaseName()
+	          ),
+	          React.createElement(NewActivityItem, { artist: this.props.artist }),
+	          React.createElement(ArtistStats, { artist: this.props.artist })
 	        )
 	      )
 	    );
@@ -31767,6 +31788,7 @@
 
 	var AttendStore = __webpack_require__(239);
 	var ApiUtil = __webpack_require__(231);
+	var ArtistStore = __webpack_require__(208);
 
 	var NewActivityItem = React.createClass({
 	  displayName: 'NewActivityItem',
@@ -31791,19 +31813,25 @@
 	    ApiUtil.createAttend(attend);
 	    ApiUtil.fetchAttendsForArtist(this.props.artist.id);
 	  },
+	  componentWillReceiveProps: function (newProps) {
+	    this.setState({ artist_id: newProps.artist.id });
+	    // var artistId = newProps.params.artistId;
+	    // var artist = this._findArtistById(artistId) || {} ;
+	    // ApiUtil.fetchSingleArtist(artistId);
+	  },
 	  render: function () {
 	    var attend = Object.assign({}, this.state);
+	    console.log(this.state);
 	    return React.createElement(
 	      'div',
 	      null,
 	      React.createElement(
-	        'button',
-	        { type: 'button', className: 'btn btn-lg btn-success btn-block', 'data-toggle': 'modal', 'data-target': '.bs-example-modal-lg' },
+	        'a',
+	        { href: '#', className: 'check-in-box', 'data-toggle': 'modal', 'data-target': '.bs-example-modal-lg' },
 	        React.createElement(
 	          'h4',
 	          null,
-	          React.createElement('span', { className: 'glyphicon glyphicon-plus', 'aria-hidden': 'true' }),
-	          this.props.artist.name
+	          React.createElement('span', { className: 'glyphicon glyphicon-ok check-mark', 'aria-hidden': 'true' })
 	        )
 	      ),
 	      React.createElement(
@@ -31814,68 +31842,59 @@
 	          { className: 'modal-dialog modal-lg' },
 	          React.createElement(
 	            'div',
-	            { className: 'modal-content' },
+	            { className: 'modal-content activity-input' },
 	            React.createElement(
 	              'div',
 	              { className: 'new-activity-item' },
 	              React.createElement(
 	                'h3',
 	                null,
-	                'Ive Seen this Artist!'
+	                'How was ',
+	                this.props.artist.name,
+	                ' live?'
 	              ),
 	              React.createElement(
 	                'form',
 	                { onSubmit: this.handleSubmit },
 	                React.createElement(
-	                  'label',
-	                  null,
-	                  'Rating?'
+	                  'div',
+	                  { className: 'form-group' },
+	                  React.createElement(
+	                    'label',
+	                    { 'for': 'ratingInput' },
+	                    'Rating?'
+	                  ),
+	                  React.createElement('input', { type: 'text', id: 'ratingInput', className: 'form-control', valueLink: this.linkState('rating') }),
+	                  React.createElement('br', null)
 	                ),
 	                React.createElement(
-	                  'select',
-	                  { id: 'rating', valueLink: this.linkState('rating') },
+	                  'div',
+	                  { className: 'form-group' },
 	                  React.createElement(
-	                    'option',
-	                    { value: '1' },
-	                    '1'
+	                    'label',
+	                    { 'for': 'reviewInput' },
+	                    'How was the concert?'
 	                  ),
-	                  React.createElement(
-	                    'option',
-	                    { value: '2' },
-	                    '2'
-	                  ),
-	                  React.createElement(
-	                    'option',
-	                    { value: '3' },
-	                    '3'
-	                  ),
-	                  React.createElement(
-	                    'option',
-	                    { value: '4' },
-	                    '4'
-	                  ),
-	                  React.createElement(
-	                    'option',
-	                    { value: '5' },
-	                    '5'
-	                  )
+	                  React.createElement('textarea', { id: 'reviewInput', className: 'form-control', rows: '3', valueLink: this.linkState('review') }),
+	                  React.createElement('br', null)
 	                ),
-	                React.createElement('br', null),
 	                React.createElement(
-	                  'label',
-	                  null,
-	                  'How was the concert?'
+	                  'div',
+	                  { className: 'form-group' },
+	                  React.createElement(
+	                    'label',
+	                    { 'for': 'dateInput' },
+	                    'Date Attended?'
+	                  ),
+	                  React.createElement('input', { type: 'date', id: 'dateInput', className: 'date', valueLink: this.linkState('date_attended') }),
+	                  React.createElement('br', null)
 	                ),
-	                React.createElement('input', { type: 'text', valueLink: this.linkState('review') }),
-	                React.createElement('br', null),
 	                React.createElement(
-	                  'label',
-	                  null,
-	                  'Date Attended?'
+	                  'button',
+	                  { type: 'button', className: 'btn btn-default', 'data-dismiss': 'modal' },
+	                  'Close'
 	                ),
-	                React.createElement('input', { type: 'date', valueLink: this.linkState('date_attended') }),
-	                React.createElement('br', null),
-	                React.createElement('input', { className: 'btn btn-info', role: 'button', type: 'submit', value: 'Submit!' })
+	                React.createElement('input', { className: 'btn btn-info', role: 'button', 'data-dismiss': 'modal', type: 'submit', value: 'Submit!' })
 	              )
 	            )
 	          )
@@ -32180,42 +32199,59 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { className: 'col-lg-6 col-md-6 col-sm-12 col-xs-12 activity-item' },
+	      { className: 'col-lg-6 col-md-6 col-sm-12 col-xs-12 activity-item nopadding' },
 	      React.createElement(
 	        'div',
 	        { className: 'row' },
-	        React.createElement('div', { className: 'col-lg-1 col-md-1 col-sm-1 col-xs-1' }),
 	        React.createElement(
 	          'div',
-	          { className: 'col-lg-3 col-md-3 col-sm-3 col-xs-3' },
+	          { className: 'top' },
 	          React.createElement(
 	            'div',
-	            { className: 'row' },
-	            React.createElement('img', { src: 'https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/128/ticket.png', width: '40' })
+	            { className: 'top-left' },
+	            React.createElement(
+	              'div',
+	              { className: 'photo' },
+	              React.createElement('img', { src: 'http://i.imgur.com/wEml88p.png', className: 'img-circle', alt: 'Cinque Terre', width: '80', height: '80' })
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: 'username' },
+	              this.props.attend.username
+	            )
 	          ),
 	          React.createElement(
 	            'div',
-	            { className: 'row' },
-	            React.createElement('img', { src: 'http://i.imgur.com/wEml88p.png', className: 'img-circle', alt: 'Cinque Terre', width: '40', height: '40' })
+	            { className: 'review-details' },
+	            React.createElement(
+	              'div',
+	              { className: 'review' },
+	              React.createElement(
+	                'blockquote',
+	                null,
+	                this.props.attend.review,
+	                React.createElement(
+	                  'cite',
+	                  null,
+	                  this.props.attend.name,
+	                  ', ',
+	                  this.props.attend.date_attended
+	                )
+	              )
+	            ),
+	            React.createElement('div', { className: 'details' })
 	          )
 	        ),
 	        React.createElement(
 	          'div',
-	          { className: 'col-lg-7 col-md-7 col-sm-7 col-xs-7' },
+	          { className: 'bottom' },
 	          React.createElement(
 	            'div',
-	            { className: 'row' },
-	            this.props.attend.review
-	          ),
-	          React.createElement(
-	            'div',
-	            { className: 'row' },
-	            this.props.attend.username,
-	            ' | Date: ',
-	            this.props.attend.date_attended
+	            null,
+	            React.createElement('label', { 'for': 'fader' }),
+	            React.createElement('input', { type: 'range', min: '0', max: '5', value: this.props.attend.rating, id: 'fader' })
 	          )
-	        ),
-	        React.createElement('div', { className: 'col-lg-1 col-md-1 col-sm-1 col-xs-1' })
+	        )
 	      )
 	    );
 	  }
@@ -32244,7 +32280,7 @@
 	      React.createElement('img', { className: 'bgimage', src: 'http://www.diyphotography.net/wordpress/wp-content/uploads/2014/03/adam-elmakias-08.jpg' }),
 	      React.createElement(
 	        'div',
-	        { className: 'search-bar' },
+	        { className: 'search' },
 	        React.createElement(ArtistSearch, null),
 	        React.createElement(ArtistIndex, null)
 	      )
@@ -32279,7 +32315,7 @@
 	    return document.getElementById('search-query').value;
 	  },
 	  render: function () {
-	    return React.createElement('input', { type: 'text', id: 'search-query', onChange: this.changedQuery });
+	    return React.createElement('input', { type: 'text', name: 'q', className: 'form-control', placeholder: 'Search for artists...', id: 'search-query', onChange: this.changedQuery });
 	  }
 	});
 
@@ -32341,37 +32377,51 @@
 	    this.setState({ user: user });
 	  },
 	  render: function () {
+	    var photoDivStyle = {
+	      backgroundImage: 'url(https://c2.staticflickr.com/4/3936/15617350755_ecaab550f0_b.jpg)'
+	    };
 	    return React.createElement(
 	      'div',
-	      { className: 'user-show' },
+	      null,
 	      React.createElement(
 	        'div',
-	        { className: 'user-top' },
-	        React.createElement(UserHeader, { user: this.state.user }),
+	        { className: 'container-fluid nopadding' },
 	        React.createElement(
-	          'button',
-	          null,
-	          'Add Friend!'
+	          'div',
+	          { className: 'row' },
+	          React.createElement(
+	            'div',
+	            { className: 'col-md-12 nopadding header-photo', style: photoDivStyle },
+	            React.createElement(UserHeader, { user: this.state.user })
+	          )
 	        )
 	      ),
 	      React.createElement(
 	        'div',
-	        { className: 'user-left' },
-	        React.createElement(UserActivity, { user: this.state.user })
-	      ),
-	      React.createElement(
-	        'div',
-	        { className: 'user-right' },
-	        React.createElement(UserFriends, { user: this.state.user }),
+	        { className: 'container-fluid nopadding' },
 	        React.createElement(
 	          'div',
-	          { className: 'top-artists' },
-	          'Top Artists'
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'top-venues' },
-	          'Top Venues'
+	          { className: 'row' },
+	          React.createElement(
+	            'div',
+	            { className: 'col-lg-8 col-md-8 col-sm-12 col-xs-12 nopadding' },
+	            React.createElement(UserActivity, { user: this.state.user })
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'col-lg-4 col-md-4 col-sm-12 col-xs-12' },
+	            React.createElement(UserFriends, { user: this.state.user }),
+	            React.createElement(
+	              'div',
+	              { className: 'right-sidebar' },
+	              'Top Artists'
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: 'right-sidebar' },
+	              'Top Venues'
+	            )
+	          )
 	        )
 	      )
 	    );
@@ -32433,30 +32483,36 @@
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
 
+	var UserActivityStats = __webpack_require__(254);
+
 	var UserHeader = React.createClass({
 	  displayName: 'UserHeader',
 
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { className: 'artist-header' },
+	      { className: 'user-header' },
 	      React.createElement(
-	        'h2',
-	        null,
-	        'Name: ',
+	        'div',
+	        { className: 'user-photo-text-name' },
+	        'Pat Walls'
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'user-photo-text-username' },
 	        this.props.user.username
 	      ),
 	      React.createElement(
-	        'h2',
-	        null,
-	        'Name: ',
-	        this.props.user.name
+	        'div',
+	        { className: 'photo' },
+	        React.createElement('img', { src: 'http://i.imgur.com/wEml88p.png', className: 'img-circle', alt: 'Cinque Terre', width: '250', height: '250' })
 	      ),
 	      React.createElement(
-	        'h3',
-	        null,
-	        'Photo: TBD '
-	      )
+	        'a',
+	        { href: '#', className: 'check-in-box' },
+	        'ADD FRIEND'
+	      ),
+	      React.createElement(UserActivityStats, null)
 	    );
 	  }
 	});
@@ -32474,27 +32530,68 @@
 	  displayName: 'UserStats',
 
 	  totalShows: function () {
-	    return this.props.attends.length;
+	    if (this.props.attends.length > 0) {
+	      return this.props.attends.length;
+	    }
 	  },
 	  totalUniqueShows: function () {
-	    var unique_shows = [];
-	    for (var i = 0; i < this.props.attends.length; i++) {
-	      var artist = this.props.attends[i].artist_id;
-	      if (!unique_shows.includes(artist)) {
-	        unique_shows.push(this.props.attends[i].artist_id);
+	    if (this.props.attends.length > 0) {
+	      var unique_shows = [];
+	      for (var i = 0; i < this.props.attends.length; i++) {
+	        var artist = this.props.attends[i].artist_id;
+	        if (!unique_shows.includes(artist)) {
+	          unique_shows.push(this.props.attends[i].artist_id);
+	        }
 	      }
+	      return unique_shows.length;
 	    }
-	    return unique_shows.length;
 	  },
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { className: 'user-stats' },
-	      'Total Shows: ',
-	      this.totalShows(),
-	      'Total Unique Shows: ',
-	      this.totalUniqueShows(),
-	      'Total Friends: 0'
+	      { className: 'artist-stats' },
+	      React.createElement(
+	        'div',
+	        { className: 'stat' },
+	        React.createElement(
+	          'div',
+	          { className: 'header' },
+	          'SHOWS'
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'calc' },
+	          '20'
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'stat' },
+	        React.createElement(
+	          'div',
+	          { className: 'header' },
+	          'UNIQUE'
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'calc' },
+	          '17'
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'stat' },
+	        React.createElement(
+	          'div',
+	          { className: 'header' },
+	          'FRIENDS'
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'calc' },
+	          '25'
+	        )
+	      )
 	    );
 	  }
 	});
@@ -32541,7 +32638,6 @@
 	    return React.createElement(
 	      'div',
 	      { className: 'user-activity' },
-	      React.createElement(UserActivityStats, { attends: this.state.attends }),
 	      React.createElement(UserActivityFeed, { attends: this.state.attends })
 	    );
 	  }
@@ -32613,7 +32709,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { className: 'user-friends' },
+	      { className: 'right-sidebar' },
 	      React.createElement(
 	        'h3',
 	        null,
@@ -32712,6 +32808,83 @@
 	window.FriendStore = FriendStore;
 
 	module.exports = FriendStore;
+
+/***/ },
+/* 260 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ReactRouter = __webpack_require__(159);
+
+	var ArtistStats = React.createClass({
+	  displayName: 'ArtistStats',
+
+	  getInitialState: function () {
+	    return { attends: AttendStore.all() };
+	  },
+
+	  componentDidMount: function () {
+	    this.attendsListener = AttendStore.addListener(this._attendsChanged);
+	  },
+
+	  componentWillUnmount: function () {
+	    this.attendsListener.remove();
+	  },
+
+	  componentWillReceiveProps: function (newProps) {
+	    ApiUtil.fetchAttendsForArtist(newProps.artist.id);
+	    return { attends: AttendStore.all() };
+	  },
+
+	  _attendsChanged: function () {
+	    this.setState({ attends: AttendStore.all() });
+	  },
+	  gaScore: function () {
+	    if (this.state.attends.length > 0) {
+	      var totalScore = 0;
+	      this.state.attends.forEach(function (attend) {
+	        totalScore = totalScore + attend.rating;
+	      });
+	      return Math.floor(totalScore / this.state.attends.length);
+	    }
+	  },
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'artist-stats' },
+	      React.createElement(
+	        'div',
+	        { className: 'stat' },
+	        React.createElement(
+	          'div',
+	          { className: 'header' },
+	          'GA SCORE'
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'calc' },
+	          this.gaScore()
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'stat' },
+	        React.createElement(
+	          'div',
+	          { className: 'header' },
+	          'NO. REVIEWS'
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'calc' },
+	          this.state.attends.length
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = ArtistStats;
 
 /***/ }
 /******/ ]);

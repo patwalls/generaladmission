@@ -10,7 +10,7 @@ var Home = React.createClass({
     return (
       <div className='container-fluid search-container'>
         <img className='bgimage' src='http://www.diyphotography.net/wordpress/wp-content/uploads/2014/03/adam-elmakias-08.jpg' />
-        <div className='search-bar'>
+        <div className='search'>
           <ArtistSearch />
           <ArtistIndex />
         </div>

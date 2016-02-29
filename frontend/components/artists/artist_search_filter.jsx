@@ -18,7 +18,7 @@ var ArtistSearch = React.createClass({
   },
   render: function () {
     return (
-        <input type='text' id='search-query' onChange={this.changedQuery}></input>
+        <input type='text' name='q' className='form-control' placeholder='Search for artists...' id='search-query' onChange={this.changedQuery}></input>
     );
   }
 });

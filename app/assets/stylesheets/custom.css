@@ -1,3 +1,9 @@
+.container-fluid {
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 1200px; /* or 950px */
+}
+
 html, body {
     margin: 0;
     height: 100%;
@@ -12,13 +18,18 @@ html, body {
    margin: 0 !important;
 }
 
-.activity-item {
+.activity-item .row {
     border-radius: 0px;
     background: #ccc;
     padding: 20px;
-    height: 150px;
-    border: 10px solid #ffffff;
+    height: 200px;
+    margin: 2px;
 
+}
+
+.activity-item .top {
+  display: flex;
+  flex-direction: row;
 }
 
 .artist-name {
@@ -37,6 +48,43 @@ html, body {
    text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
 }
 
+.activity-item .photo {
+   margin-right: 10px;
+}
+
+blockquote {
+  font-family: Georgia, serif;
+  font-size: 14px;
+  font-style: italic;
+  margin: 0.25em 0;
+  padding: 0.35em 10px 0.35em 40px;
+  line-height: 1.45;
+  position: relative;
+  color: #383838;
+}
+
+blockquote:before {
+  display: block;
+  padding-left: 10px;
+  content: "\201C";
+  font-size: 80px;
+  position: absolute;
+  left: -20px;
+  top: -20px;
+  color: #7a7a7a;
+}
+
+blockquote cite {
+  color: #999999;
+  font-size: 14px;
+  display: block;
+  margin-top: 5px;
+}
+
+blockquote cite:before {
+  content: "\2014 \2009";
+}
+
 .right-sidebar {
   height: 200px;
   background: #ccc;
@@ -52,9 +100,126 @@ html, body {
   position: relative;
 }
 
-.search-bar {
+.search {
   position: absolute;
-  top: 30%;
-  left: 40%;
+  top: 40%;
+  left: 20%;
+}
 
+.search .form-control {
+  width: 700px;
+  height: 80px;
+  font-size: 4em;
+  padding: 0 12px 0 60px;
+  background: white url("http://cssdeck.com/uploads/media/items/5/5JuDgOa.png") 20px 20px no-repeat;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #a8acbc #babdcc #c0c3d2;
+  border-radius: 5px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-box-shadow: inset 0 1px #e5e7ed, 0 1px 0 #fcfcfc;
+  -moz-box-shadow: inset 0 1px #e5e7ed, 0 1px 0 #fcfcfc;
+  -ms-box-shadow: inset 0 1px #e5e7ed, 0 1px 0 #fcfcfc;
+  -o-box-shadow: inset 0 1px #e5e7ed, 0 1px 0 #fcfcfc;
+  box-shadow: inset 0 1px #e5e7ed, 0 1px 0 #fcfcfc;
+}
+
+.search .results {
+  font-size: 4em;
+}
+
+
+.check-in-box {
+  height: 150px;
+  width: 150px;
+  background-color: green;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 3%;
+  right: 3%;
+}
+
+.check-mark {
+    font-size: 5em;
+    color: white;
+}
+
+.activity-input {
+  padding: 20px;
+}
+
+.artist-stats {
+  position: absolute;
+  display: flex;
+  bottom: 3%;
+  left: 3%;
+}
+
+.artist-stats .stat {
+  height: 150px;
+  width: 150px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+}
+
+.artist-stats .header {
+  font-size: 1em;
+  color: black;
+}
+
+.artist-stats .calc {
+  font-size: 7em;
+  color: black;
+}
+
+.header-photo {
+  height: 500px;
+  background-position: center;
+}
+
+.header-photo img {
+  position: absolute;
+  top: 3%;
+  right: 3%;
+}
+
+.user-photo-text-name {
+   position: relative;
+   color: gray;
+   font-size: 8em;
+}
+
+.user-photo-text-username {
+   position: relative;
+   color: gray;
+   font-size: 5em;
+}
+
+.user-header {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  top: 0px;
+  left: 40px;
+}
+
+.user-header .check-in-box {
+  font-size: 2.5em;
+}
+
+.user-header .artist-stats {
+  position: absolute;
+  display: flex;
+  bottom: 3%;
+  left: 3%;
 }

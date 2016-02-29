@@ -31,7 +31,6 @@ var UserActivity = React.createClass({
   render: function () {
     return (
         <div className='user-activity'>
-          <UserActivityStats attends={this.state.attends} />
           <UserActivityFeed attends={this.state.attends} />
         </div>
       );

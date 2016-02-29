@@ -4,6 +4,7 @@ var LinkedStateMixin = require('react-addons-linked-state-mixin');
 
 var AttendStore = require('../../stores/attend');
 var ApiUtil = require('../../util/api_util');
+var ArtistStore = require('../../stores/artist');
 
 var NewActivityItem = React.createClass({
   mixins: [LinkedStateMixin],
@@ -26,38 +27,45 @@ var NewActivityItem = React.createClass({
     ApiUtil.createAttend(attend);
     ApiUtil.fetchAttendsForArtist(this.props.artist.id);
   },
+  componentWillReceiveProps: function (newProps) {
+    this.setState({ artist_id: newProps.artist.id })
+    // var artistId = newProps.params.artistId;
+    // var artist = this._findArtistById(artistId) || {} ;
+    // ApiUtil.fetchSingleArtist(artistId);
+  },
   render: function () {
     var attend = Object.assign({}, this.state);
+    console.log(this.state);
     return (
       <div>
-        <button type="button" className="btn btn-lg btn-success btn-block" data-toggle="modal" data-target=".bs-example-modal-lg">
-          <h4>
-          <span className="glyphicon glyphicon-plus" aria-hidden="true"></span>
-          {this.props.artist.name}</h4>
-        </button>
+          <a href='#' className="check-in-box" data-toggle="modal" data-target=".bs-example-modal-lg">
+            <h4>
+            <span className="glyphicon glyphicon-ok check-mark" aria-hidden="true"></span></h4>
+          </a>
 
         <div className="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
           <div className="modal-dialog modal-lg">
-            <div className="modal-content">
+            <div className="modal-content activity-input">
             <div className='new-activity-item'>
-              <h3>Ive Seen this Artist!</h3>
+              <h3>How was {this.props.artist.name} live?</h3>
                <form onSubmit={this.handleSubmit}>
-                 <label>Rating?</label>
-                    <select id = "rating" valueLink={this.linkState('rating')}>
-                      <option value = "1">1</option>
-                      <option value = "2">2</option>
-                      <option value = "3">3</option>
-                      <option value = "4">4</option>
-                      <option value = "5">5</option>
-                    </select>
+               <div className="form-group">
+                 <label for='ratingInput'>Rating?</label>
+                    <input type='text' id = 'ratingInput' className='form-control' valueLink={this.linkState('rating')}/>
                     <br/>
-                 <label>How was the concert?</label>
-                    <input type="text" valueLink={this.linkState('review')}/>
+                </div>
+                <div className="form-group">
+                 <label for='reviewInput'>How was the concert?</label>
+                    <textarea id = 'reviewInput' className='form-control' rows='3' valueLink={this.linkState('review')}/>
                     <br/>
-                  <label>Date Attended?</label>
-                     <input type="date" valueLink={this.linkState('date_attended')}/>
+                </div>
+                <div className="form-group">
+                  <label for='dateInput'>Date Attended?</label>
+                     <input type="date" id = 'dateInput' className='date' valueLink={this.linkState('date_attended')}/>
                      <br/>
-                  <input className='btn btn-info' role='button' type="submit" value="Submit!"/>
+                  </div>
+                  <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+                  <input className='btn btn-info' role='button' data-dismiss="modal" type="submit" value="Submit!"/>
                </form>
             </div>
             </div>

@@ -65,13 +65,19 @@ var ArtistShow = React.createClass({
   //   }
   // },
   render: function () {
-    // this.getAverageRating();
+    var photoDivStyle = {
+      backgroundImage: 'url(' + this.state.artist.photo + ')'
+    };
     return (
       <div>
       <div className='container-fluid nopadding'>
         <div className='row'>
-          <div className='col-md-12 nopadding'>
+          <div className='col-md-12 nopadding header-photo' style={photoDivStyle}>
             <ArtistHeader artist={this.state.artist}/>
+          </div>
+        </div>
+        <div className='row'>
+          <div className='col-md-12 nopadding'>
             <ArtistAbout artist={this.state.artist}/>
           </div>
         </div>

@@ -10,16 +10,13 @@
 </head>
 <body>
 <header>
+  
 <% if signed_in? %>
   <script type='text/javascript'>
     window.getCurrentUserId = <%= current_user.id %>;
   </script>
-  <%= current_user.username %>
-  <%= button_to "Sign Out", session_url, :method => :delete %>
-<% else %>
-  <%= link_to "Sign In", new_session_url %>
-  <%= link_to "Sign Up", new_user_url %>
 <% end %>
+
 </header>
 
 <br>

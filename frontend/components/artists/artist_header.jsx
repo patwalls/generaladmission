@@ -1,5 +1,6 @@
 var React = require('react');
 var ReactRouter = require('react-router');
+var ArtistStats = require('./artist_stats');
 
 var ArtistHeader = React.createClass({
   upperCaseName: function () {
@@ -8,11 +9,18 @@ var ArtistHeader = React.createClass({
     }
   },
   render: function () {
+    var photoDivStyle = {
+      backgroundImage: 'url(' + this.props.artist.photo + ')'
+    };
     return (
         <div className='row'>
-          <img src={this.props.artist.photo} className='img-responsive' alt='Responsive Image'>
-            <div className='artist-photo-text'>{this.upperCaseName()}</div>
-          </img>
+          <div className='delete'>
+            <div className='ratio' style={photoDivStyle}>
+              <div className='artist-photo-text'>{this.upperCaseName()}</div>
+              <NewActivityItem artist={this.props.artist}/>
+              <ArtistStats artist={this.props.artist} />
+            </div>
+          </div>
         </div>
       );
   }

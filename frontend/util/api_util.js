@@ -1,6 +1,15 @@
 var ApiActions = require('../actions/api_actions');
 
 var ApiUtil = {
+  signOut: function() {
+    $.ajax({
+      url: '/session',
+      type: 'DELETE',
+      success: function(result) {
+          console.log(result);
+      }
+    });
+  },
   fetchArtists: function(query){
     var searchParam = {name: query};
     $.get('api/artists', searchParam, function(artists) {

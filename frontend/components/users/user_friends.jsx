@@ -27,7 +27,7 @@ var UserFriends = React.createClass({
 
   render: function () {
     return (
-        <div className='user-friends'>
+        <div className='right-sidebar'>
           <h3>Friends</h3>
           <ul>
           {
