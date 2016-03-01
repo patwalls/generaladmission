@@ -1,7 +1,7 @@
 var React = require('react');
 var ReactRouter = require('react-router');
 
-var ActivityItem = React.createClass({
+var UserActivityItem = React.createClass({
 
   render: function () {
     var rating = this.props.attend.rating;
@@ -41,16 +41,13 @@ var ActivityItem = React.createClass({
     };
     return (
       <div classNAme='container-fluid'>
-      <div className='col-lg-6 col-md-6 col-sm-12 col-xs-12 activity-item nopadding'>
+        <div className='col-lg-12 col-md-12 col-sm-12 col-xs-12 activity-item nopadding'>
           <div className='row'>
-            <div className='top'>
-              <div className='top-left'>
-                <div className='photo'>
-                  <img src={this.props.attend.photo} className="img-circle" alt="Cinque Terre" width="80" height="80"></img>
-                </div>
-                <div className='username'>
-                  {this.props.attend.username}
-                </div>
+            <div className='top-user-activity'>
+              <div className='user-attend-details'>
+                <div className='artist'>{this.props.attend.artist_name}</div>
+                <div className='date'>{this.props.attend.date_attended}</div>
+                <div className='venue'>TBD Venue</div>
               </div>
               <div className='review-details'>
                 <div className='review'>
@@ -59,19 +56,22 @@ var ActivityItem = React.createClass({
                     <cite>{this.props.attend.name}, {this.props.attend.date_attended}</cite>
                   </blockquote>
                 </div>
-                <div className='details'>
+              </div>
+              <div className='artist-photo'>
+                <img src={this.props.attend.artist_photo} className="img-circle" alt="Cinque Terre" width="100" height="100"></img>
               </div>
             </div>
-            </div>
-            <div className="progress">
-              <div className="progress-bar progress-bar-success" style={leftmost}>
-                {leftvalue}
-              </div>
-              <div className="progress-bar progress-bar-warning" style={middlemost}>
-                {middlevalue}
-              </div>
-              <div className="progress-bar progress-bar-danger" style={rightmost}>
-                {rightvalue}
+            <div className='bottom-user-activity'>
+              <div className="progress">
+                <div className="progress-bar progress-bar-success" style={leftmost}>
+                  {leftvalue}
+                </div>
+                <div className="progress-bar progress-bar-warning" style={middlemost}>
+                  {middlevalue}
+                </div>
+                <div className="progress-bar progress-bar-danger" style={rightmost}>
+                  {rightvalue}
+                </div>
               </div>
             </div>
           </div>
@@ -81,4 +81,4 @@ var ActivityItem = React.createClass({
   }
 });
 
-module.exports = ActivityItem;
+module.exports = UserActivityItem;

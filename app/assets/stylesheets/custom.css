@@ -22,7 +22,7 @@ html, body {
     border-radius: 0px;
     background: #ccc;
     padding: 20px;
-    height: 200px;
+    height: 180px;
     margin: 2px;
 
 }
@@ -247,4 +247,34 @@ blockquote cite:before {
 
 blockquote {
   border: 0px !important;
+}
+
+.progress {
+  margin-top: 15px;
+}
+
+.user-attend-details .artist {
+  font-size: 2em;
+}
+
+.user-attend-details .date {
+  font-size: 1.5em;
+}
+
+.user-attend-details .venue {
+  font-size: 1.5em;
+}
+
+.top-user-activity {
+  display: flex;
+  flex-direction: row;
+}
+
+.top-user-activity .artist-photo {
+  position: absolute;
+  right: 5%;
+}
+
+.top-user-activity .review-details {
+  margin-left: 20px;
 }

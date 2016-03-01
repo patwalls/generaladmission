@@ -31653,7 +31653,7 @@
 	          ),
 	          React.createElement(
 	            'div',
-	            { className: 'col-lg-4 col-md-4 col-sm-12 col-xs-12' },
+	            { className: 'col-lg-4 col-md-4 col-sm-12 col-xs-12 nopadding' },
 	            React.createElement(
 	              'div',
 	              { className: 'right-sidebar' },
@@ -32253,60 +32253,109 @@
 	var ActivityItem = React.createClass({
 	  displayName: 'ActivityItem',
 
+
 	  render: function () {
+	    var rating = this.props.attend.rating;
+	    var leftset = 70;
+	    var middleset = 20;
+	    var rightset = 10;
+	    var left;
+	    var middle;
+	    var right;
+	    var leftvalue;
+	    var middlevalue;
+	    var rightvalue;
+	    if (rating <= leftset) {
+	      left = rating;
+	      middle = 0;
+	      right = 0;
+	      leftvalue = rating;
+	    } else if (rating <= leftset + middleset) {
+	      left = leftset;
+	      middle = rating - leftset;
+	      right = 0;
+	      middlevalue = rating;
+	    } else if (rating <= leftset + middleset + rightset) {
+	      left = leftset;
+	      middle = middleset;
+	      right = rating - middleset - leftset;
+	      rightvalue = rating;
+	    }
+	    var leftmost = {
+	      width: left + '%'
+	    };
+	    var middlemost = {
+	      width: middle + '%'
+	    };
+	    var rightmost = {
+	      width: right + '%'
+	    };
 	    return React.createElement(
 	      'div',
-	      { className: 'col-lg-6 col-md-6 col-sm-12 col-xs-12 activity-item nopadding' },
+	      { classNAme: 'container-fluid' },
 	      React.createElement(
 	        'div',
-	        { className: 'row' },
+	        { className: 'col-lg-6 col-md-6 col-sm-12 col-xs-12 activity-item nopadding' },
 	        React.createElement(
 	          'div',
-	          { className: 'top' },
+	          { className: 'row' },
 	          React.createElement(
 	            'div',
-	            { className: 'top-left' },
+	            { className: 'top' },
 	            React.createElement(
 	              'div',
-	              { className: 'photo' },
-	              React.createElement('img', { src: this.props.attend.photo, className: 'img-circle', alt: 'Cinque Terre', width: '80', height: '80' })
+	              { className: 'top-left' },
+	              React.createElement(
+	                'div',
+	                { className: 'photo' },
+	                React.createElement('img', { src: this.props.attend.photo, className: 'img-circle', alt: 'Cinque Terre', width: '80', height: '80' })
+	              ),
+	              React.createElement(
+	                'div',
+	                { className: 'username' },
+	                this.props.attend.username
+	              )
 	            ),
 	            React.createElement(
 	              'div',
-	              { className: 'username' },
-	              this.props.attend.username
+	              { className: 'review-details' },
+	              React.createElement(
+	                'div',
+	                { className: 'review' },
+	                React.createElement(
+	                  'blockquote',
+	                  null,
+	                  this.props.attend.review,
+	                  React.createElement(
+	                    'cite',
+	                    null,
+	                    this.props.attend.name,
+	                    ', ',
+	                    this.props.attend.date_attended
+	                  )
+	                )
+	              ),
+	              React.createElement('div', { className: 'details' })
 	            )
 	          ),
 	          React.createElement(
 	            'div',
-	            { className: 'review-details' },
+	            { className: 'progress' },
 	            React.createElement(
 	              'div',
-	              { className: 'review' },
-	              React.createElement(
-	                'blockquote',
-	                null,
-	                this.props.attend.review,
-	                React.createElement(
-	                  'cite',
-	                  null,
-	                  this.props.attend.name,
-	                  ', ',
-	                  this.props.attend.date_attended
-	                )
-	              )
+	              { className: 'progress-bar progress-bar-success', style: leftmost },
+	              leftvalue
 	            ),
-	            React.createElement('div', { className: 'details' })
-	          )
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'bottom' },
-	          React.createElement(
-	            'div',
-	            null,
-	            React.createElement('label', { 'for': 'fader' }),
-	            React.createElement('input', { type: 'range', min: '0', max: '100', value: this.props.attend.rating, id: 'fader' })
+	            React.createElement(
+	              'div',
+	              { className: 'progress-bar progress-bar-warning', style: middlemost },
+	              middlevalue
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: 'progress-bar progress-bar-danger', style: rightmost },
+	              rightvalue
+	            )
 	          )
 	        )
 	      )
@@ -32720,7 +32769,7 @@
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var ActivityItem = __webpack_require__(248);
+	var UserActivityItem = __webpack_require__(265);
 
 	var UserActivityFeed = React.createClass({
 	  displayName: 'UserActivityFeed',
@@ -32733,7 +32782,7 @@
 	        'ul',
 	        null,
 	        this.props.attends.map(function (attend) {
-	          return React.createElement(ActivityItem, { attend: attend, key: attend.id });
+	          return React.createElement(UserActivityItem, { attend: attend, key: attend.id });
 	        }, this)
 	      )
 	    );
@@ -33074,6 +33123,141 @@
 	});
 
 	module.exports = UserAlreadyFriend;
+
+/***/ },
+/* 265 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ReactRouter = __webpack_require__(159);
+
+	var UserActivityItem = React.createClass({
+	  displayName: 'UserActivityItem',
+
+
+	  render: function () {
+	    var rating = this.props.attend.rating;
+	    var leftset = 70;
+	    var middleset = 20;
+	    var rightset = 10;
+	    var left;
+	    var middle;
+	    var right;
+	    var leftvalue;
+	    var middlevalue;
+	    var rightvalue;
+	    if (rating <= leftset) {
+	      left = rating;
+	      middle = 0;
+	      right = 0;
+	      leftvalue = rating;
+	    } else if (rating <= leftset + middleset) {
+	      left = leftset;
+	      middle = rating - leftset;
+	      right = 0;
+	      middlevalue = rating;
+	    } else if (rating <= leftset + middleset + rightset) {
+	      left = leftset;
+	      middle = middleset;
+	      right = rating - middleset - leftset;
+	      rightvalue = rating;
+	    }
+	    var leftmost = {
+	      width: left + '%'
+	    };
+	    var middlemost = {
+	      width: middle + '%'
+	    };
+	    var rightmost = {
+	      width: right + '%'
+	    };
+	    return React.createElement(
+	      'div',
+	      { classNAme: 'container-fluid' },
+	      React.createElement(
+	        'div',
+	        { className: 'col-lg-12 col-md-12 col-sm-12 col-xs-12 activity-item nopadding' },
+	        React.createElement(
+	          'div',
+	          { className: 'row' },
+	          React.createElement(
+	            'div',
+	            { className: 'top-user-activity' },
+	            React.createElement(
+	              'div',
+	              { className: 'user-attend-details' },
+	              React.createElement(
+	                'div',
+	                { className: 'artist' },
+	                this.props.attend.artist_name
+	              ),
+	              React.createElement(
+	                'div',
+	                { className: 'date' },
+	                this.props.attend.date_attended
+	              ),
+	              React.createElement(
+	                'div',
+	                { className: 'venue' },
+	                'TBD Venue'
+	              )
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: 'review-details' },
+	              React.createElement(
+	                'div',
+	                { className: 'review' },
+	                React.createElement(
+	                  'blockquote',
+	                  null,
+	                  this.props.attend.review,
+	                  React.createElement(
+	                    'cite',
+	                    null,
+	                    this.props.attend.name,
+	                    ', ',
+	                    this.props.attend.date_attended
+	                  )
+	                )
+	              )
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: 'artist-photo' },
+	              React.createElement('img', { src: this.props.attend.artist_photo, className: 'img-circle', alt: 'Cinque Terre', width: '100', height: '100' })
+	            )
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'bottom-user-activity' },
+	            React.createElement(
+	              'div',
+	              { className: 'progress' },
+	              React.createElement(
+	                'div',
+	                { className: 'progress-bar progress-bar-success', style: leftmost },
+	                leftvalue
+	              ),
+	              React.createElement(
+	                'div',
+	                { className: 'progress-bar progress-bar-warning', style: middlemost },
+	                middlevalue
+	              ),
+	              React.createElement(
+	                'div',
+	                { className: 'progress-bar progress-bar-danger', style: rightmost },
+	                rightvalue
+	              )
+	            )
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = UserActivityItem;
 
 /***/ }
 /******/ ]);

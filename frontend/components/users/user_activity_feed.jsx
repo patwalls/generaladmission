@@ -1,6 +1,6 @@
 var React = require('react');
 var ReactRouter = require('react-router');
-var ActivityItem = require('../activity/activity_item');
+var UserActivityItem = require('../activity/user_activity_item');
 
 var UserActivityFeed = React.createClass({
   render: function () {
@@ -9,7 +9,7 @@ var UserActivityFeed = React.createClass({
           <ul>
             {
               this.props.attends.map( function (attend) {
-                  return <ActivityItem attend={attend} key={attend.id}/>
+                  return <UserActivityItem attend={attend} key={attend.id}/>
               }, this)
             }
           </ul>
