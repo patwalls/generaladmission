@@ -24428,9 +24428,18 @@
 	var _artists = {};
 
 	var resetArtists = function (artists) {
+	  _artists = {};
 	  for (var i = 0; i < artists.length; i++) {
 	    _artists[artists[i].id] = artists[i];
 	  }
+	};
+
+	var resetArtist = function (artist) {
+	  _artists = artist;
+	};
+
+	ArtistStore.artist = function () {
+	  return _artists;
 	};
 
 	ArtistStore.all = function () {
@@ -24452,7 +24461,8 @@
 	ArtistStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
 	    case ArtistConstants.ARTISTS_RECEIVED:
-	      var result = resetArtists(payload.artists);
+	      console.log(payload.artists);
+	      var result = resetArtist(payload.artists);
 	      ArtistStore.__emitChange();
 	      break;
 	    case ArtistConstants.SINGLE_ARTIST_RECEIVED:
@@ -31260,10 +31270,11 @@
 	      }
 	    });
 	  },
-	  fetchArtists: function (query) {
-	    var searchParam = { name: query };
+	  fetchArtistFromDB: function (songkickId, cb) {
+	    var searchParam = { songkick_id: songkickId };
 	    $.get('api/artists', searchParam, function (artists) {
 	      ApiActions.receiveAll(artists);
+	      cb && cb(artists);
 	    });
 	  },
 	  resetArtists: function () {
@@ -31274,9 +31285,10 @@
 	      ApiActions.receiveSingleArtist(artist);
 	    });
 	  },
-	  createArtist: function (data) {
+	  createArtist: function (data, cb) {
 	    $.post('api/artists', { artist: data }, function (artist) {
-	      ApiActions.receiveAll([artist]);
+	      console.log('success');
+	      cb && cb(artist.id);
 	    });
 	  },
 	  fetchAttendsForArtist: function (id) {
@@ -31304,6 +31316,7 @@
 	  fetchFriendsForUser: function (id) {
 	    var data = { user_id: id };
 	    $.get('api/friends', data, function (friends) {
+	      console.log('successful get request');
 	      ApiActions.receiveAllFriendsForUser(friends);
 	    });
 	  },
@@ -31311,7 +31324,17 @@
 	    $.post('api/friends', { friend: data }, function (friend) {
 	      console.log('success!');
 	    });
-	  }
+	  },
+	  searchResults: function (query) {
+	    var searchUrl = 'http://api.songkick.com/api/3.0/search/artists.json?query=' + query + '&apikey=n3h6YMv9J87oRnq9';
+	    $.getJSON(searchUrl, function (data) {
+	      ApiActions.receiveAllResults(data);
+	    });
+	  },
+	  resetResults: function () {
+	    ApiActions.resetAllArtists();
+	  },
+	  artistExistsInDb: function (songkickId) {}
 	};
 	window.ApiUtil = ApiUtil;
 	module.exports = ApiUtil;
@@ -31325,8 +31348,20 @@
 	var AttendsConstants = __webpack_require__(233);
 	var UserConstants = __webpack_require__(234);
 	var FriendConstants = __webpack_require__(235);
+	var SearchConstants = __webpack_require__(262);
 
 	ApiActions = {
+	  receiveAllResults: function (results) {
+	    AppDispatcher.dispatch({
+	      actionType: SearchConstants.RESULTS_RECEIVED,
+	      results: results
+	    });
+	  },
+	  resetAllResults: function () {
+	    AppDispatcher.dispatch({
+	      actionType: SearchConstants.RESET_RESULTS
+	    });
+	  },
 	  receiveAll: function (artists) {
 	    AppDispatcher.dispatch({
 	      actionType: ArtistConstants.ARTISTS_RECEIVED,
@@ -31425,6 +31460,7 @@
 	var React = __webpack_require__(1);
 	var ArtistStore = __webpack_require__(208);
 	var ApiUtil = __webpack_require__(231);
+	var SearchStore = __webpack_require__(261);
 
 	var ArtistIndexItem = __webpack_require__(237);
 
@@ -31433,15 +31469,15 @@
 
 
 	  getInitialState: function () {
-	    return { artists: ArtistStore.all() };
+	    return { artists: SearchStore.all() };
 	  },
 
 	  _onChange: function () {
-	    this.setState({ artists: ArtistStore.all() });
+	    this.setState({ artists: SearchStore.all() });
 	  },
 
 	  componentDidMount: function (callback) {
-	    this.listenerToken = ArtistStore.addListener(this._onChange);
+	    this.listenerToken = SearchStore.addListener(this._onChange);
 	  },
 
 	  componentWillUnmount: function () {
@@ -31476,13 +31512,28 @@
 	  mixins: [History],
 
 	  showDetail: function () {
-	    this.history.push("/artists/" + this.props.artist.id);
+	    var songkickId = this.props.artist.id;
+	    ApiUtil.fetchArtistFromDB(songkickId, function (artist) {
+	      if (artist.id) {
+	        this.history.push("/artists/" + artist.id);
+	      } else {
+	        ApiUtil.createArtist({
+	          name: this.props.artist.displayName,
+	          photo: "N/A",
+	          genre: "N/A",
+	          description: "Test Description",
+	          songkick_id: this.props.artist.id
+	        }, function (newId) {
+	          this.history.push("/artists/" + newId);
+	        }.bind(this));
+	      }
+	    }.bind(this));
 	  },
 	  render: function () {
 	    return React.createElement(
 	      'li',
 	      { onClick: this.showDetail },
-	      this.props.artist.name
+	      this.props.artist.displayName
 	    );
 	  }
 	});
@@ -31808,10 +31859,16 @@
 	    };
 	  },
 	  handleSubmit: function (event) {
+	    console.log('the handleSubmit is being called');
 	    event.preventDefault();
 	    var attend = Object.assign({}, this.state);
 	    ApiUtil.createAttend(attend);
 	    ApiUtil.fetchAttendsForArtist(this.props.artist.id);
+	  },
+	  closeModal: function () {
+	    $(function () {
+	      $('#attend-modal').modal('toggle');
+	    });
 	  },
 	  componentWillReceiveProps: function (newProps) {
 	    this.setState({ artist_id: newProps.artist.id });
@@ -31836,7 +31893,7 @@
 	      ),
 	      React.createElement(
 	        'div',
-	        { className: 'modal fade bs-example-modal-lg', tabindex: '-1', role: 'dialog', 'aria-labelledby': 'myLargeModalLabel' },
+	        { className: 'modal fade bs-example-modal-lg', id: 'attend-modal', tabindex: '-1', role: 'dialog', 'aria-labelledby': 'myLargeModalLabel' },
 	        React.createElement(
 	          'div',
 	          { className: 'modal-dialog modal-lg' },
@@ -31894,7 +31951,7 @@
 	                  { type: 'button', className: 'btn btn-default', 'data-dismiss': 'modal' },
 	                  'Close'
 	                ),
-	                React.createElement('input', { className: 'btn btn-info', role: 'button', 'data-dismiss': 'modal', type: 'submit', value: 'Submit!' })
+	                React.createElement('input', { className: 'btn btn-info', role: 'button', type: 'submit', value: 'Submit!', onClick: this.closeModal })
 	              )
 	            )
 	          )
@@ -32212,7 +32269,7 @@
 	            React.createElement(
 	              'div',
 	              { className: 'photo' },
-	              React.createElement('img', { src: 'http://i.imgur.com/wEml88p.png', className: 'img-circle', alt: 'Cinque Terre', width: '80', height: '80' })
+	              React.createElement('img', { src: this.props.attend.photo, className: 'img-circle', alt: 'Cinque Terre', width: '80', height: '80' })
 	            ),
 	            React.createElement(
 	              'div',
@@ -32249,7 +32306,7 @@
 	            'div',
 	            null,
 	            React.createElement('label', { 'for': 'fader' }),
-	            React.createElement('input', { type: 'range', min: '0', max: '5', value: this.props.attend.rating, id: 'fader' })
+	            React.createElement('input', { type: 'range', min: '0', max: '100', value: this.props.attend.rating, id: 'fader' })
 	          )
 	        )
 	      )
@@ -32297,6 +32354,7 @@
 	var React = __webpack_require__(1);
 	var ArtistStore = __webpack_require__(208);
 	var ApiUtil = __webpack_require__(231);
+	var SearchStore = __webpack_require__(261);
 
 	var ArtistIndex = __webpack_require__(236);
 
@@ -32306,9 +32364,9 @@
 	  changedQuery: function () {
 	    var query = this.queryString();
 	    if (query.length === 0) {
-	      ApiUtil.resetArtists();
+	      ApiUtil.resetResults();
 	    } else {
-	      ApiUtil.fetchArtists(query);
+	      ApiUtil.searchResults(query);
 	    }
 	  },
 	  queryString: function () {
@@ -32409,7 +32467,7 @@
 	          ),
 	          React.createElement(
 	            'div',
-	            { className: 'col-lg-4 col-md-4 col-sm-12 col-xs-12' },
+	            { className: 'col-lg-4 col-md-4 col-sm-12 col-xs-12 right-side' },
 	            React.createElement(UserFriends, { user: this.state.user }),
 	            React.createElement(
 	              'div',
@@ -32484,18 +32542,33 @@
 	var ReactRouter = __webpack_require__(159);
 
 	var UserActivityStats = __webpack_require__(254);
+	var UserAddFriend = __webpack_require__(263);
+	var UserAlreadyFriend = __webpack_require__(264);
 
 	var UserHeader = React.createClass({
 	  displayName: 'UserHeader',
 
+	  follows: function () {
+	    if (typeof this.props.user.friends !== 'undefined') {
+	      this.props.user.friends.forEach(function (friend) {
+	        console.log(friend.friend_id);
+	      }.bind(this));
+	    }
+	  },
 	  render: function () {
+	    var addFriendButton;
+	    if (this.follows() === false) {
+	      addFriendButton = React.createElement(UserAddFriend, { user: this.props.user });
+	    } else if (this.follows()) {
+	      addFriendButton = React.createElement(UserAlreadyFriend, null);
+	    }
 	    return React.createElement(
 	      'div',
 	      { className: 'user-header' },
 	      React.createElement(
 	        'div',
 	        { className: 'user-photo-text-name' },
-	        'Pat Walls'
+	        this.props.user.name
 	      ),
 	      React.createElement(
 	        'div',
@@ -32505,14 +32578,10 @@
 	      React.createElement(
 	        'div',
 	        { className: 'photo' },
-	        React.createElement('img', { src: 'http://i.imgur.com/wEml88p.png', className: 'img-circle', alt: 'Cinque Terre', width: '250', height: '250' })
+	        React.createElement('img', { src: this.props.user.photo, className: 'img-circle', alt: 'Cinque Terre', width: '250', height: '250' })
 	      ),
-	      React.createElement(
-	        'a',
-	        { href: '#', className: 'check-in-box' },
-	        'ADD FRIEND'
-	      ),
-	      React.createElement(UserActivityStats, null)
+	      addFriendButton,
+	      React.createElement(UserActivityStats, { user: this.props.user })
 	    );
 	  }
 	});
@@ -32561,7 +32630,7 @@
 	        React.createElement(
 	          'div',
 	          { className: 'calc' },
-	          '20'
+	          this.props.user.shows_amt
 	        )
 	      ),
 	      React.createElement(
@@ -32575,7 +32644,7 @@
 	        React.createElement(
 	          'div',
 	          { className: 'calc' },
-	          '17'
+	          this.props.user.unique_shows_amt
 	        )
 	      ),
 	      React.createElement(
@@ -32589,7 +32658,7 @@
 	        React.createElement(
 	          'div',
 	          { className: 'calc' },
-	          '25'
+	          this.props.user.friends_amt
 	        )
 	      )
 	    );
@@ -32709,7 +32778,7 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { className: 'right-sidebar' },
+	      { className: 'container-fluid friends' },
 	      React.createElement(
 	        'h3',
 	        null,
@@ -32749,17 +32818,33 @@
 
 	  render: function () {
 	    return React.createElement(
-	      'ul',
+	      'div',
 	      { className: 'friend-item', onClick: this.showDetail },
 	      React.createElement(
-	        'li',
-	        null,
-	        this.props.friend.friend_user_name
+	        'div',
+	        { className: 'friend-photo' },
+	        React.createElement('img', { src: this.props.friend.friend_photo, className: 'img-circle', alt: 'Cinque Terre', width: '60', height: '60' })
 	      ),
 	      React.createElement(
-	        'li',
-	        null,
-	        ' 100 Shows '
+	        'div',
+	        { className: 'friend-details' },
+	        React.createElement(
+	          'span',
+	          null,
+	          this.props.friend.friend_name
+	        ),
+	        React.createElement(
+	          'span',
+	          null,
+	          'Total Shows: ',
+	          this.props.friend.shows_amt
+	        ),
+	        React.createElement(
+	          'span',
+	          null,
+	          'Friends: ',
+	          this.props.friend.friends_amt
+	        )
 	      )
 	    );
 	  }
@@ -32885,6 +32970,110 @@
 	});
 
 	module.exports = ArtistStats;
+
+/***/ },
+/* 261 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(209).Store;
+
+	var SearchConstants = __webpack_require__(262);
+	var AppDispatcher = __webpack_require__(228);
+	var ApiUtil = __webpack_require__(231);
+
+	var SearchStore = new Store(AppDispatcher);
+
+	var _results = {};
+
+	var resetSearch = function (results) {
+	  _results = {};
+	  for (var i = 0; i < results.length; i++) {
+	    _results[results[i].id] = results[i];
+	  }
+	};
+
+	SearchStore.all = function () {
+	  var _returnSearch = [];
+	  Object.keys(_results).map(function (key) {
+	    _returnSearch.push(_results[key]);
+	  });
+	  return _returnSearch;
+	};
+
+	SearchStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case SearchConstants.RESULTS_RECEIVED:
+	      var result = resetSearch(payload.results.resultsPage.results.artist);
+	      SearchStore.__emitChange();
+	      break;
+	    case SearchConstants.RESET_RESULTS:
+	      _results = {};
+	      this.__emitChange();
+	      break;
+	  }
+	};
+
+	window.SearchStore = SearchStore;
+
+	module.exports = SearchStore;
+
+/***/ },
+/* 262 */
+/***/ function(module, exports) {
+
+	var SearchConstants = {
+	  RESULTS_RECEIVED: "RESULTS_RECEIVED",
+	  RESET_RESULTS: "RESET_RESULTS"
+	};
+
+	module.exports = SearchConstants;
+
+/***/ },
+/* 263 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ReactRouter = __webpack_require__(159);
+
+	var UserAddFriend = React.createClass({
+	  displayName: 'UserAddFriend',
+
+	  addFriend: function () {
+	    var user_id = window.getCurrentUserId;
+	    var friend_id = this.props.user.id;
+	    ApiUtil.addFriend({ user_id: user_id, friend_id: friend_id });
+	  },
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'check-in-box', onClick: this.addFriend },
+	      'FOLLOW'
+	    );
+	  }
+	});
+
+	module.exports = UserAddFriend;
+
+/***/ },
+/* 264 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ReactRouter = __webpack_require__(159);
+
+	var UserAlreadyFriend = React.createClass({
+	  displayName: 'UserAlreadyFriend',
+
+	  render: function () {
+	    return React.createElement(
+	      'a',
+	      { href: '#', className: 'check-in-box' },
+	      'FOLLOWING'
+	    );
+	  }
+	});
+
+	module.exports = UserAlreadyFriend;
 
 /***/ }
 /******/ ]);

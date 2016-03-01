@@ -10,10 +10,11 @@ var ApiUtil = {
       }
     });
   },
-  fetchArtists: function(query){
-    var searchParam = {name: query};
+  fetchArtistFromDB: function(songkickId, cb){
+    var searchParam = {songkick_id: songkickId};
     $.get('api/artists', searchParam, function(artists) {
       ApiActions.receiveAll(artists);
+      cb && cb(artists);
     });
   },
   resetArtists: function(){
@@ -24,9 +25,10 @@ var ApiUtil = {
       ApiActions.receiveSingleArtist(artist);
     });
   },
-  createArtist: function(data){
+  createArtist: function(data, cb){
     $.post('api/artists', { artist: data }, function(artist) {
-      ApiActions.receiveAll([artist]);
+      console.log('success');
+      cb && cb(artist.id);
     });
   },
   fetchAttendsForArtist: function(id) {
@@ -54,6 +56,7 @@ var ApiUtil = {
   fetchFriendsForUser: function(id) {
     var data = {user_id: id};
     $.get('api/friends', data, function(friends) {
+      console.log('successful get request');
       ApiActions.receiveAllFriendsForUser(friends);
     });
   },
@@ -61,6 +64,18 @@ var ApiUtil = {
     $.post('api/friends', { friend: data }, function(friend) {
       console.log('success!');
     });
+  },
+  searchResults: function(query) {
+    var searchUrl = 'http://api.songkick.com/api/3.0/search/artists.json?query=' + query + '&apikey=n3h6YMv9J87oRnq9';
+    $.getJSON(searchUrl, function(data) {
+      ApiActions.receiveAllResults(data);
+    });
+  },
+  resetResults: function() {
+    ApiActions.resetAllArtists();
+  },
+  artistExistsInDb: function(songkickId) {
+
   }
 };
 window.ApiUtil = ApiUtil;

@@ -3,8 +3,20 @@ var ArtistConstants = require('../constants/artist_constants');
 var AttendsConstants = require('../constants/attends_constants');
 var UserConstants = require('../constants/user_constants');
 var FriendConstants = require('../constants/friend_constants');
+var SearchConstants = require('../constants/search_constants');
 
 ApiActions = {
+  receiveAllResults: function(results){
+    AppDispatcher.dispatch({
+      actionType: SearchConstants.RESULTS_RECEIVED,
+      results: results
+    });
+  },
+  resetAllResults: function(){
+    AppDispatcher.dispatch({
+      actionType: SearchConstants.RESET_RESULTS,
+    });
+  },
   receiveAll: function(artists){
     AppDispatcher.dispatch({
       actionType: ArtistConstants.ARTISTS_RECEIVED,

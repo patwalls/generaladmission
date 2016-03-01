@@ -64,7 +64,7 @@ var UserShow = React.createClass({
           <div className='col-lg-8 col-md-8 col-sm-12 col-xs-12 nopadding'>
             <UserActivity user={this.state.user} />
           </div>
-          <div className='col-lg-4 col-md-4 col-sm-12 col-xs-12'>
+          <div className='col-lg-4 col-md-4 col-sm-12 col-xs-12 right-side'>
             <UserFriends user={this.state.user} />
             <div className='right-sidebar'>Top Artists</div>
             <div className='right-sidebar'>Top Venues</div>

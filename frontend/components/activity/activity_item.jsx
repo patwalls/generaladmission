@@ -9,7 +9,7 @@ var ActivityItem = React.createClass({
           <div className='top'>
             <div className='top-left'>
               <div className='photo'>
-                <img src="http://i.imgur.com/wEml88p.png" className="img-circle" alt="Cinque Terre" width="80" height="80"></img>
+                <img src={this.props.attend.photo} className="img-circle" alt="Cinque Terre" width="80" height="80"></img>
               </div>
               <div className='username'>
                 {this.props.attend.username}
@@ -29,7 +29,7 @@ var ActivityItem = React.createClass({
           <div className='bottom'>
             <div>
               <label for="fader"></label>
-              <input type="range" min="0" max="5" value={this.props.attend.rating} id="fader" />
+              <input type="range" min="0" max="100" value={this.props.attend.rating} id="fader" />
             </div>
           </div>
         </div>

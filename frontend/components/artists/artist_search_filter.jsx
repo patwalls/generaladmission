@@ -1,6 +1,7 @@
 var React = require('react');
 var ArtistStore = require('../../stores/artist');
 var ApiUtil = require('../../util/api_util');
+var SearchStore = require('../../stores/search');
 
 var ArtistIndex = require('./artist_index');
 
@@ -8,9 +9,9 @@ var ArtistSearch = React.createClass({
   changedQuery: function () {
     var query = this.queryString();
     if (query.length === 0) {
-      ApiUtil.resetArtists();
+      ApiUtil.resetResults();
     } else {
-      ApiUtil.fetchArtists(query);
+      ApiUtil.searchResults(query);
     }
   },
   queryString: function () {

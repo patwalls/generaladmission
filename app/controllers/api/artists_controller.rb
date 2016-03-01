@@ -16,7 +16,7 @@ class Api::ArtistsController < ApplicationController
   end
 
   def index
-    @artist = Artist.where('name LIKE ?', '%' + params[:name] + '%').all
+    @artist = Artist.find_by_songkick_id(params[:songkick_id])
   end
 
   def show
@@ -26,6 +26,6 @@ class Api::ArtistsController < ApplicationController
   private
 
   def artist_params
-    params.require(:artist).permit(:name, :photo, :genre, :description, :songkick_id)
+    params.require(:artist).permit(:id, :name, :photo, :genre, :description, :songkick_id)
   end
 end

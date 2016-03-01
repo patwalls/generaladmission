@@ -11,6 +11,13 @@ class User < ActiveRecord::Base
     primary_key: :id
   )
 
+  has_many(
+    :friends,
+    class_name: "Friend",
+    foreign_key: :friend_id,
+    primary_key: :id
+  )
+
   after_initialize :ensure_session_token
 
   def self.find_by_credentials(username, password)
@@ -32,6 +39,24 @@ class User < ActiveRecord::Base
     self.session_token = SecureRandom.urlsafe_base64(16)
     self.save!
     self.session_token
+  end
+
+  def shows
+    self.attends.length
+  end
+
+  def unique_shows
+    unique_shows = []
+    self.attends.each do |attend|
+      if unique_shows.include?(attend.artist_id) == false
+        unique_shows << attend.artist_id
+      end
+    end
+    unique_shows.length
+  end
+
+  def friends_amt
+    self.friends.length
   end
 
   private

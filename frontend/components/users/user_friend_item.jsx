@@ -14,10 +14,16 @@ var FriendItem = React.createClass({
 
   render: function () {
     return (
-        <ul className='friend-item' onClick={this.showDetail}>
-          <li>{this.props.friend.friend_user_name}</li>
-          <li> 100 Shows </li>
-        </ul>
+        <div className='friend-item' onClick={this.showDetail}>
+          <div className='friend-photo'>
+            <img src={this.props.friend.friend_photo} className="img-circle" alt="Cinque Terre" width="60" height="60"></img>
+          </div>
+          <div className='friend-details'>
+            <span>{this.props.friend.friend_name}</span>
+            <span>Total Shows: {this.props.friend.shows_amt}</span>
+            <span>Friends: {this.props.friend.friends_amt}</span>
+          </div>
+        </div>
       );
   }
 });

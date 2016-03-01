@@ -185,6 +185,7 @@ blockquote cite:before {
 .header-photo {
   height: 500px;
   background-position: center;
+  background-color: #4d4d4d;
 }
 
 .header-photo img {
@@ -215,6 +216,7 @@ blockquote cite:before {
 
 .user-header .check-in-box {
   font-size: 2.5em;
+  background-color: white;
 }
 
 .user-header .artist-stats {
@@ -222,4 +224,27 @@ blockquote cite:before {
   display: flex;
   bottom: 3%;
   left: 3%;
+}
+.right-side .friends {
+  background-color: gray;
+}
+
+.friend-item {
+  display: flex;
+  margin: 5px;
+}
+
+.friend-item .friend-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.top-left .username {
+  color: gray;
+  padding-top: 5px;
+  text-align-last: center;
+}
+
+blockquote {
+  border: 0px !important;
 }

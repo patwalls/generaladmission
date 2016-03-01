@@ -9,9 +9,18 @@ var ArtistStore = new Store(AppDispatcher);
 var _artists = {};
 
 var resetArtists = function(artists){
+  _artists = {};
   for (var i = 0; i < artists.length; i++) {
       _artists[artists[i].id] = artists[i];
     }
+};
+
+var resetArtist = function(artist){
+  _artists = artist;
+};
+
+ArtistStore.artist = function () {
+  return _artists;
 };
 
 ArtistStore.all = function () {
@@ -33,7 +42,8 @@ ArtistStore.find = function (id) {
 ArtistStore.__onDispatch = function (payload) {
   switch(payload.actionType) {
     case ArtistConstants.ARTISTS_RECEIVED:
-      var result = resetArtists(payload.artists);
+      console.log(payload.artists);
+      var result = resetArtist(payload.artists);
       ArtistStore.__emitChange();
       break;
     case ArtistConstants.SINGLE_ARTIST_RECEIVED:

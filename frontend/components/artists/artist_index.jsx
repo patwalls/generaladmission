@@ -1,21 +1,22 @@
 var React = require('react');
 var ArtistStore = require('../../stores/artist');
 var ApiUtil = require('../../util/api_util');
+var SearchStore = require('../../stores/search');
 
 var ArtistIndexItem = require('./artist_index_item');
 
 var ArtistIndex = React.createClass({
 
   getInitialState: function() {
-    return {artists: ArtistStore.all()};
+    return {artists: SearchStore.all()};
   },
 
   _onChange: function() {
-    this.setState({artists: ArtistStore.all()});
+    this.setState({artists: SearchStore.all()});
   },
 
   componentDidMount: function (callback) {
-    this.listenerToken = ArtistStore.addListener(this._onChange);
+    this.listenerToken = SearchStore.addListener(this._onChange);
   },
 
   componentWillUnmount: function () {

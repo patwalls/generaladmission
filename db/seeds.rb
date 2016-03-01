@@ -53,11 +53,12 @@ Attend.create(
   artist_id: 1,
   venue_id: 2
 )
-User.create(username: 'patwalls', password: '123456', name: 'Pat Walls')
-User.create(username: 'spyqsklar', password: '123456', name: 'Spyq Sklar')
-User.create(username: 'jole', password: '123456', name: 'Jole Klonoff')
-User.create(username: 'pejmanaftalion', password: '123456', name: 'Pejman Aftalion')
-User.create(username: 'austinmiller', password: '123456', name: 'Austin Miller')
+User.create(username: 'patwalls', password: '123456', name: 'Pat Walls', photo: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAVBAAAAJGEyNGNmY2Y3LTEyYmItNGJiMy1hNWE2LWFlNmVkODVlYjcyZQ.jpg')
+User.create(username: 'spyqsklar', password: '123456', name: 'Spyq Sklar', photo: 'http://www.marinatimes.com/wp-content/uploads/2014/06/MT-July2014-COVER-ReynoldsRap.jpg')
+User.create(username: 'jole', password: '123456', name: 'Jole Klonoff', photo: 'http://i.imgur.com/wEml88p.png')
+User.create(username: 'pejmanaftalion', password: '123456', name: 'Pejman Aftalion', photo:'https://v.cdn.vine.co/v/avatars/3E5D9B4D-9616-439E-B081-6A25A65B3A15-2527-000001FC35F3689D.jpg?versionId=eGmKbWctn3oeWvo7r1g3NOGnQu.xQv3w')
+User.create(username: 'austinmiller', password: '123456', name: 'Austin Miller', photo: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/7/000/206/08b/0d69eb2.jpg')
+User.create(username: 'johnheadley', password: '123456', name: 'John Headley', photo: 'http://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3975.png&w=350&h=254')
 
 Friend.create(user_id: 1, friend_id: 3)
 Friend.create(user_id: 1, friend_id: 4)

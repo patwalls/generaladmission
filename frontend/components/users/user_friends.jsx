@@ -27,15 +27,15 @@ var UserFriends = React.createClass({
 
   render: function () {
     return (
-        <div className='right-sidebar'>
-          <h3>Friends</h3>
-          <ul>
-          {
-            this.state.friends.map( function (friend) {
-                return <FriendItem friend={friend} />
-            }, this)
-          }
-          </ul>
+        <div className='container-fluid friends'>
+            <h3>Friends</h3>
+            <ul>
+            {
+              this.state.friends.map( function (friend) {
+                  return <FriendItem friend={friend} />
+              }, this)
+            }
+            </ul>
         </div>
       );
   }

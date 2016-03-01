@@ -27,7 +27,7 @@ var UserStats = React.createClass({
             SHOWS
           </div>
           <div className='calc'>
-            20
+            {this.props.user.shows_amt}
           </div>
         </div>
         <div className='stat'>
@@ -35,7 +35,7 @@ var UserStats = React.createClass({
             UNIQUE
           </div>
           <div className='calc'>
-            17
+            {this.props.user.unique_shows_amt}
           </div>
         </div>
         <div className='stat'>
@@ -43,7 +43,7 @@ var UserStats = React.createClass({
             FRIENDS
           </div>
           <div className='calc'>
-            25
+            {this.props.user.friends_amt}
           </div>
         </div>
       </div>
