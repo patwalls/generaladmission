@@ -104,6 +104,10 @@ body {
   background-color: #F5F5F5;
 }
 
+.bg-body {
+  background-color: green;
+}
+
 .home-componenets {
   position: absolute;
   width: 100%;
@@ -513,4 +517,8 @@ blockquote {
 
 .about-artist .btn {
   border-radius: 0px;
+}
+
+.follow-details {
+  display: flex;
 }

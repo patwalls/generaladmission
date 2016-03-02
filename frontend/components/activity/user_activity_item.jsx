@@ -46,7 +46,8 @@ var UserActivityItem = React.createClass({
     };
     return (
       <div className='container-fluid'>
-        <div className='col-lg-12 col-md-12 col-sm-12 col-xs-12 activity-item nopadding'>
+        <div className='col-lg-12 col-md-12 col-sm-12 col-xs-12 activity-item nopadding testy'>
+          <div className='inner'>
           <div className='row'>
             <div className='top-user-activity'>
               <div className='user-attend-details'>
@@ -80,6 +81,7 @@ var UserActivityItem = React.createClass({
               </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
       );

@@ -5,6 +5,7 @@ var UserActivityItem = require('../activity/user_activity_item');
 var UserActivityFeed = React.createClass({
   render: function () {
     return (
+      <div className='inner'>
         <div className='user-activity'>
           <ul>
             {
@@ -14,6 +15,7 @@ var UserActivityFeed = React.createClass({
             }
           </ul>
         </div>
+      </div>
       );
     }
 });

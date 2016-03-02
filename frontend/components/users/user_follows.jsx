@@ -27,8 +27,10 @@ var UserFollows = React.createClass({
 
   render: function () {
     return (
-        <div className='container-fluid follows'>
-            <h3>People You Follow</h3>
+        <div className='nopadding testy'>
+          <div className='module'>
+            <span>People You Follow</span>
+            <hr />
             <ul>
             {
               this.state.follows.map( function (follow) {
@@ -36,6 +38,7 @@ var UserFollows = React.createClass({
               }, this)
             }
             </ul>
+            </div>
         </div>
       );
   }

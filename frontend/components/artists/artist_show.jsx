@@ -30,6 +30,9 @@ var ArtistShow = React.createClass({
     }.bind(this));
      return res;
   },
+  componentWillMount: function () {
+    document.body.classList.remove('bg-body');
+  },
   componentDidMount: function () {
     this.artistListener = ArtistStore.addListener(this._artistChanged);
     var artistId = this.props.params.artistId;

@@ -47,7 +47,7 @@ var NewActivityItem = React.createClass({
             <span className="glyphicon glyphicon-ok check-mark" aria-hidden="true"></span></h4>
           </a>
 
-        <div className="modal fade bs-example-modal-lg" id='attend-modal' tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div className="modal fade bs-example-modal-lg" id='attend-modal' tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
           <div className="modal-dialog modal-lg">
             <div className="modal-content activity-input">
             <div className='new-activity-item'>

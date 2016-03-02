@@ -62,14 +62,17 @@ var UserShow = React.createClass({
       </div>
       <div className='container-fluid nopadding'>
         <div className='row'>
-          <div className='col-lg-8 col-md-8 col-sm-12 col-xs-12 nopadding'>
-            <UserActivity user={this.state.user} />
+          <div className='col-lg-8 col-md-8 col-sm-12 col-xs-12 nopadding testy'>
+            <div className='inner'>
+              <UserActivity user={this.state.user} />
+            </div>
           </div>
-          <div className='col-lg-4 col-md-4 col-sm-12 col-xs-12 right-side'>
-            <UserFollows user={this.state.user} />
-            <UserFollowers user={this.state.user} />
-            <div className='right-sidebar'>Top Artists</div>
-            <div className='right-sidebar'>Top Venues</div>
+          <div className='col-lg-4 col-md-4 col-sm-12 col-xs-12 nopadding testy'>
+            <div className='inner'>
+              <UserFollows user={this.state.user} />
+              <div className='module tbd'>Top Artists</div>
+              <div className='module tbd'>Top Venues</div>
+            </div>
           </div>
         </div>
       </div>

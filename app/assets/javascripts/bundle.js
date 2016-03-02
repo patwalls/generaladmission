@@ -31634,6 +31634,9 @@
 	    }.bind(this));
 	    return res;
 	  },
+	  componentWillMount: function () {
+	    document.body.classList.remove('bg-body');
+	  },
 	  componentDidMount: function () {
 	    this.artistListener = ArtistStore.addListener(this._artistChanged);
 	    var artistId = this.props.params.artistId;
@@ -32032,7 +32035,7 @@
 	      ),
 	      React.createElement(
 	        'div',
-	        { className: 'modal fade bs-example-modal-lg', id: 'attend-modal', tabindex: '-1', role: 'dialog', 'aria-labelledby': 'myLargeModalLabel' },
+	        { className: 'modal fade bs-example-modal-lg', id: 'attend-modal', tabIndex: '-1', role: 'dialog', 'aria-labelledby': 'myLargeModalLabel' },
 	        React.createElement(
 	          'div',
 	          { className: 'modal-dialog modal-lg' },
@@ -32667,23 +32670,30 @@
 	          { className: 'row' },
 	          React.createElement(
 	            'div',
-	            { className: 'col-lg-8 col-md-8 col-sm-12 col-xs-12 nopadding' },
-	            React.createElement(UserActivity, { user: this.state.user })
+	            { className: 'col-lg-8 col-md-8 col-sm-12 col-xs-12 nopadding testy' },
+	            React.createElement(
+	              'div',
+	              { className: 'inner' },
+	              React.createElement(UserActivity, { user: this.state.user })
+	            )
 	          ),
 	          React.createElement(
 	            'div',
-	            { className: 'col-lg-4 col-md-4 col-sm-12 col-xs-12 right-side' },
-	            React.createElement(UserFollows, { user: this.state.user }),
-	            React.createElement(UserFollowers, { user: this.state.user }),
+	            { className: 'col-lg-4 col-md-4 col-sm-12 col-xs-12 nopadding testy' },
 	            React.createElement(
 	              'div',
-	              { className: 'right-sidebar' },
-	              'Top Artists'
-	            ),
-	            React.createElement(
-	              'div',
-	              { className: 'right-sidebar' },
-	              'Top Venues'
+	              { className: 'inner' },
+	              React.createElement(UserFollows, { user: this.state.user }),
+	              React.createElement(
+	                'div',
+	                { className: 'module tbd' },
+	                'Top Artists'
+	              ),
+	              React.createElement(
+	                'div',
+	                { className: 'module tbd' },
+	                'Top Venues'
+	              )
 	            )
 	          )
 	        )
@@ -32993,13 +33003,17 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { className: 'user-activity' },
+	      { className: 'inner' },
 	      React.createElement(
-	        'ul',
-	        null,
-	        this.props.attends.map(function (attend) {
-	          return React.createElement(UserActivityItem, { attend: attend, key: attend.id });
-	        }, this)
+	        'div',
+	        { className: 'user-activity' },
+	        React.createElement(
+	          'ul',
+	          null,
+	          this.props.attends.map(function (attend) {
+	            return React.createElement(UserActivityItem, { attend: attend, key: attend.id });
+	          }, this)
+	        )
 	      )
 	    );
 	  }
@@ -33064,78 +33078,82 @@
 	      { className: 'container-fluid' },
 	      React.createElement(
 	        'div',
-	        { className: 'col-lg-12 col-md-12 col-sm-12 col-xs-12 activity-item nopadding' },
+	        { className: 'col-lg-12 col-md-12 col-sm-12 col-xs-12 activity-item nopadding testy' },
 	        React.createElement(
 	          'div',
-	          { className: 'row' },
+	          { className: 'inner' },
 	          React.createElement(
 	            'div',
-	            { className: 'top-user-activity' },
+	            { className: 'row' },
 	            React.createElement(
 	              'div',
-	              { className: 'user-attend-details' },
+	              { className: 'top-user-activity' },
 	              React.createElement(
 	                'div',
-	                { className: 'artist', onClick: this.showArtist },
-	                this.props.attend.artist_name
-	              ),
-	              React.createElement(
-	                'div',
-	                { className: 'date' },
-	                this.props.attend.date_attended
-	              ),
-	              React.createElement(
-	                'div',
-	                { className: 'venue' },
-	                'TBD Venue'
-	              )
-	            ),
-	            React.createElement(
-	              'div',
-	              { className: 'review-details' },
-	              React.createElement(
-	                'div',
-	                { className: 'review' },
+	                { className: 'user-attend-details' },
 	                React.createElement(
-	                  'blockquote',
-	                  null,
-	                  this.props.attend.review,
+	                  'div',
+	                  { className: 'artist', onClick: this.showArtist },
+	                  this.props.attend.artist_name
+	                ),
+	                React.createElement(
+	                  'div',
+	                  { className: 'date' },
+	                  this.props.attend.date_attended
+	                ),
+	                React.createElement(
+	                  'div',
+	                  { className: 'venue' },
+	                  'TBD Venue'
+	                )
+	              ),
+	              React.createElement(
+	                'div',
+	                { className: 'review-details' },
+	                React.createElement(
+	                  'div',
+	                  { className: 'review' },
 	                  React.createElement(
-	                    'cite',
+	                    'blockquote',
 	                    null,
-	                    this.props.attend.name,
-	                    ', ',
-	                    this.props.attend.date_attended
+	                    this.props.attend.review,
+	                    React.createElement(
+	                      'cite',
+	                      null,
+	                      this.props.attend.name,
+	                      ', ',
+	                      this.props.attend.date_attended
+	                    )
 	                  )
 	                )
+	              ),
+	              React.createElement(
+	                'div',
+	                { className: 'artist-photo', onClick: this.showArtist },
+	                React.createElement('img', { src: this.props.attend.artist_photo, className: 'img-circle', alt: 'Cinque Terre', width: '100', height: '100' })
 	              )
 	            ),
 	            React.createElement(
 	              'div',
-	              { className: 'artist-photo', onClick: this.showArtist },
-	              React.createElement('img', { src: this.props.attend.artist_photo, className: 'img-circle', alt: 'Cinque Terre', width: '100', height: '100' })
-	            )
-	          ),
-	          React.createElement(
-	            'div',
-	            { className: 'bottom-user-activity' },
-	            React.createElement(
-	              'div',
-	              { className: 'progress' },
+	              { className: 'bottom-user-activity' },
 	              React.createElement(
 	                'div',
-	                { className: 'progress-bar progress-bar-success', style: leftmost },
-	                leftvalue
-	              ),
-	              React.createElement(
-	                'div',
-	                { className: 'progress-bar progress-bar-warning', style: middlemost },
-	                middlevalue
-	              ),
-	              React.createElement(
-	                'div',
-	                { className: 'progress-bar progress-bar-danger', style: rightmost },
-	                rightvalue
+	                { className: 'progress' },
+	                React.createElement(
+	                  'div',
+	                  { className: 'progress-bar progress-bar-success', style: leftmost },
+	                  leftvalue
+	                ),
+	                React.createElement(
+	                  'div',
+	                  { className: 'progress-bar progress-bar-warning', style: middlemost },
+	                  middlevalue
+	                ),
+	                React.createElement(
+	                  'div',
+	                  { className: 'progress-bar progress-bar-danger', style: rightmost },
+	                  rightvalue
+	                )
 	              )
 	            )
 	          )
@@ -33183,18 +33201,23 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { className: 'container-fluid follows' },
+	      { className: 'nopadding testy' },
 	      React.createElement(
-	        'h3',
-	        null,
-	        'People You Follow'
-	      ),
-	      React.createElement(
-	        'ul',
-	        null,
-	        this.state.follows.map(function (follow) {
-	          return React.createElement(FollowItem, { follow: follow });
-	        }, this)
+	        'div',
+	        { className: 'module' },
+	        React.createElement(
+	          'span',
+	          null,
+	          'People You Follow'
+	        ),
+	        React.createElement('hr', null),
+	        React.createElement(
+	          'ul',
+	          null,
+	          this.state.follows.map(function (follow) {
+	            return React.createElement(FollowItem, { follow: follow });
+	          }, this)
+	        )
 	      )
 	    );
 	  }
