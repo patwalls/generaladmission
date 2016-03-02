@@ -1,6 +1,5 @@
 var React = require('react');
-var ArtistIndex = require('./artists/artist_index.jsx');
-var ArtistSearch = require('./artists/artist_search_filter.jsx');
+var ArtistSearch = require('./artists/artist_search.jsx');
 
 var Home = React.createClass({
   contextTypes: {
@@ -8,12 +7,10 @@ var Home = React.createClass({
   },
   render: function () {
     return (
-      <div className='container-fluid search-container'>
-        <img className='bgimage' src='http://www.diyphotography.net/wordpress/wp-content/uploads/2014/03/adam-elmakias-08.jpg' />
-        <div className='search'>
-          <ArtistSearch />
-          <ArtistIndex />
-        </div>
+      <div className='home-components'>
+        <div className='site-title'>GENERAL ADMISSION</div>
+        <div className='tagline'>YOUR RESOURSE FOR THE BEST CONCERTS</div>
+        <ArtistSearch />
       </div>
     );
   }

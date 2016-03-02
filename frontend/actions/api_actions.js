@@ -2,7 +2,7 @@ var AppDispatcher = require('../dispatcher/dispatcher');
 var ArtistConstants = require('../constants/artist_constants');
 var AttendsConstants = require('../constants/attends_constants');
 var UserConstants = require('../constants/user_constants');
-var FriendConstants = require('../constants/friend_constants');
+var FollowConstants = require('../constants/follow_constants');
 var SearchConstants = require('../constants/search_constants');
 
 ApiActions = {
@@ -58,16 +58,16 @@ ApiActions = {
       user: user
     });
   },
-  receiveAllFriendsForUser: function(friends){
+  receiveAllFollowsForUser: function(follows){
     AppDispatcher.dispatch({
-      actionType: FriendConstants.FRIENDS_RECEIVED_FOR_USER,
-      friends: friends
+      actionType: FollowConstants.FOLLOWS_RECEIVED_FOR_USER,
+      follows: follows
     });
   }
-  // receiveSingleAddFriend: function(friend){
+  // receiveSingleAddFollow: function(follow){
   //   AppDispatcher.dispatch({
   //     actionType: UserConstants.SINGLE_ADD_FRIEND_RECEIVED,
-  //     friend: friend
+  //     follow: follow
   //   });
   // },
 };

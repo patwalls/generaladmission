@@ -12,11 +12,26 @@ class User < ActiveRecord::Base
   )
 
   has_many(
-    :friends,
-    class_name: "Friend",
-    foreign_key: :friend_id,
+    :active_relationships,
+    class_name: "Follower",
+    foreign_key: :user_id,
     primary_key: :id
   )
+
+  has_many(
+    :passive_relationships,
+    class_name: "Follower",
+    foreign_key: :follower_id,
+    primary_key: :id
+  )
+
+  has_many :following,
+    through: :active_relationships,
+    source: :followed
+
+  has_many :followers,
+    through: :passive_relationships,
+    source: :follower_user
 
   after_initialize :ensure_session_token
 
@@ -55,8 +70,8 @@ class User < ActiveRecord::Base
     unique_shows.length
   end
 
-  def friends_amt
-    self.friends.length
+  def followers_amt
+    self.followers.length
   end
 
   private

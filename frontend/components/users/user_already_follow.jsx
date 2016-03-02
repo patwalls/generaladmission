@@ -1,7 +1,7 @@
 var React = require('react');
 var ReactRouter = require('react-router');
 
-var UserAlreadyFriend = React.createClass({
+var UserAlreadyFollow = React.createClass({
   render: function () {
     return (
       <a href='#' className="check-in-box">
@@ -11,4 +11,4 @@ var UserAlreadyFriend = React.createClass({
   }
 });
 
-module.exports = UserAlreadyFriend;
+module.exports = UserAlreadyFollow;

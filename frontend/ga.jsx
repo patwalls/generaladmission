@@ -8,6 +8,7 @@ var Link = require('react-router').Link
 var ArtistStore = require('./stores/artist.js');
 var ArtistIndex = require('./components/artists/artist_index.jsx');
 var ArtistShow = require('./components/artists/artist_show.jsx');
+var ArtistSearch = require('./components/artists/artist_search.jsx');
 var Home = require('./components/home.jsx');
 var AttendStore = require('./stores/attend.js');
 var UserShow = require('./components/users/user_show.jsx');

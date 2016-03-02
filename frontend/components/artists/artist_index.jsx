@@ -8,11 +8,11 @@ var ArtistIndexItem = require('./artist_index_item');
 var ArtistIndex = React.createClass({
 
   getInitialState: function() {
-    return {artists: SearchStore.all()};
+    return {artists: SearchStore.all().slice(0,5)};
   },
 
   _onChange: function() {
-    this.setState({artists: SearchStore.all()});
+    this.setState({artists: SearchStore.all().slice(0,5)});
   },
 
   componentDidMount: function (callback) {

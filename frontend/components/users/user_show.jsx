@@ -8,7 +8,8 @@ var ApiUtil = require('../../util/api_util');
 var UserHeader = require('./user_header');
 var UserStats = require('./user_stats');
 var UserActivity = require('./user_activity');
-var UserFriends = require('./user_friends');
+var UserFollowers = require('./user_followers');
+var UserFollows = require('./user_follows');
 
 
 var UserShow = React.createClass({
@@ -65,7 +66,8 @@ var UserShow = React.createClass({
             <UserActivity user={this.state.user} />
           </div>
           <div className='col-lg-4 col-md-4 col-sm-12 col-xs-12 right-side'>
-            <UserFriends user={this.state.user} />
+            <UserFollows user={this.state.user} />
+            <UserFollowers user={this.state.user} />
             <div className='right-sidebar'>Top Artists</div>
             <div className='right-sidebar'>Top Venues</div>
           </div>

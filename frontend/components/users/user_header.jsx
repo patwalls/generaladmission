@@ -2,23 +2,31 @@ var React = require('react');
 var ReactRouter = require('react-router');
 
 var UserActivityStats = require('./user_stats');
-var UserAddFriend = require('./user_add_friend');
-var UserAlreadyFriend = require('./user_already_friend');
+var UserAddFollow = require('./user_add_follow');
+var UserAlreadyFollow = require('./user_already_follow');
 
 var UserHeader = React.createClass({
   follows: function () {
-    if (typeof this.props.user.friends !== 'undefined') {
-      this.props.user.friends.forEach( function (friend) {
-        console.log(friend.friend_id);
+    this.follow = false;
+    if (typeof this.props.user.following !== 'undefined') {
+      this.props.user.following.forEach( function (follow) {
+        if (follow.id === window.getCurrentUserId) {
+          this.follow = true;
+        }
       }.bind(this));
     }
   },
   render: function () {
-    var addFriendButton;
-    if (this.follows() === false) {
-      addFriendButton = <UserAddFriend user={this.props.user}/>;
-    } else if (this.follows()) {
-      addFriendButton = <UserAlreadyFriend />
+    var addFollowButton;
+    this.follows();
+    if (this.follow === false) {
+      if (this.props.user.id === window.getCurrentUserId) {
+        addFollowButton = <div> You! </div>;
+      } else {
+      addFollowButton = <UserAddFollow user={this.props.user}/>;
+      }
+    } else {
+      addFollowButton = <UserAlreadyFollow />;
     }
     return (
         <div className='user-header'>
@@ -27,7 +35,7 @@ var UserHeader = React.createClass({
           <div className='photo'>
             <img src={this.props.user.photo} className="img-circle" alt="Cinque Terre" width="250" height="250"></img>
           </div>
-          {addFriendButton}
+          {addFollowButton}
           <UserActivityStats user={this.props.user}/>
         </div>
       );

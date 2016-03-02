@@ -40,10 +40,10 @@ var UserStats = React.createClass({
         </div>
         <div className='stat'>
           <div className='header'>
-            FRIENDS
+            FOLLOWERS
           </div>
           <div className='calc'>
-            {this.props.user.friends_amt}
+            {this.props.user.followers_amt}
           </div>
         </div>
       </div>

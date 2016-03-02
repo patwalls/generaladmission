@@ -14,8 +14,8 @@ var ArtistHeader = React.createClass({
     };
     return (
         <div className='row'>
-          <div className='delete'>
-            <div className='ratio' style={photoDivStyle}>
+          <div>
+            <div className='artist-header' style={photoDivStyle}>
               <div className='artist-photo-text'>{this.upperCaseName()}</div>
               <NewActivityItem artist={this.props.artist}/>
               <ArtistStats artist={this.props.artist} />

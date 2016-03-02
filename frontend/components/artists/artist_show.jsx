@@ -77,21 +77,25 @@ var ArtistShow = React.createClass({
           </div>
         </div>
         <div className='row'>
-          <div className='col-md-12 nopadding'>
+          <div className='col-md-12 nopadding about-artist'>
             <ArtistAbout artist={this.state.artist}/>
           </div>
         </div>
       </div>
       <div className='container-fluid nopadding'>
         <div className='row'>
-          <div className='col-lg-8 col-md-8 col-sm-12 col-xs-12 nopadding'>
-            <ArtistActivity artist={this.state.artist}/>
+          <div className='col-lg-8 col-md-8 col-sm-12 col-xs-12 nopadding testy'>
+            <div className='inner'>
+              <ArtistActivity artist={this.state.artist}/>
+            </div>
           </div>
-          <div className='col-lg-4 col-md-4 col-sm-12 col-xs-12 nopadding'>
-            <div className='right-sidebar'>Upcoming Shows</div>
-            <div className='right-sidebar'>Loyal Fans</div>
-            <div className='right-sidebar'>Similar Artists</div>
-            <div className='right-sidebar'>Popular Venues</div>
+          <div className='col-lg-4 col-md-4 col-sm-12 col-xs-12 nopadding testy'>
+            <div className='inner'>
+              <div className='module tbd'>Upcoming Shows</div>
+              <div className='module tbd'>Loyal Fans</div>
+              <div className='module tbd'>Similar Artists</div>
+              <div className='module tbd'>Popular Venues</div>
+            </div>
           </div>
         </div>
       </div>

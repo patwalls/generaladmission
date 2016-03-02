@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     resources :artists, only: [:index, :show, :create]
     resources :attends, only: [:index, :show, :create, :edit, :destroy]
     resources :users, only: [:index, :show]
-    resources :friends, only: [:index, :create, :destroy]
+    resources :followers, only: [:index, :create, :destroy]
   end
 
   root to: "static_pages#root"

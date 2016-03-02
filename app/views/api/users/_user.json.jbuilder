@@ -5,5 +5,6 @@ json.extract!(
 
 json.shows_amt user.shows
 json.unique_shows_amt user.unique_shows
-json.friends_amt user.friends_amt
-json.friends user.friends
+json.followers_amt user.followers_amt
+json.followers user.followers
+json.following user.following

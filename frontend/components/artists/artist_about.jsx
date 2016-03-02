@@ -7,7 +7,6 @@ var ArtistAbout = React.createClass({
     <div>
     <button className="btn btn-lg btn-success btn-block" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
       About This Artist
-      <span className="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
     </button>
     <div className="collapse" id="collapseExample">
       <div className="well">

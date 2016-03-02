@@ -1,7 +1,12 @@
 var React = require('react');
 var ReactRouter = require('react-router');
+var History = require('react-router').History;
 
 var UserActivityItem = React.createClass({
+  mixins: [History],
+  showArtist: function () {
+    this.history.push("/artists/" + this.props.attend.artist_id);
+  },
 
   render: function () {
     var rating = this.props.attend.rating;
@@ -40,12 +45,12 @@ var UserActivityItem = React.createClass({
       width: right +'%'
     };
     return (
-      <div classNAme='container-fluid'>
+      <div className='container-fluid'>
         <div className='col-lg-12 col-md-12 col-sm-12 col-xs-12 activity-item nopadding'>
           <div className='row'>
             <div className='top-user-activity'>
               <div className='user-attend-details'>
-                <div className='artist'>{this.props.attend.artist_name}</div>
+                <div className='artist' onClick={this.showArtist}>{this.props.attend.artist_name}</div>
                 <div className='date'>{this.props.attend.date_attended}</div>
                 <div className='venue'>TBD Venue</div>
               </div>
@@ -57,7 +62,7 @@ var UserActivityItem = React.createClass({
                   </blockquote>
                 </div>
               </div>
-              <div className='artist-photo'>
+              <div className='artist-photo' onClick={this.showArtist}>
                 <img src={this.props.attend.artist_photo} className="img-circle" alt="Cinque Terre" width="100" height="100"></img>
               </div>
             </div>

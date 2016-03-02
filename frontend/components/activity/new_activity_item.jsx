@@ -22,7 +22,6 @@ var NewActivityItem = React.createClass({
     };
   },
   handleSubmit: function(event){
-    console.log('the handleSubmit is being called');
     event.preventDefault();
     var attend = Object.assign({}, this.state);
     ApiUtil.createAttend(attend);
@@ -41,7 +40,6 @@ var NewActivityItem = React.createClass({
   },
   render: function () {
     var attend = Object.assign({}, this.state);
-    console.log(this.state);
     return (
       <div>
           <a href='#' className="check-in-box" data-toggle="modal" data-target=".bs-example-modal-lg">

@@ -29,13 +29,19 @@ var ArtistActivity = React.createClass({
   },
   render: function () {
     return (
-          <ul>
+          <div>
+            <div className='activity-header'>
+              <span> {this.props.artist.name}'s Activity </span>
+              <hr />
+            </div>
+          <ul className='activity-item-ul'>
             {
               this.state.attends.map( function (attend) {
                   return <ActivityItem attend={attend} key={attend.id}/>
               }, this)
             }
           </ul>
+          </div>
       );
   }
 });

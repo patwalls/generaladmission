@@ -42,7 +42,6 @@ ArtistStore.find = function (id) {
 ArtistStore.__onDispatch = function (payload) {
   switch(payload.actionType) {
     case ArtistConstants.ARTISTS_RECEIVED:
-      console.log(payload.artists);
       var result = resetArtist(payload.artists);
       ArtistStore.__emitChange();
       break;

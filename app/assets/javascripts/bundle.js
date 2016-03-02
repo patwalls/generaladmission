@@ -52,11 +52,12 @@
 	var IndexRoute = ReactRouter.IndexRoute;
 	var Link = __webpack_require__(159).Link;
 	var ArtistStore = __webpack_require__(208);
-	var ArtistIndex = __webpack_require__(236);
-	var ArtistShow = __webpack_require__(238);
-	var Home = __webpack_require__(249);
-	var AttendStore = __webpack_require__(239);
-	var UserShow = __webpack_require__(251);
+	var ArtistIndex = __webpack_require__(237);
+	var ArtistShow = __webpack_require__(240);
+	var ArtistSearch = __webpack_require__(253);
+	var Home = __webpack_require__(252);
+	var AttendStore = __webpack_require__(241);
+	var UserShow = __webpack_require__(254);
 	var ApiUtil = __webpack_require__(231);
 
 	var App = React.createClass({
@@ -24461,7 +24462,6 @@
 	ArtistStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
 	    case ArtistConstants.ARTISTS_RECEIVED:
-	      console.log(payload.artists);
 	      var result = resetArtist(payload.artists);
 	      ArtistStore.__emitChange();
 	      break;
@@ -31265,9 +31265,7 @@
 	    $.ajax({
 	      url: '/session',
 	      type: 'DELETE',
-	      success: function (result) {
-	        console.log(result);
-	      }
+	      success: function (result) {}
 	    });
 	  },
 	  fetchArtistFromDB: function (songkickId, cb) {
@@ -31287,7 +31285,6 @@
 	  },
 	  createArtist: function (data, cb) {
 	    $.post('api/artists', { artist: data }, function (artist) {
-	      console.log('success');
 	      cb && cb(artist.id);
 	    });
 	  },
@@ -31313,16 +31310,15 @@
 	      ApiActions.receiveUser(user);
 	    });
 	  },
-	  fetchFriendsForUser: function (id) {
-	    var data = { user_id: id };
-	    $.get('api/friends', data, function (friends) {
-	      console.log('successful get request');
-	      ApiActions.receiveAllFriendsForUser(friends);
+	  fetchFollowsForUser: function (id) {
+	    var data = { follower_id: id };
+	    $.get('api/followers', data, function (follows) {
+	      ApiActions.receiveAllFollowsForUser(follows);
 	    });
 	  },
-	  addFriend: function (data) {
-	    $.post('api/friends', { friend: data }, function (friend) {
-	      console.log('success!');
+	  follow: function (data) {
+	    $.post('api/followers', { follower: data }, function (follow) {
+	      console.log('should this do anything?');
 	    });
 	  },
 	  searchResults: function (query) {
@@ -31347,8 +31343,8 @@
 	var ArtistConstants = __webpack_require__(227);
 	var AttendsConstants = __webpack_require__(233);
 	var UserConstants = __webpack_require__(234);
-	var FriendConstants = __webpack_require__(235);
-	var SearchConstants = __webpack_require__(262);
+	var FollowConstants = __webpack_require__(235);
+	var SearchConstants = __webpack_require__(236);
 
 	ApiActions = {
 	  receiveAllResults: function (results) {
@@ -31403,16 +31399,16 @@
 	      user: user
 	    });
 	  },
-	  receiveAllFriendsForUser: function (friends) {
+	  receiveAllFollowsForUser: function (follows) {
 	    AppDispatcher.dispatch({
-	      actionType: FriendConstants.FRIENDS_RECEIVED_FOR_USER,
-	      friends: friends
+	      actionType: FollowConstants.FOLLOWS_RECEIVED_FOR_USER,
+	      follows: follows
 	    });
 	  }
-	  // receiveSingleAddFriend: function(friend){
+	  // receiveSingleAddFollow: function(follow){
 	  //   AppDispatcher.dispatch({
 	  //     actionType: UserConstants.SINGLE_ADD_FRIEND_RECEIVED,
-	  //     friend: friend
+	  //     follow: follow
 	  //   });
 	  // },
 	};
@@ -31446,34 +31442,45 @@
 /* 235 */
 /***/ function(module, exports) {
 
-	var FriendConstants = {
-	  FRIENDS_RECEIVED_FOR_USER: "FRIENDS_RECEIVED_FOR_USER"
+	var FollowConstants = {
+	  FOLLOWS_RECEIVED_FOR_USER: "FOLLOWS_RECEIVED_FOR_USER"
 	  // SINGLE_ADD_FRIEND_RECEIVED: "SINGLE_ADD_FRIEND_RECEIVED"
 	};
 
-	module.exports = FriendConstants;
+	module.exports = FollowConstants;
 
 /***/ },
 /* 236 */
+/***/ function(module, exports) {
+
+	var SearchConstants = {
+	  RESULTS_RECEIVED: "RESULTS_RECEIVED",
+	  RESET_RESULTS: "RESET_RESULTS"
+	};
+
+	module.exports = SearchConstants;
+
+/***/ },
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ArtistStore = __webpack_require__(208);
 	var ApiUtil = __webpack_require__(231);
-	var SearchStore = __webpack_require__(261);
+	var SearchStore = __webpack_require__(238);
 
-	var ArtistIndexItem = __webpack_require__(237);
+	var ArtistIndexItem = __webpack_require__(239);
 
 	var ArtistIndex = React.createClass({
 	  displayName: 'ArtistIndex',
 
 
 	  getInitialState: function () {
-	    return { artists: SearchStore.all() };
+	    return { artists: SearchStore.all().slice(0, 5) };
 	  },
 
 	  _onChange: function () {
-	    this.setState({ artists: SearchStore.all() });
+	    this.setState({ artists: SearchStore.all().slice(0, 5) });
 	  },
 
 	  componentDidMount: function (callback) {
@@ -31498,7 +31505,53 @@
 	module.exports = ArtistIndex;
 
 /***/ },
-/* 237 */
+/* 238 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(209).Store;
+
+	var SearchConstants = __webpack_require__(236);
+	var AppDispatcher = __webpack_require__(228);
+	var ApiUtil = __webpack_require__(231);
+
+	var SearchStore = new Store(AppDispatcher);
+
+	var _results = {};
+
+	var resetSearch = function (results) {
+	  _results = {};
+	  for (var i = 0; i < results.length; i++) {
+	    _results[results[i].id] = results[i];
+	  }
+	};
+
+	SearchStore.all = function () {
+	  var _returnSearch = [];
+	  Object.keys(_results).map(function (key) {
+	    _returnSearch.push(_results[key]);
+	  });
+	  return _returnSearch;
+	};
+
+	SearchStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case SearchConstants.RESULTS_RECEIVED:
+	      var result = resetSearch(payload.results.resultsPage.results.artist);
+	      SearchStore.__emitChange();
+	      break;
+	    case SearchConstants.RESET_RESULTS:
+	      _results = {};
+	      this.__emitChange();
+	      break;
+	  }
+	};
+
+	window.SearchStore = SearchStore;
+
+	module.exports = SearchStore;
+
+/***/ },
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -31532,8 +31585,12 @@
 	  render: function () {
 	    return React.createElement(
 	      'li',
-	      { onClick: this.showDetail },
-	      this.props.artist.displayName
+	      null,
+	      React.createElement(
+	        'a',
+	        { onClick: this.showDetail },
+	        this.props.artist.displayName
+	      )
 	    );
 	  }
 	});
@@ -31541,21 +31598,21 @@
 	module.exports = ArtistIndexItem;
 
 /***/ },
-/* 238 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
 
 	var ArtistStore = __webpack_require__(208);
-	var AttendStore = __webpack_require__(239);
+	var AttendStore = __webpack_require__(241);
 	var ApiUtil = __webpack_require__(231);
 
-	var ArtistHeader = __webpack_require__(240);
-	var ArtistAbout = __webpack_require__(241);
+	var ArtistHeader = __webpack_require__(242);
+	var ArtistAbout = __webpack_require__(244);
 
-	var NewActivityItem = __webpack_require__(242);
-	var ArtistActivity = __webpack_require__(247);
+	var NewActivityItem = __webpack_require__(245);
+	var ArtistActivity = __webpack_require__(250);
 
 	var ArtistShow = React.createClass({
 	  displayName: 'ArtistShow',
@@ -31635,7 +31692,7 @@
 	          { className: 'row' },
 	          React.createElement(
 	            'div',
-	            { className: 'col-md-12 nopadding' },
+	            { className: 'col-md-12 nopadding about-artist' },
 	            React.createElement(ArtistAbout, { artist: this.state.artist })
 	          )
 	        )
@@ -31648,31 +31705,39 @@
 	          { className: 'row' },
 	          React.createElement(
 	            'div',
-	            { className: 'col-lg-8 col-md-8 col-sm-12 col-xs-12 nopadding' },
-	            React.createElement(ArtistActivity, { artist: this.state.artist })
+	            { className: 'col-lg-8 col-md-8 col-sm-12 col-xs-12 nopadding testy' },
+	            React.createElement(
+	              'div',
+	              { className: 'inner' },
+	              React.createElement(ArtistActivity, { artist: this.state.artist })
+	            )
 	          ),
 	          React.createElement(
 	            'div',
-	            { className: 'col-lg-4 col-md-4 col-sm-12 col-xs-12 nopadding' },
+	            { className: 'col-lg-4 col-md-4 col-sm-12 col-xs-12 nopadding testy' },
 	            React.createElement(
 	              'div',
-	              { className: 'right-sidebar' },
-	              'Upcoming Shows'
-	            ),
-	            React.createElement(
-	              'div',
-	              { className: 'right-sidebar' },
-	              'Loyal Fans'
-	            ),
-	            React.createElement(
-	              'div',
-	              { className: 'right-sidebar' },
-	              'Similar Artists'
-	            ),
-	            React.createElement(
-	              'div',
-	              { className: 'right-sidebar' },
-	              'Popular Venues'
+	              { className: 'inner' },
+	              React.createElement(
+	                'div',
+	                { className: 'module tbd' },
+	                'Upcoming Shows'
+	              ),
+	              React.createElement(
+	                'div',
+	                { className: 'module tbd' },
+	                'Loyal Fans'
+	              ),
+	              React.createElement(
+	                'div',
+	                { className: 'module tbd' },
+	                'Similar Artists'
+	              ),
+	              React.createElement(
+	                'div',
+	                { className: 'module tbd' },
+	                'Popular Venues'
+	              )
 	            )
 	          )
 	        )
@@ -31684,7 +31749,7 @@
 	module.exports = ArtistShow;
 
 /***/ },
-/* 239 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(209).Store;
@@ -31738,12 +31803,12 @@
 	module.exports = AttendStore;
 
 /***/ },
-/* 240 */
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var ArtistStats = __webpack_require__(260);
+	var ArtistStats = __webpack_require__(243);
 
 	var ArtistHeader = React.createClass({
 	  displayName: 'ArtistHeader',
@@ -31762,10 +31827,10 @@
 	      { className: 'row' },
 	      React.createElement(
 	        'div',
-	        { className: 'delete' },
+	        null,
 	        React.createElement(
 	          'div',
-	          { className: 'ratio', style: photoDivStyle },
+	          { className: 'artist-header', style: photoDivStyle },
 	          React.createElement(
 	            'div',
 	            { className: 'artist-photo-text' },
@@ -31782,7 +31847,84 @@
 	module.exports = ArtistHeader;
 
 /***/ },
-/* 241 */
+/* 243 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ReactRouter = __webpack_require__(159);
+
+	var ArtistStats = React.createClass({
+	  displayName: 'ArtistStats',
+
+	  getInitialState: function () {
+	    return { attends: AttendStore.all() };
+	  },
+
+	  componentDidMount: function () {
+	    this.attendsListener = AttendStore.addListener(this._attendsChanged);
+	  },
+
+	  componentWillUnmount: function () {
+	    this.attendsListener.remove();
+	  },
+
+	  componentWillReceiveProps: function (newProps) {
+	    ApiUtil.fetchAttendsForArtist(newProps.artist.id);
+	    return { attends: AttendStore.all() };
+	  },
+
+	  _attendsChanged: function () {
+	    this.setState({ attends: AttendStore.all() });
+	  },
+	  gaScore: function () {
+	    if (this.state.attends.length > 0) {
+	      var totalScore = 0;
+	      this.state.attends.forEach(function (attend) {
+	        totalScore = totalScore + attend.rating;
+	      });
+	      return Math.floor(totalScore / this.state.attends.length);
+	    }
+	  },
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'artist-stats' },
+	      React.createElement(
+	        'div',
+	        { className: 'stat' },
+	        React.createElement(
+	          'div',
+	          { className: 'header' },
+	          'GA SCORE'
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'calc' },
+	          this.gaScore()
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'stat' },
+	        React.createElement(
+	          'div',
+	          { className: 'header' },
+	          'NO. REVIEWS'
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'calc' },
+	          this.state.attends.length
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = ArtistStats;
+
+/***/ },
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -31798,8 +31940,7 @@
 	      React.createElement(
 	        'button',
 	        { className: 'btn btn-lg btn-success btn-block', type: 'button', 'data-toggle': 'collapse', 'data-target': '#collapseExample', 'aria-expanded': 'false', 'aria-controls': 'collapseExample' },
-	        'About This Artist',
-	        React.createElement('span', { className: 'glyphicon glyphicon-menu-down', 'aria-hidden': 'true' })
+	        'About This Artist'
 	      ),
 	      React.createElement(
 	        'div',
@@ -31830,14 +31971,14 @@
 	module.exports = ArtistAbout;
 
 /***/ },
-/* 242 */
+/* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var LinkedStateMixin = __webpack_require__(243);
+	var LinkedStateMixin = __webpack_require__(246);
 
-	var AttendStore = __webpack_require__(239);
+	var AttendStore = __webpack_require__(241);
 	var ApiUtil = __webpack_require__(231);
 	var ArtistStore = __webpack_require__(208);
 
@@ -31859,7 +32000,6 @@
 	    };
 	  },
 	  handleSubmit: function (event) {
-	    console.log('the handleSubmit is being called');
 	    event.preventDefault();
 	    var attend = Object.assign({}, this.state);
 	    ApiUtil.createAttend(attend);
@@ -31878,7 +32018,6 @@
 	  },
 	  render: function () {
 	    var attend = Object.assign({}, this.state);
-	    console.log(this.state);
 	    return React.createElement(
 	      'div',
 	      null,
@@ -31965,13 +32104,13 @@
 	module.exports = NewActivityItem;
 
 /***/ },
-/* 243 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(244);
+	module.exports = __webpack_require__(247);
 
 /***/ },
-/* 244 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -31988,8 +32127,8 @@
 
 	'use strict';
 
-	var ReactLink = __webpack_require__(245);
-	var ReactStateSetters = __webpack_require__(246);
+	var ReactLink = __webpack_require__(248);
+	var ReactStateSetters = __webpack_require__(249);
 
 	/**
 	 * A simple mixin around ReactLink.forState().
@@ -32012,7 +32151,7 @@
 	module.exports = LinkedStateMixin;
 
 /***/ },
-/* 245 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -32086,7 +32225,7 @@
 	module.exports = ReactLink;
 
 /***/ },
-/* 246 */
+/* 249 */
 /***/ function(module, exports) {
 
 	/**
@@ -32195,16 +32334,16 @@
 	module.exports = ReactStateSetters;
 
 /***/ },
-/* 247 */
+/* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
 
-	var AttendStore = __webpack_require__(239);
+	var AttendStore = __webpack_require__(241);
 	var ApiUtil = __webpack_require__(231);
 
-	var ActivityItem = __webpack_require__(248);
+	var ActivityItem = __webpack_require__(251);
 
 	var ArtistActivity = React.createClass({
 	  displayName: 'ArtistActivity',
@@ -32231,11 +32370,27 @@
 	  },
 	  render: function () {
 	    return React.createElement(
-	      'ul',
+	      'div',
 	      null,
-	      this.state.attends.map(function (attend) {
-	        return React.createElement(ActivityItem, { attend: attend, key: attend.id });
-	      }, this)
+	      React.createElement(
+	        'div',
+	        { className: 'activity-header' },
+	        React.createElement(
+	          'span',
+	          null,
+	          ' ',
+	          this.props.artist.name,
+	          '\'s Activity '
+	        ),
+	        React.createElement('hr', null)
+	      ),
+	      React.createElement(
+	        'ul',
+	        { className: 'activity-item-ul' },
+	        this.state.attends.map(function (attend) {
+	          return React.createElement(ActivityItem, { attend: attend, key: attend.id });
+	        }, this)
+	      )
 	    );
 	  }
 	});
@@ -32244,15 +32399,20 @@
 	module.exports = ArtistActivity;
 
 /***/ },
-/* 248 */
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
+	var History = __webpack_require__(159).History;
 
 	var ActivityItem = React.createClass({
 	  displayName: 'ActivityItem',
 
+	  mixins: [History],
+	  showUser: function () {
+	    this.history.push("/users/" + this.props.attend.user_id);
+	  },
 
 	  render: function () {
 	    var rating = this.props.attend.rating;
@@ -32292,10 +32452,10 @@
 	    };
 	    return React.createElement(
 	      'div',
-	      { classNAme: 'container-fluid' },
+	      { className: 'col-lg-6 col-md-6 col-sm-12 col-xs-12 activity-item nopadding' },
 	      React.createElement(
 	        'div',
-	        { className: 'col-lg-6 col-md-6 col-sm-12 col-xs-12 activity-item nopadding' },
+	        { className: 'inner' },
 	        React.createElement(
 	          'div',
 	          { className: 'row' },
@@ -32304,7 +32464,7 @@
 	            { className: 'top' },
 	            React.createElement(
 	              'div',
-	              { className: 'top-left' },
+	              { className: 'top-left', onClick: this.showUser },
 	              React.createElement(
 	                'div',
 	                { className: 'photo' },
@@ -32366,12 +32526,11 @@
 	module.exports = ActivityItem;
 
 /***/ },
-/* 249 */
+/* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var ArtistIndex = __webpack_require__(236);
-	var ArtistSearch = __webpack_require__(250);
+	var ArtistSearch = __webpack_require__(253);
 
 	var Home = React.createClass({
 	  displayName: 'Home',
@@ -32382,14 +32541,18 @@
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { className: 'container-fluid search-container' },
-	      React.createElement('img', { className: 'bgimage', src: 'http://www.diyphotography.net/wordpress/wp-content/uploads/2014/03/adam-elmakias-08.jpg' }),
+	      { className: 'home-components' },
 	      React.createElement(
 	        'div',
-	        { className: 'search' },
-	        React.createElement(ArtistSearch, null),
-	        React.createElement(ArtistIndex, null)
-	      )
+	        { className: 'site-title' },
+	        'GENERAL ADMISSION'
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'tagline' },
+	        'YOUR RESOURSE FOR THE BEST CONCERTS'
+	      ),
+	      React.createElement(ArtistSearch, null)
 	    );
 	  }
 	});
@@ -32397,54 +32560,47 @@
 	module.exports = Home;
 
 /***/ },
-/* 250 */
+/* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var ArtistStore = __webpack_require__(208);
-	var ApiUtil = __webpack_require__(231);
-	var SearchStore = __webpack_require__(261);
-
-	var ArtistIndex = __webpack_require__(236);
+	var ArtistSearchFilter = __webpack_require__(266);
+	var ArtistIndex = __webpack_require__(237);
 
 	var ArtistSearch = React.createClass({
 	  displayName: 'ArtistSearch',
 
-	  changedQuery: function () {
-	    var query = this.queryString();
-	    if (query.length === 0) {
-	      ApiUtil.resetResults();
-	    } else {
-	      ApiUtil.searchResults(query);
-	    }
-	  },
-	  queryString: function () {
-	    return document.getElementById('search-query').value;
+	  contextTypes: {
+	    router: React.PropTypes.func
 	  },
 	  render: function () {
-	    return React.createElement('input', { type: 'text', name: 'q', className: 'form-control', placeholder: 'Search for artists...', id: 'search-query', onChange: this.changedQuery });
+	    return React.createElement(
+	      'div',
+	      { className: 'search' },
+	      React.createElement(ArtistSearchFilter, null),
+	      React.createElement(ArtistIndex, null)
+	    );
 	  }
 	});
-
-	window.ArtistSearch = ArtistSearch;
 
 	module.exports = ArtistSearch;
 
 /***/ },
-/* 251 */
+/* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
 
-	var UserStore = __webpack_require__(252);
-	var AttendStore = __webpack_require__(239);
+	var UserStore = __webpack_require__(255);
+	var AttendStore = __webpack_require__(241);
 	var ApiUtil = __webpack_require__(231);
 
-	var UserHeader = __webpack_require__(253);
-	var UserStats = __webpack_require__(254);
-	var UserActivity = __webpack_require__(255);
-	var UserFriends = __webpack_require__(257);
+	var UserHeader = __webpack_require__(256);
+	var UserStats = __webpack_require__(257);
+	var UserActivity = __webpack_require__(260);
+	var UserFollowers = __webpack_require__(267);
+	var UserFollows = __webpack_require__(263);
 
 	var UserShow = React.createClass({
 	  displayName: 'UserShow',
@@ -32517,7 +32673,8 @@
 	          React.createElement(
 	            'div',
 	            { className: 'col-lg-4 col-md-4 col-sm-12 col-xs-12 right-side' },
-	            React.createElement(UserFriends, { user: this.state.user }),
+	            React.createElement(UserFollows, { user: this.state.user }),
+	            React.createElement(UserFollowers, { user: this.state.user }),
 	            React.createElement(
 	              'div',
 	              { className: 'right-sidebar' },
@@ -32538,7 +32695,7 @@
 	module.exports = UserShow;
 
 /***/ },
-/* 252 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(209).Store;
@@ -32584,32 +32741,44 @@
 	module.exports = UserStore;
 
 /***/ },
-/* 253 */
+/* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
 
-	var UserActivityStats = __webpack_require__(254);
-	var UserAddFriend = __webpack_require__(263);
-	var UserAlreadyFriend = __webpack_require__(264);
+	var UserActivityStats = __webpack_require__(257);
+	var UserAddFollow = __webpack_require__(258);
+	var UserAlreadyFollow = __webpack_require__(259);
 
 	var UserHeader = React.createClass({
 	  displayName: 'UserHeader',
 
 	  follows: function () {
-	    if (typeof this.props.user.friends !== 'undefined') {
-	      this.props.user.friends.forEach(function (friend) {
-	        console.log(friend.friend_id);
+	    this.follow = false;
+	    if (typeof this.props.user.following !== 'undefined') {
+	      this.props.user.following.forEach(function (follow) {
+	        if (follow.id === window.getCurrentUserId) {
+	          this.follow = true;
+	        }
 	      }.bind(this));
 	    }
 	  },
 	  render: function () {
-	    var addFriendButton;
-	    if (this.follows() === false) {
-	      addFriendButton = React.createElement(UserAddFriend, { user: this.props.user });
-	    } else if (this.follows()) {
-	      addFriendButton = React.createElement(UserAlreadyFriend, null);
+	    var addFollowButton;
+	    this.follows();
+	    if (this.follow === false) {
+	      if (this.props.user.id === window.getCurrentUserId) {
+	        addFollowButton = React.createElement(
+	          'div',
+	          null,
+	          ' You! '
+	        );
+	      } else {
+	        addFollowButton = React.createElement(UserAddFollow, { user: this.props.user });
+	      }
+	    } else {
+	      addFollowButton = React.createElement(UserAlreadyFollow, null);
 	    }
 	    return React.createElement(
 	      'div',
@@ -32629,7 +32798,7 @@
 	        { className: 'photo' },
 	        React.createElement('img', { src: this.props.user.photo, className: 'img-circle', alt: 'Cinque Terre', width: '250', height: '250' })
 	      ),
-	      addFriendButton,
+	      addFollowButton,
 	      React.createElement(UserActivityStats, { user: this.props.user })
 	    );
 	  }
@@ -32638,7 +32807,7 @@
 	module.exports = UserHeader;
 
 /***/ },
-/* 254 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -32702,12 +32871,12 @@
 	        React.createElement(
 	          'div',
 	          { className: 'header' },
-	          'FRIENDS'
+	          'FOLLOWERS'
 	        ),
 	        React.createElement(
 	          'div',
 	          { className: 'calc' },
-	          this.props.user.friends_amt
+	          this.props.user.followers_amt
 	        )
 	      )
 	    );
@@ -32717,16 +32886,63 @@
 	module.exports = UserStats;
 
 /***/ },
-/* 255 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var ActivityItem = __webpack_require__(248);
-	var AttendStore = __webpack_require__(239);
+
+	var UserFollow = React.createClass({
+	  displayName: 'UserFollow',
+
+	  follow: function () {
+	    var user_id = window.getCurrentUserId;
+	    var follower_id = this.props.user.id;
+	    ApiUtil.follow({ user_id: follower_id, follower_id: user_id });
+	  },
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'check-in-box', onClick: this.follow },
+	      'FOLLOW'
+	    );
+	  }
+	});
+
+	module.exports = UserFollow;
+
+/***/ },
+/* 259 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ReactRouter = __webpack_require__(159);
+
+	var UserAlreadyFollow = React.createClass({
+	  displayName: 'UserAlreadyFollow',
+
+	  render: function () {
+	    return React.createElement(
+	      'a',
+	      { href: '#', className: 'check-in-box' },
+	      'FOLLOWING'
+	    );
+	  }
+	});
+
+	module.exports = UserAlreadyFollow;
+
+/***/ },
+/* 260 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ReactRouter = __webpack_require__(159);
+	var ActivityItem = __webpack_require__(251);
+	var AttendStore = __webpack_require__(241);
 	var ApiUtil = __webpack_require__(231);
-	var UserActivityFeed = __webpack_require__(256);
-	var UserActivityStats = __webpack_require__(254);
+	var UserActivityFeed = __webpack_require__(261);
+	var UserActivityStats = __webpack_require__(257);
 
 	var UserActivity = React.createClass({
 	  displayName: 'UserActivity',
@@ -32764,12 +32980,12 @@
 	module.exports = UserActivity;
 
 /***/ },
-/* 256 */
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var UserActivityItem = __webpack_require__(265);
+	var UserActivityItem = __webpack_require__(262);
 
 	var UserActivityFeed = React.createClass({
 	  displayName: 'UserActivityFeed',
@@ -32792,348 +33008,20 @@
 	module.exports = UserActivityFeed;
 
 /***/ },
-/* 257 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var ReactRouter = __webpack_require__(159);
-	var FriendItem = __webpack_require__(258);
-	var FriendStore = __webpack_require__(259);
-
-	var UserFriends = React.createClass({
-	  displayName: 'UserFriends',
-
-	  getInitialState: function () {
-	    return { friends: FriendStore.all() };
-	  },
-
-	  componentDidMount: function () {
-	    this.friendsListener = FriendStore.addListener(this._friendsChanged);
-	  },
-
-	  componentWillUnmount: function () {
-	    this.friendsListener.remove();
-	  },
-
-	  componentWillReceiveProps: function (newProps) {
-	    ApiUtil.fetchFriendsForUser(newProps.user.id);
-	    return { friends: FriendStore.all() };
-	  },
-
-	  _friendsChanged: function () {
-	    this.setState({ friends: FriendStore.all() });
-	  },
-
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { className: 'container-fluid friends' },
-	      React.createElement(
-	        'h3',
-	        null,
-	        'Friends'
-	      ),
-	      React.createElement(
-	        'ul',
-	        null,
-	        this.state.friends.map(function (friend) {
-	          return React.createElement(FriendItem, { friend: friend });
-	        }, this)
-	      )
-	    );
-	  }
-	});
-
-	module.exports = UserFriends;
-
-/***/ },
-/* 258 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
 	var History = __webpack_require__(159).History;
 
-	var FriendItem = React.createClass({
-	  displayName: 'FriendItem',
-
-	  mixins: [History],
-
-	  showDetail: function () {
-	    this.history.push("/users/" + this.props.friend.friend_id);
-	    ApiUtil.fetchUser(this.props.friend.friend_id);
-	    ApiUtil.fetchFriendsForUser(this.props.friend.friend_id);
-	  },
-
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { className: 'friend-item', onClick: this.showDetail },
-	      React.createElement(
-	        'div',
-	        { className: 'friend-photo' },
-	        React.createElement('img', { src: this.props.friend.friend_photo, className: 'img-circle', alt: 'Cinque Terre', width: '60', height: '60' })
-	      ),
-	      React.createElement(
-	        'div',
-	        { className: 'friend-details' },
-	        React.createElement(
-	          'span',
-	          null,
-	          this.props.friend.friend_name
-	        ),
-	        React.createElement(
-	          'span',
-	          null,
-	          'Total Shows: ',
-	          this.props.friend.shows_amt
-	        ),
-	        React.createElement(
-	          'span',
-	          null,
-	          'Friends: ',
-	          this.props.friend.friends_amt
-	        )
-	      )
-	    );
-	  }
-	});
-
-	module.exports = FriendItem;
-
-/***/ },
-/* 259 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Store = __webpack_require__(209).Store;
-
-	var FriendConstants = __webpack_require__(235);
-	var AppDispatcher = __webpack_require__(228);
-	var ApiUtil = __webpack_require__(231);
-
-	var FriendStore = new Store(AppDispatcher);
-
-	var _friends = {};
-
-	var resetFriends = function (friends) {
-	  _friends = {};
-	  friends.forEach(function (friend) {
-	    _friends[friend.id] = friend;
-	  });
-	};
-
-	FriendStore.all = function () {
-	  var friends = [];
-	  for (var id in _friends) {
-	    friends.push(_friends[id]);
-	  }
-	  return friends;
-	};
-
-	FriendStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case FriendConstants.FRIENDS_RECEIVED_FOR_USER:
-	      var result = resetFriends(payload.friends);
-	      FriendStore.__emitChange();
-	      break;
-	  }
-	};
-
-	window.FriendStore = FriendStore;
-
-	module.exports = FriendStore;
-
-/***/ },
-/* 260 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var ReactRouter = __webpack_require__(159);
-
-	var ArtistStats = React.createClass({
-	  displayName: 'ArtistStats',
-
-	  getInitialState: function () {
-	    return { attends: AttendStore.all() };
-	  },
-
-	  componentDidMount: function () {
-	    this.attendsListener = AttendStore.addListener(this._attendsChanged);
-	  },
-
-	  componentWillUnmount: function () {
-	    this.attendsListener.remove();
-	  },
-
-	  componentWillReceiveProps: function (newProps) {
-	    ApiUtil.fetchAttendsForArtist(newProps.artist.id);
-	    return { attends: AttendStore.all() };
-	  },
-
-	  _attendsChanged: function () {
-	    this.setState({ attends: AttendStore.all() });
-	  },
-	  gaScore: function () {
-	    if (this.state.attends.length > 0) {
-	      var totalScore = 0;
-	      this.state.attends.forEach(function (attend) {
-	        totalScore = totalScore + attend.rating;
-	      });
-	      return Math.floor(totalScore / this.state.attends.length);
-	    }
-	  },
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { className: 'artist-stats' },
-	      React.createElement(
-	        'div',
-	        { className: 'stat' },
-	        React.createElement(
-	          'div',
-	          { className: 'header' },
-	          'GA SCORE'
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'calc' },
-	          this.gaScore()
-	        )
-	      ),
-	      React.createElement(
-	        'div',
-	        { className: 'stat' },
-	        React.createElement(
-	          'div',
-	          { className: 'header' },
-	          'NO. REVIEWS'
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'calc' },
-	          this.state.attends.length
-	        )
-	      )
-	    );
-	  }
-	});
-
-	module.exports = ArtistStats;
-
-/***/ },
-/* 261 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Store = __webpack_require__(209).Store;
-
-	var SearchConstants = __webpack_require__(262);
-	var AppDispatcher = __webpack_require__(228);
-	var ApiUtil = __webpack_require__(231);
-
-	var SearchStore = new Store(AppDispatcher);
-
-	var _results = {};
-
-	var resetSearch = function (results) {
-	  _results = {};
-	  for (var i = 0; i < results.length; i++) {
-	    _results[results[i].id] = results[i];
-	  }
-	};
-
-	SearchStore.all = function () {
-	  var _returnSearch = [];
-	  Object.keys(_results).map(function (key) {
-	    _returnSearch.push(_results[key]);
-	  });
-	  return _returnSearch;
-	};
-
-	SearchStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case SearchConstants.RESULTS_RECEIVED:
-	      var result = resetSearch(payload.results.resultsPage.results.artist);
-	      SearchStore.__emitChange();
-	      break;
-	    case SearchConstants.RESET_RESULTS:
-	      _results = {};
-	      this.__emitChange();
-	      break;
-	  }
-	};
-
-	window.SearchStore = SearchStore;
-
-	module.exports = SearchStore;
-
-/***/ },
-/* 262 */
-/***/ function(module, exports) {
-
-	var SearchConstants = {
-	  RESULTS_RECEIVED: "RESULTS_RECEIVED",
-	  RESET_RESULTS: "RESET_RESULTS"
-	};
-
-	module.exports = SearchConstants;
-
-/***/ },
-/* 263 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var ReactRouter = __webpack_require__(159);
-
-	var UserAddFriend = React.createClass({
-	  displayName: 'UserAddFriend',
-
-	  addFriend: function () {
-	    var user_id = window.getCurrentUserId;
-	    var friend_id = this.props.user.id;
-	    ApiUtil.addFriend({ user_id: user_id, friend_id: friend_id });
-	  },
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { className: 'check-in-box', onClick: this.addFriend },
-	      'FOLLOW'
-	    );
-	  }
-	});
-
-	module.exports = UserAddFriend;
-
-/***/ },
-/* 264 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var ReactRouter = __webpack_require__(159);
-
-	var UserAlreadyFriend = React.createClass({
-	  displayName: 'UserAlreadyFriend',
-
-	  render: function () {
-	    return React.createElement(
-	      'a',
-	      { href: '#', className: 'check-in-box' },
-	      'FOLLOWING'
-	    );
-	  }
-	});
-
-	module.exports = UserAlreadyFriend;
-
-/***/ },
-/* 265 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var ReactRouter = __webpack_require__(159);
-
 	var UserActivityItem = React.createClass({
 	  displayName: 'UserActivityItem',
 
+	  mixins: [History],
+	  showArtist: function () {
+	    this.history.push("/artists/" + this.props.attend.artist_id);
+	  },
 
 	  render: function () {
 	    var rating = this.props.attend.rating;
@@ -33173,7 +33061,7 @@
 	    };
 	    return React.createElement(
 	      'div',
-	      { classNAme: 'container-fluid' },
+	      { className: 'container-fluid' },
 	      React.createElement(
 	        'div',
 	        { className: 'col-lg-12 col-md-12 col-sm-12 col-xs-12 activity-item nopadding' },
@@ -33188,7 +33076,7 @@
 	              { className: 'user-attend-details' },
 	              React.createElement(
 	                'div',
-	                { className: 'artist' },
+	                { className: 'artist', onClick: this.showArtist },
 	                this.props.attend.artist_name
 	              ),
 	              React.createElement(
@@ -33224,7 +33112,7 @@
 	            ),
 	            React.createElement(
 	              'div',
-	              { className: 'artist-photo' },
+	              { className: 'artist-photo', onClick: this.showArtist },
 	              React.createElement('img', { src: this.props.attend.artist_photo, className: 'img-circle', alt: 'Cinque Terre', width: '100', height: '100' })
 	            )
 	          ),
@@ -33258,6 +33146,247 @@
 	});
 
 	module.exports = UserActivityItem;
+
+/***/ },
+/* 263 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ReactRouter = __webpack_require__(159);
+	var FollowItem = __webpack_require__(264);
+	var FollowStore = __webpack_require__(265);
+
+	var UserFollows = React.createClass({
+	  displayName: 'UserFollows',
+
+	  getInitialState: function () {
+	    return { follows: FollowStore.all() };
+	  },
+
+	  componentDidMount: function () {
+	    this.followsListener = FollowStore.addListener(this._followsChanged);
+	  },
+
+	  componentWillUnmount: function () {
+	    this.followsListener.remove();
+	  },
+
+	  componentWillReceiveProps: function (newProps) {
+	    ApiUtil.fetchFollowsForUser(newProps.user.id);
+	    return { follows: FollowStore.all() };
+	  },
+
+	  _followsChanged: function () {
+	    this.setState({ follows: FollowStore.all() });
+	  },
+
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'container-fluid follows' },
+	      React.createElement(
+	        'h3',
+	        null,
+	        'People You Follow'
+	      ),
+	      React.createElement(
+	        'ul',
+	        null,
+	        this.state.follows.map(function (follow) {
+	          return React.createElement(FollowItem, { follow: follow });
+	        }, this)
+	      )
+	    );
+	  }
+	});
+
+	module.exports = UserFollows;
+
+/***/ },
+/* 264 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ReactRouter = __webpack_require__(159);
+	var History = __webpack_require__(159).History;
+
+	var FollowItem = React.createClass({
+	  displayName: 'FollowItem',
+
+	  mixins: [History],
+
+	  showDetail: function () {
+	    this.history.push("/users/" + this.props.follow.user_id);
+	    ApiUtil.fetchUser(this.props.follow.follower_id);
+	    ApiUtil.fetchFollowsForUser(this.props.follow.follower_id);
+	  },
+
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'follow-item', onClick: this.showDetail },
+	      React.createElement(
+	        'div',
+	        { className: 'follow-photo' },
+	        React.createElement('img', { src: this.props.follow.followed_photo, className: 'img-circle', alt: 'Cinque Terre', width: '60', height: '60' })
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'follow-details' },
+	        React.createElement(
+	          'span',
+	          null,
+	          this.props.follow.followed_name
+	        ),
+	        React.createElement(
+	          'span',
+	          null,
+	          'Total Shows: ',
+	          this.props.follow.followed_shows_amt
+	        ),
+	        React.createElement(
+	          'span',
+	          null,
+	          'Followers: ',
+	          this.props.follow.followed_followers_amt
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = FollowItem;
+
+/***/ },
+/* 265 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(209).Store;
+
+	var FollowConstants = __webpack_require__(235);
+	var AppDispatcher = __webpack_require__(228);
+	var ApiUtil = __webpack_require__(231);
+
+	var FollowStore = new Store(AppDispatcher);
+
+	var _follows = {};
+
+	var resetFollows = function (follows) {
+	  _follows = {};
+	  follows.forEach(function (follow) {
+	    _follows[follow.id] = follow;
+	  });
+	};
+
+	FollowStore.all = function () {
+	  var follows = [];
+	  for (var id in _follows) {
+	    follows.push(_follows[id]);
+	  }
+	  return follows;
+	};
+
+	FollowStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case FollowConstants.FOLLOWS_RECEIVED_FOR_USER:
+	      var result = resetFollows(payload.follows);
+	      FollowStore.__emitChange();
+	      break;
+	  }
+	};
+
+	window.FollowStore = FollowStore;
+
+	module.exports = FollowStore;
+
+/***/ },
+/* 266 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ArtistStore = __webpack_require__(208);
+	var ApiUtil = __webpack_require__(231);
+	var SearchStore = __webpack_require__(238);
+
+	var ArtistIndex = __webpack_require__(237);
+
+	var ArtistSearch = React.createClass({
+	  displayName: 'ArtistSearch',
+
+	  changedQuery: function () {
+	    var query = this.queryString();
+	    if (query.length === 0) {
+	      ApiUtil.resetResults();
+	    } else {
+	      ApiUtil.searchResults(query);
+	    }
+	  },
+	  queryString: function () {
+	    return document.getElementById('search-query').value;
+	  },
+	  render: function () {
+	    return React.createElement('input', { type: 'text', name: 'q', className: 'form-control', placeholder: 'Search for artists...', id: 'search-query', onChange: this.changedQuery });
+	  }
+	});
+
+	window.ArtistSearch = ArtistSearch;
+
+	module.exports = ArtistSearch;
+
+/***/ },
+/* 267 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ReactRouter = __webpack_require__(159);
+	var FollowItem = __webpack_require__(264);
+	var FollowStore = __webpack_require__(265);
+
+	var UserFollows = React.createClass({
+	  displayName: 'UserFollows',
+
+	  getInitialState: function () {
+	    return { follows: FollowStore.all() };
+	  },
+
+	  componentDidMount: function () {
+	    this.followsListener = FollowStore.addListener(this._followsChanged);
+	  },
+
+	  componentWillUnmount: function () {
+	    this.followsListener.remove();
+	  },
+
+	  componentWillReceiveProps: function (newProps) {
+	    ApiUtil.fetchFollowsForUser(newProps.user.id);
+	    return { follows: FollowStore.all() };
+	  },
+
+	  _followsChanged: function () {
+	    this.setState({ follows: FollowStore.all() });
+	  },
+
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'container-fluid follows' },
+	      React.createElement(
+	        'h3',
+	        null,
+	        'Followers'
+	      ),
+	      React.createElement(
+	        'ul',
+	        null,
+	        this.state.follows.map(function (follow) {
+	          return React.createElement(FollowItem, { follow: follow });
+	        }, this)
+	      )
+	    );
+	  }
+	});
+
+	module.exports = UserFollows;
 
 /***/ }
 /******/ ]);

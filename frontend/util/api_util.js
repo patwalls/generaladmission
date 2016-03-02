@@ -6,7 +6,6 @@ var ApiUtil = {
       url: '/session',
       type: 'DELETE',
       success: function(result) {
-          console.log(result);
       }
     });
   },
@@ -27,7 +26,6 @@ var ApiUtil = {
   },
   createArtist: function(data, cb){
     $.post('api/artists', { artist: data }, function(artist) {
-      console.log('success');
       cb && cb(artist.id);
     });
   },
@@ -53,16 +51,15 @@ var ApiUtil = {
       ApiActions.receiveUser(user);
     });
   },
-  fetchFriendsForUser: function(id) {
-    var data = {user_id: id};
-    $.get('api/friends', data, function(friends) {
-      console.log('successful get request');
-      ApiActions.receiveAllFriendsForUser(friends);
+  fetchFollowsForUser: function(id) {
+    var data = {follower_id: id};
+    $.get('api/followers', data, function(follows) {
+      ApiActions.receiveAllFollowsForUser(follows);
     });
   },
-  addFriend: function(data){
-    $.post('api/friends', { friend: data }, function(friend) {
-      console.log('success!');
+  follow: function(data){
+    $.post('api/followers', { follower: data }, function(follow) {
+      console.log('should this do anything?');
     });
   },
   searchResults: function(query) {
