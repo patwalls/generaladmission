@@ -30,6 +30,9 @@ var UserShow = React.createClass({
     }.bind(this));
      return res;
   },
+  componentWillMount: function () {
+    document.body.classList.remove('bg-body');
+  },
   componentDidMount: function () {
     this.userListener = UserStore.addListener(this._userChanged);
     var userId = this.props.params.userId;

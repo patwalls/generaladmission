@@ -68,6 +68,12 @@ var ApiUtil = {
       ApiActions.receiveAllResults(data);
     });
   },
+  upcomingEventsForArtist: function(songKickId) {
+    var url = 'http://api.songkick.com/api/3.0/artists/' + songKick_id + '/calendar.json?apikey=n3h6YMv9J87oRnq9';
+    $.getJSON(url, function(data) {
+      console.log(data);
+    });
+  },
   resetResults: function() {
     ApiActions.resetAllArtists();
   },

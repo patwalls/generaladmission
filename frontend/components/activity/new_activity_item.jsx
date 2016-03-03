@@ -1,6 +1,7 @@
 var React = require('react');
 var ReactRouter = require('react-router');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
+var Slider = require('../activity/slider');
 
 var AttendStore = require('../../stores/attend');
 var ApiUtil = require('../../util/api_util');
@@ -38,40 +39,68 @@ var NewActivityItem = React.createClass({
     // var artist = this._findArtistById(artistId) || {} ;
     // ApiUtil.fetchSingleArtist(artistId);
   },
+  userSeenArtist: function () {
+    this.userSeen = false
+    if (typeof this.props.artist.attends !== 'undefined') {
+      this.props.artist.attends.forEach( function(attend) {
+        if (attend.user_id === window.getCurrentUserId) {
+          this.userSeen = true;
+        }
+      }.bind(this));
+    }
+  },
+  onSliderChange: function (value) {
+    this.setState({ rating: value });
+  },
   render: function () {
+    this.userSeenArtist();
+    if (typeof this.refs.fieldEditor1 !== 'undefined') {
+      console.log(this.refs.fieldEditor1);
+    }
+    var boxStyle;
+    var glyph;
+      if (this.userSeen) {
+        boxStyle = 'checked-in';
+        glyph = 'glyphicon glyphicon-ok check-in';
+      } else {
+        boxStyle = 'check-in-box';
+        glyph = 'glyphicon glyphicon-plus check-in';
+      }
     var attend = Object.assign({}, this.state);
     return (
       <div>
-          <a href='#' className="check-in-box" data-toggle="modal" data-target=".bs-example-modal-lg">
+          <a href='#' className={boxStyle} data-toggle="modal" data-target=".bs-example-modal-md">
             <h4>
-            <span className="glyphicon glyphicon-ok check-mark" aria-hidden="true"></span></h4>
+            <span className={glyph} aria-hidden="true"></span></h4>
           </a>
 
-        <div className="modal fade bs-example-modal-lg" id='attend-modal' tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-          <div className="modal-dialog modal-lg">
+        <div className="modal fade bs-example-modal-md" id='attend-modal' tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+
+          <div className="modal-dialog modal-md">
             <div className="modal-content activity-input">
             <div className='new-activity-item'>
               <h3>How was {this.props.artist.name} live?</h3>
+                <hr />
+
                <form onSubmit={this.handleSubmit}>
                <div className="form-group">
-                 <label for='ratingInput'>Rating?</label>
-                    <input type='text' id = 'ratingInput' className='form-control' valueLink={this.linkState('rating')}/>
-                    <br/>
+                    <Slider onSliderChange={this.onSliderChange} />
                 </div>
                 <div className="form-group">
-                 <label for='reviewInput'>How was the concert?</label>
-                    <textarea id = 'reviewInput' className='form-control' rows='3' valueLink={this.linkState('review')}/>
+                    <textarea id = 'reviewInput' className='form-control' rows='5' placeholder='How was the concert?...' valueLink={this.linkState('review')}/>
                     <br/>
                 </div>
-                <div className="form-group">
+                <div className="form-group date">
                   <label for='dateInput'>Date Attended?</label>
                      <input type="date" id = 'dateInput' className='date' valueLink={this.linkState('date_attended')}/>
                      <br/>
                   </div>
-                  <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-                  <input className='btn btn-info' role='button' type="submit" value="Submit!" onClick={this.closeModal}/>
+                  <div className='form-buttons'>  
+                    <input className='btn btn-info' role='button' type="submit" value="Submit!" onClick={this.closeModal}/>
+                    <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
                </form>
-            </div>
+              </div>
             </div>
           </div>
         </div>

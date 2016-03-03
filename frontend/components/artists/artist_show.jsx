@@ -1,5 +1,6 @@
 var React = require('react');
 var ReactRouter = require('react-router');
+var ReactSlider = require('react-slider');
 
 var ArtistStore = require('../../stores/artist');
 var AttendStore = require('../../stores/attend')
@@ -10,6 +11,8 @@ var ArtistAbout = require('./artist_about');
 
 var NewActivityItem = require('../activity/new_activity_item');
 var ArtistActivity = require('./artist_activity.jsx');
+var ArtistUpcomingShows = require('./artist_upcoming_shows.jsx');
+
 
 
 var ArtistShow = React.createClass({
@@ -85,7 +88,7 @@ var ArtistShow = React.createClass({
           </div>
         </div>
       </div>
-      <div className='container-fluid nopadding'>
+      <div className='container-fluid page-content'>
         <div className='row'>
           <div className='col-lg-8 col-md-8 col-sm-12 col-xs-12 nopadding testy'>
             <div className='inner'>
@@ -94,7 +97,7 @@ var ArtistShow = React.createClass({
           </div>
           <div className='col-lg-4 col-md-4 col-sm-12 col-xs-12 nopadding testy'>
             <div className='inner'>
-              <div className='module tbd'>Upcoming Shows</div>
+              <ArtistUpcomingShows artist={this.state.artist}/>
               <div className='module tbd'>Loyal Fans</div>
               <div className='module tbd'>Similar Artists</div>
               <div className='module tbd'>Popular Venues</div>
