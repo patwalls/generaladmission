@@ -69,9 +69,9 @@ var ApiUtil = {
     });
   },
   upcomingEventsForArtist: function(songKickId) {
-    var url = 'http://api.songkick.com/api/3.0/artists/' + songKick_id + '/calendar.json?apikey=n3h6YMv9J87oRnq9';
+    var url = 'http://api.songkick.com/api/3.0/artists/' + songKickId + '/calendar.json?apikey=n3h6YMv9J87oRnq9';
     $.getJSON(url, function(data) {
-      console.log(data);
+      ApiActions.receiveAllShows(data);
     });
   },
   resetResults: function() {

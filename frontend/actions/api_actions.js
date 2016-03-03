@@ -4,12 +4,19 @@ var AttendsConstants = require('../constants/attends_constants');
 var UserConstants = require('../constants/user_constants');
 var FollowConstants = require('../constants/follow_constants');
 var SearchConstants = require('../constants/search_constants');
+var ShowConstants = require('../constants/show_constants');
 
 ApiActions = {
   receiveAllResults: function(results){
     AppDispatcher.dispatch({
       actionType: SearchConstants.RESULTS_RECEIVED,
       results: results
+    });
+  },
+  receiveAllShows: function(shows){
+    AppDispatcher.dispatch({
+      actionType: ShowConstants.SHOWS_RECEIVED,
+      shows: shows
     });
   },
   resetAllResults: function(){

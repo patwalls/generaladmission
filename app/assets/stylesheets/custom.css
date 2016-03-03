@@ -8,6 +8,18 @@
   max-width: 1200px;
 }
 
+.artist-header {
+  height: 500px;
+}
+
+.inner-header {
+  position: absolute;
+  margin: auto;
+  max-width: 1200px;
+  outline: 2px solid white;
+  height: 500px;
+}
+
 html, body {
   margin: 0;
   height: 100%;
@@ -20,22 +32,6 @@ html, body {
 .nopadding {
   padding: 0 !important;
   margin: 0 !important;
-}
-
-.activity-item {
-  background: white;
-  border: 10px solid white;
-  border-radius: 2px;
-  padding: 10px;
-}
-
-.activity-item:hover {
-  background-color: #EDF2F4;
-}
-
-.activity-item .top {
-  display: flex;
-  flex-direction: row;
 }
 
 .artist-name {
@@ -52,12 +48,6 @@ html, body {
   left: 40px;
   font-size: 8em;
   text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
-}
-
-.activity-item .photo {
-  margin-right: 5px;
-  margin-left: 8px;
-
 }
 
 blockquote {
@@ -428,19 +418,6 @@ input {
   left: 40px;
 }
 
-.artist-header {
-  display: flex;
-  flex-direction: column;
-  line-height: 1;
-  top: 0px;
-  left: 40px;
-}
-
-.user-header .check-in-box {
-  font-size: 2.5em;
-  background-color: white;
-}
-
 .user-header .artist-stats {
   position: absolute;
   display: flex;
@@ -646,4 +623,175 @@ body {
 .form-buttons {
   display: flex;
   justify-content: space-between;
+}
+
+.calendar-date {
+	display: block;
+	width: 100px;
+	height: 110px;
+	margin: 30px auto;
+	background: #fff;
+	text-align: center;
+	font-family: 'Helvetica', sans-serif;
+	position: relative;
+}
+
+.calendar-date .binds {
+	position: absolute;
+	height: 15px;
+	width: 60px;
+	background: transparent;
+	border: 2px solid #999;
+	border-width: 0 5px;
+	top: -6px;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+
+.calendar-date .month {
+	background: #555;
+	display: block;
+	padding: 8px 0;
+	color: #fff;
+	font-size: 12px;
+	font-weight: bold;
+	border-bottom: 2px solid #333;
+	box-shadow: inset 0 -1px 0 0 #666;
+}
+
+.calendar-date .day {
+	display: block;
+	margin: 0;
+	padding: 10px 0;
+	font-size: 48px;
+	box-shadow: 0 0 3px #ccc;
+	position: relative;
+}
+
+.calendar-date .day::after {
+	content: '';
+	display: block;
+	height: 100%;
+	width: 96%;
+	position: absolute;
+	top: 3px;
+	left: 2%;
+	z-index: -1;
+	box-shadow: 0 0 3px #ccc;
+}
+
+.calendar-date .day::before {
+	content: '';
+	display: block;
+	height: 100%;
+	width: 90%;
+	position: absolute;
+	top: 6px;
+	left: 5%;
+	z-index: -1;
+	box-shadow: 0 0 3px #ccc;
+}
+
+.show-item {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+}
+
+.show-item .show-details {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 5px;
+}
+
+.show-item .date-cont {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 150px;
+  height: 110px;
+}
+
+.module .shows ul {
+  padding-left: 0px;
+}
+
+.show-details .venue {
+  font-size: .7em;
+}
+
+.show-details .location {
+  font-size: .7em;
+}
+
+.activity-item {
+  display: flex;
+  flex-direction: row;
+  height: 240px;
+  background-color: white;
+  border: 10px transparent;
+}
+
+.activity-item .left-pane {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;;
+  align-content: center;
+  width: 25%;
+  margin-right: 25px;
+  padding: 10px 0px 10px 10px;
+}
+
+.activity-item .left-pane .user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.activity-rating {
+  height: 100px;
+  width: 100px;
+  background-color: #555;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.activity-rating .score {
+  position:relative;
+  font-size: 1em;
+  padding-top: 15px;
+
+}
+
+.activity-rating .calc {
+ font-size: 4.5em;
+}
+
+.activity-item .right-pane {
+  width: 75%;
+  padding: 10px 10px 10px 0px;
+}
+
+.activity-item .right-pane {
+  padding-left: 5px;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.activity-item .border {
+  vertical-align: middle;
+  border-left: 3px solid #555;
+  height: 90%;
+  position: relative;
+  margin-top: auto;
+  margin-bottom: auto;
 }

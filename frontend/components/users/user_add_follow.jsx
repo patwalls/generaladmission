@@ -6,11 +6,12 @@ var UserFollow = React.createClass({
     var user_id = window.getCurrentUserId;
     var follower_id = this.props.user.id;
     ApiUtil.follow({ user_id: follower_id, follower_id: user_id });
+    ApiUtil.fetchUser(user_id);
   },
   render: function () {
     return (
       <div className="check-in-box" onClick={this.follow}>
-        FOLLOW
+        <span className="glyphicon glyphicon-plus check-in" aria-hidden="true"></span>
       </div>
       );
   }

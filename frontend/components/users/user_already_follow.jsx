@@ -4,9 +4,9 @@ var ReactRouter = require('react-router');
 var UserAlreadyFollow = React.createClass({
   render: function () {
     return (
-      <a href='#' className="check-in-box">
-        FOLLOWING
-      </a>
+      <div className="check-in-box">
+        <span className="glyphicon glyphicon-ok check-in" aria-hidden="true"></span>
+      </div>
       );
   }
 });

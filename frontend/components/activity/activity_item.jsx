@@ -44,43 +44,34 @@ var ActivityItem = React.createClass({
     var rightmost = {
       width: right +'%'
     };
+    console.log(this.props.attend);
     return (
+      <div className='col-lg-6 col-md-6 col-sm-12 col-xs-12 activity-item'>
 
-      <div className='col-lg-6 col-md-6 col-sm-12 col-xs-12 activity-item nopadding'>
-        <div className='inner'>
-          <div className='row'>
-              <div className='top'>
-                <div className='top-left' onClick={this.showUser}>
-                  <div className='photo'>
-                    <img src={this.props.attend.photo} className="img-circle" alt="Cinque Terre" width="80" height="80"></img>
-                  </div>
-                  <div className='username'>
-                    {this.props.attend.username}
-                  </div>
-                </div>
-                <div className='review-details'>
-                  <div className='review'>
-                    <blockquote>
-                      {this.props.attend.review}
-                      <cite>{this.props.attend.name}, {this.props.attend.date_attended}</cite>
-                    </blockquote>
-                  </div>
-                  <div className='details'>
-                </div>
-              </div>
-              </div>
-              <div className="progress">
-                <div className="progress-bar progress-bar-success" style={leftmost}>
-                  {leftvalue}
-                </div>
-                <div className="progress-bar progress-bar-warning" style={middlemost}>
-                  {middlevalue}
-                </div>
-                <div className="progress-bar progress-bar-danger" style={rightmost}>
-                  {rightvalue}
-                </div>
-              </div>
+        <div className='left-pane'>
+          <div className='activity-rating'>
+              <div className='score'>SCORE</div>
+              <div className='calc'>{this.props.attend.rating}</div>
+          </div>
+          <div className='user'>
+            <div className='user-image'>
+              <img src={this.props.attend.photo} className="img-circle" alt="Cinque Terre" width="80" height="80"></img>
             </div>
+            <div className='username'>
+              {this.props.attend.username}
+            </div>
+          </div>
+        </div>
+        <div className='border'></div>
+        <div className='right-pane'>
+          <div className='review'>
+            {this.props.attend.review}
+          </div>
+          <div className='attend-details'>
+            <div className='name'>-{this.props.attend.name}</div>
+            <div className='date'>-{this.props.attend.date_attended}</div>
+            <div className='venue-location'>-Fox Theatre, Oakland CA</div>
+          </div>
           </div>
         </div>
       );

@@ -52,12 +52,12 @@
 	var IndexRoute = ReactRouter.IndexRoute;
 	var Link = __webpack_require__(159).Link;
 	var ArtistStore = __webpack_require__(208);
-	var ArtistIndex = __webpack_require__(237);
-	var ArtistShow = __webpack_require__(240);
-	var ArtistSearch = __webpack_require__(250);
-	var Home = __webpack_require__(252);
-	var AttendStore = __webpack_require__(242);
-	var UserShow = __webpack_require__(253);
+	var ArtistIndex = __webpack_require__(238);
+	var ArtistShow = __webpack_require__(241);
+	var ArtistSearch = __webpack_require__(258);
+	var Home = __webpack_require__(260);
+	var AttendStore = __webpack_require__(243);
+	var UserShow = __webpack_require__(261);
 	var ApiUtil = __webpack_require__(231);
 	
 	var App = React.createClass({
@@ -31328,9 +31328,9 @@
 	    });
 	  },
 	  upcomingEventsForArtist: function (songKickId) {
-	    var url = 'http://api.songkick.com/api/3.0/artists/' + songKick_id + '/calendar.json?apikey=n3h6YMv9J87oRnq9';
+	    var url = 'http://api.songkick.com/api/3.0/artists/' + songKickId + '/calendar.json?apikey=n3h6YMv9J87oRnq9';
 	    $.getJSON(url, function (data) {
-	      console.log(data);
+	      ApiActions.receiveAllShows(data);
 	    });
 	  },
 	  resetResults: function () {
@@ -31351,12 +31351,19 @@
 	var UserConstants = __webpack_require__(234);
 	var FollowConstants = __webpack_require__(235);
 	var SearchConstants = __webpack_require__(236);
+	var ShowConstants = __webpack_require__(237);
 	
 	ApiActions = {
 	  receiveAllResults: function (results) {
 	    AppDispatcher.dispatch({
 	      actionType: SearchConstants.RESULTS_RECEIVED,
 	      results: results
+	    });
+	  },
+	  receiveAllShows: function (shows) {
+	    AppDispatcher.dispatch({
+	      actionType: ShowConstants.SHOWS_RECEIVED,
+	      shows: shows
 	    });
 	  },
 	  resetAllResults: function () {
@@ -31468,14 +31475,24 @@
 
 /***/ },
 /* 237 */
+/***/ function(module, exports) {
+
+	var ShowConstants = {
+	  SHOWS_RECEIVED: "SHOWS_RECEIVED"
+	};
+	
+	module.exports = ShowConstants;
+
+/***/ },
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ArtistStore = __webpack_require__(208);
 	var ApiUtil = __webpack_require__(231);
-	var SearchStore = __webpack_require__(238);
+	var SearchStore = __webpack_require__(239);
 	
-	var ArtistIndexItem = __webpack_require__(239);
+	var ArtistIndexItem = __webpack_require__(240);
 	
 	var ArtistIndex = React.createClass({
 	  displayName: 'ArtistIndex',
@@ -31511,7 +31528,7 @@
 	module.exports = ArtistIndex;
 
 /***/ },
-/* 238 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(209).Store;
@@ -31557,7 +31574,7 @@
 	module.exports = SearchStore;
 
 /***/ },
-/* 239 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -31604,23 +31621,23 @@
 	module.exports = ArtistIndexItem;
 
 /***/ },
-/* 240 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var ReactSlider = __webpack_require__(241);
+	var ReactSlider = __webpack_require__(242);
 	
 	var ArtistStore = __webpack_require__(208);
-	var AttendStore = __webpack_require__(242);
+	var AttendStore = __webpack_require__(243);
 	var ApiUtil = __webpack_require__(231);
 	
-	var ArtistHeader = __webpack_require__(243);
-	var ArtistAbout = __webpack_require__(245);
+	var ArtistHeader = __webpack_require__(244);
+	var ArtistAbout = __webpack_require__(246);
 	
-	var NewActivityItem = __webpack_require__(246);
-	var ArtistActivity = __webpack_require__(247);
-	var ArtistUpcomingShows = __webpack_require__(249);
+	var NewActivityItem = __webpack_require__(247);
+	var ArtistActivity = __webpack_require__(253);
+	var ArtistUpcomingShows = __webpack_require__(255);
 	
 	var ArtistShow = React.createClass({
 	  displayName: 'ArtistShow',
@@ -31692,11 +31709,7 @@
 	        React.createElement(
 	          'div',
 	          { className: 'row' },
-	          React.createElement(
-	            'div',
-	            { className: 'col-md-12 nopadding header-photo', style: photoDivStyle },
-	            React.createElement(ArtistHeader, { artist: this.state.artist })
-	          )
+	          React.createElement(ArtistHeader, { artist: this.state.artist })
 	        ),
 	        React.createElement(
 	          'div',
@@ -31720,7 +31733,11 @@
 	            React.createElement(
 	              'div',
 	              { className: 'inner' },
-	              React.createElement(ArtistActivity, { artist: this.state.artist })
+	              React.createElement(
+	                'div',
+	                { className: 'row module' },
+	                React.createElement(ArtistActivity, { artist: this.state.artist })
+	              )
 	            )
 	          ),
 	          React.createElement(
@@ -31756,7 +31773,7 @@
 	module.exports = ArtistShow;
 
 /***/ },
-/* 241 */
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
@@ -32554,7 +32571,7 @@
 
 
 /***/ },
-/* 242 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(209).Store;
@@ -32608,12 +32625,12 @@
 	module.exports = AttendStore;
 
 /***/ },
-/* 243 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var ArtistStats = __webpack_require__(244);
+	var ArtistStats = __webpack_require__(245);
 	
 	var ArtistHeader = React.createClass({
 	  displayName: 'ArtistHeader',
@@ -32629,21 +32646,17 @@
 	    };
 	    return React.createElement(
 	      'div',
-	      { className: 'row' },
+	      { className: 'artist-header', style: photoDivStyle },
 	      React.createElement(
 	        'div',
-	        null,
+	        { className: 'col-lg-12 inner-header' },
 	        React.createElement(
 	          'div',
-	          { className: 'artist-header', style: photoDivStyle },
-	          React.createElement(
-	            'div',
-	            { className: 'artist-photo-text' },
-	            this.upperCaseName()
-	          ),
-	          React.createElement(NewActivityItem, { artist: this.props.artist }),
-	          React.createElement(ArtistStats, { artist: this.props.artist })
-	        )
+	          { className: 'artist-photo-text' },
+	          this.upperCaseName()
+	        ),
+	        React.createElement(NewActivityItem, { artist: this.props.artist }),
+	        React.createElement(ArtistStats, { artist: this.props.artist })
 	      )
 	    );
 	  }
@@ -32652,7 +32665,7 @@
 	module.exports = ArtistHeader;
 
 /***/ },
-/* 244 */
+/* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -32700,7 +32713,7 @@
 	        React.createElement(
 	          'div',
 	          { className: 'header' },
-	          'GA SCORE'
+	          'SCORE'
 	        ),
 	        React.createElement(
 	          'div',
@@ -32729,7 +32742,7 @@
 	module.exports = ArtistStats;
 
 /***/ },
-/* 245 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -32776,15 +32789,15 @@
 	module.exports = ArtistAbout;
 
 /***/ },
-/* 246 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var LinkedStateMixin = __webpack_require__(266);
-	var Slider = __webpack_require__(270);
+	var LinkedStateMixin = __webpack_require__(248);
+	var Slider = __webpack_require__(252);
 	
-	var AttendStore = __webpack_require__(242);
+	var AttendStore = __webpack_require__(243);
 	var ApiUtil = __webpack_require__(231);
 	var ArtistStore = __webpack_require__(208);
 	
@@ -32930,16 +32943,290 @@
 	module.exports = NewActivityItem;
 
 /***/ },
-/* 247 */
+/* 248 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(249);
+
+/***/ },
+/* 249 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule LinkedStateMixin
+	 * @typechecks static-only
+	 */
+	
+	'use strict';
+	
+	var ReactLink = __webpack_require__(250);
+	var ReactStateSetters = __webpack_require__(251);
+	
+	/**
+	 * A simple mixin around ReactLink.forState().
+	 */
+	var LinkedStateMixin = {
+	  /**
+	   * Create a ReactLink that's linked to part of this component's state. The
+	   * ReactLink will have the current value of this.state[key] and will call
+	   * setState() when a change is requested.
+	   *
+	   * @param {string} key state key to update. Note: you may want to use keyOf()
+	   * if you're using Google Closure Compiler advanced mode.
+	   * @return {ReactLink} ReactLink instance linking to the state.
+	   */
+	  linkState: function (key) {
+	    return new ReactLink(this.state[key], ReactStateSetters.createStateKeySetter(this, key));
+	  }
+	};
+	
+	module.exports = LinkedStateMixin;
+
+/***/ },
+/* 250 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule ReactLink
+	 * @typechecks static-only
+	 */
+	
+	'use strict';
+	
+	/**
+	 * ReactLink encapsulates a common pattern in which a component wants to modify
+	 * a prop received from its parent. ReactLink allows the parent to pass down a
+	 * value coupled with a callback that, when invoked, expresses an intent to
+	 * modify that value. For example:
+	 *
+	 * React.createClass({
+	 *   getInitialState: function() {
+	 *     return {value: ''};
+	 *   },
+	 *   render: function() {
+	 *     var valueLink = new ReactLink(this.state.value, this._handleValueChange);
+	 *     return <input valueLink={valueLink} />;
+	 *   },
+	 *   _handleValueChange: function(newValue) {
+	 *     this.setState({value: newValue});
+	 *   }
+	 * });
+	 *
+	 * We have provided some sugary mixins to make the creation and
+	 * consumption of ReactLink easier; see LinkedValueUtils and LinkedStateMixin.
+	 */
+	
+	var React = __webpack_require__(2);
+	
+	/**
+	 * @param {*} value current value of the link
+	 * @param {function} requestChange callback to request a change
+	 */
+	function ReactLink(value, requestChange) {
+	  this.value = value;
+	  this.requestChange = requestChange;
+	}
+	
+	/**
+	 * Creates a PropType that enforces the ReactLink API and optionally checks the
+	 * type of the value being passed inside the link. Example:
+	 *
+	 * MyComponent.propTypes = {
+	 *   tabIndexLink: ReactLink.PropTypes.link(React.PropTypes.number)
+	 * }
+	 */
+	function createLinkTypeChecker(linkType) {
+	  var shapes = {
+	    value: typeof linkType === 'undefined' ? React.PropTypes.any.isRequired : linkType.isRequired,
+	    requestChange: React.PropTypes.func.isRequired
+	  };
+	  return React.PropTypes.shape(shapes);
+	}
+	
+	ReactLink.PropTypes = {
+	  link: createLinkTypeChecker
+	};
+	
+	module.exports = ReactLink;
+
+/***/ },
+/* 251 */
+/***/ function(module, exports) {
+
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule ReactStateSetters
+	 */
+	
+	'use strict';
+	
+	var ReactStateSetters = {
+	  /**
+	   * Returns a function that calls the provided function, and uses the result
+	   * of that to set the component's state.
+	   *
+	   * @param {ReactCompositeComponent} component
+	   * @param {function} funcReturningState Returned callback uses this to
+	   *                                      determine how to update state.
+	   * @return {function} callback that when invoked uses funcReturningState to
+	   *                    determined the object literal to setState.
+	   */
+	  createStateSetter: function (component, funcReturningState) {
+	    return function (a, b, c, d, e, f) {
+	      var partialState = funcReturningState.call(component, a, b, c, d, e, f);
+	      if (partialState) {
+	        component.setState(partialState);
+	      }
+	    };
+	  },
+	
+	  /**
+	   * Returns a single-argument callback that can be used to update a single
+	   * key in the component's state.
+	   *
+	   * Note: this is memoized function, which makes it inexpensive to call.
+	   *
+	   * @param {ReactCompositeComponent} component
+	   * @param {string} key The key in the state that you should update.
+	   * @return {function} callback of 1 argument which calls setState() with
+	   *                    the provided keyName and callback argument.
+	   */
+	  createStateKeySetter: function (component, key) {
+	    // Memoize the setters.
+	    var cache = component.__keySetters || (component.__keySetters = {});
+	    return cache[key] || (cache[key] = createStateKeySetter(component, key));
+	  }
+	};
+	
+	function createStateKeySetter(component, key) {
+	  // Partial state is allocated outside of the function closure so it can be
+	  // reused with every call, avoiding memory allocation when this function
+	  // is called.
+	  var partialState = {};
+	  return function stateKeySetter(value) {
+	    partialState[key] = value;
+	    component.setState(partialState);
+	  };
+	}
+	
+	ReactStateSetters.Mixin = {
+	  /**
+	   * Returns a function that calls the provided function, and uses the result
+	   * of that to set the component's state.
+	   *
+	   * For example, these statements are equivalent:
+	   *
+	   *   this.setState({x: 1});
+	   *   this.createStateSetter(function(xValue) {
+	   *     return {x: xValue};
+	   *   })(1);
+	   *
+	   * @param {function} funcReturningState Returned callback uses this to
+	   *                                      determine how to update state.
+	   * @return {function} callback that when invoked uses funcReturningState to
+	   *                    determined the object literal to setState.
+	   */
+	  createStateSetter: function (funcReturningState) {
+	    return ReactStateSetters.createStateSetter(this, funcReturningState);
+	  },
+	
+	  /**
+	   * Returns a single-argument callback that can be used to update a single
+	   * key in the component's state.
+	   *
+	   * For example, these statements are equivalent:
+	   *
+	   *   this.setState({x: 1});
+	   *   this.createStateKeySetter('x')(1);
+	   *
+	   * Note: this is memoized function, which makes it inexpensive to call.
+	   *
+	   * @param {string} key The key in the state that you should update.
+	   * @return {function} callback of 1 argument which calls setState() with
+	   *                    the provided keyName and callback argument.
+	   */
+	  createStateKeySetter: function (key) {
+	    return ReactStateSetters.createStateKeySetter(this, key);
+	  }
+	};
+	
+	module.exports = ReactStateSetters;
+
+/***/ },
+/* 252 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ReactRouter = __webpack_require__(159);
+	var ReactSlider = __webpack_require__(242);
+	
+	var Slider = React.createClass({
+	  displayName: 'Demo',
+	  getInitialState: function () {
+	    return { value: 0 };
+	  },
+	  onChange: function (value) {
+	    this.setState({ value: value });
+	    this.props.onSliderChange(value);
+	  },
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'rating value' },
+	      React.createElement(
+	        'div',
+	        { className: 'your-score' },
+	        'YOUR SCORE'
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'calc' },
+	        this.state.value
+	      ),
+	      React.createElement(ReactSlider, {
+	        className: 'horizontal-slider',
+	        onChange: this.onChange,
+	        value: this.state.value,
+	        withBars: 'true',
+	        defaultValue: 0
+	      })
+	    );
+	  }
+	});
+	
+	module.exports = Slider;
+
+/***/ },
+/* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
 	
-	var AttendStore = __webpack_require__(242);
+	var AttendStore = __webpack_require__(243);
 	var ApiUtil = __webpack_require__(231);
 	
-	var ActivityItem = __webpack_require__(248);
+	var ActivityItem = __webpack_require__(254);
 	
 	var ArtistActivity = React.createClass({
 	  displayName: 'ArtistActivity',
@@ -32995,7 +33282,7 @@
 	module.exports = ArtistActivity;
 
 /***/ },
-/* 248 */
+/* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -33046,72 +33333,70 @@
 	    var rightmost = {
 	      width: right + '%'
 	    };
+	    console.log(this.props.attend);
 	    return React.createElement(
 	      'div',
-	      { className: 'col-lg-6 col-md-6 col-sm-12 col-xs-12 activity-item nopadding' },
+	      { className: 'col-lg-6 col-md-6 col-sm-12 col-xs-12 activity-item' },
 	      React.createElement(
 	        'div',
-	        { className: 'inner' },
+	        { className: 'left-pane' },
 	        React.createElement(
 	          'div',
-	          { className: 'row' },
+	          { className: 'activity-rating' },
 	          React.createElement(
 	            'div',
-	            { className: 'top' },
-	            React.createElement(
-	              'div',
-	              { className: 'top-left', onClick: this.showUser },
-	              React.createElement(
-	                'div',
-	                { className: 'photo' },
-	                React.createElement('img', { src: this.props.attend.photo, className: 'img-circle', alt: 'Cinque Terre', width: '80', height: '80' })
-	              ),
-	              React.createElement(
-	                'div',
-	                { className: 'username' },
-	                this.props.attend.username
-	              )
-	            ),
-	            React.createElement(
-	              'div',
-	              { className: 'review-details' },
-	              React.createElement(
-	                'div',
-	                { className: 'review' },
-	                React.createElement(
-	                  'blockquote',
-	                  null,
-	                  this.props.attend.review,
-	                  React.createElement(
-	                    'cite',
-	                    null,
-	                    this.props.attend.name,
-	                    ', ',
-	                    this.props.attend.date_attended
-	                  )
-	                )
-	              ),
-	              React.createElement('div', { className: 'details' })
-	            )
+	            { className: 'score' },
+	            'SCORE'
 	          ),
 	          React.createElement(
 	            'div',
-	            { className: 'progress' },
-	            React.createElement(
-	              'div',
-	              { className: 'progress-bar progress-bar-success', style: leftmost },
-	              leftvalue
-	            ),
-	            React.createElement(
-	              'div',
-	              { className: 'progress-bar progress-bar-warning', style: middlemost },
-	              middlevalue
-	            ),
-	            React.createElement(
-	              'div',
-	              { className: 'progress-bar progress-bar-danger', style: rightmost },
-	              rightvalue
-	            )
+	            { className: 'calc' },
+	            this.props.attend.rating
+	          )
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'user' },
+	          React.createElement(
+	            'div',
+	            { className: 'user-image' },
+	            React.createElement('img', { src: this.props.attend.photo, className: 'img-circle', alt: 'Cinque Terre', width: '80', height: '80' })
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'username' },
+	            this.props.attend.username
+	          )
+	        )
+	      ),
+	      React.createElement('div', { className: 'border' }),
+	      React.createElement(
+	        'div',
+	        { className: 'right-pane' },
+	        React.createElement(
+	          'div',
+	          { className: 'review' },
+	          this.props.attend.review
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'attend-details' },
+	          React.createElement(
+	            'div',
+	            { className: 'name' },
+	            '-',
+	            this.props.attend.name
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'date' },
+	            '-',
+	            this.props.attend.date_attended
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'venue-location' },
+	            '-Fox Theatre, Oakland CA'
 	          )
 	        )
 	      )
@@ -33122,20 +33407,56 @@
 	module.exports = ActivityItem;
 
 /***/ },
-/* 249 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
+	var ShowStore = __webpack_require__(256);
+	var ArtistShowItem = __webpack_require__(257);
 	
 	var ArtistUpcomingShows = React.createClass({
 	  displayName: 'ArtistUpcomingShows',
 	
+	  getInitialState: function () {
+	    return { shows: ShowStore.all().slice(0, 5) };
+	  },
+	
+	  componentDidMount: function () {
+	    this.showsListener = ShowStore.addListener(this._showsChanged);
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.showsListener.remove();
+	  },
+	
+	  componentWillReceiveProps: function (newProps) {
+	    var songKickId = newProps.artist.songkick_id;
+	    ApiUtil.upcomingEventsForArtist(songKickId);
+	    return { shows: ShowStore.all().slice(0, 5) };
+	  },
+	
+	  _showsChanged: function () {
+	    this.setState({ shows: ShowStore.all().slice(0, 5) });
+	  },
+	
 	  render: function () {
 	    return React.createElement(
 	      'div',
-	      { className: 'module tbd' },
-	      'Upcoming Shows'
+	      { className: 'module' },
+	      'Upcoming Shows',
+	      React.createElement('hr', null),
+	      React.createElement(
+	        'div',
+	        { className: 'shows' },
+	        React.createElement(
+	          'ul',
+	          null,
+	          this.state.shows.map(function (show) {
+	            return React.createElement(ArtistShowItem, { show: show });
+	          }, this)
+	        )
+	      )
 	    );
 	  }
 	});
@@ -33143,12 +33464,122 @@
 	module.exports = ArtistUpcomingShows;
 
 /***/ },
-/* 250 */
+/* 256 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(209).Store;
+	
+	var ShowConstants = __webpack_require__(237);
+	var AppDispatcher = __webpack_require__(228);
+	var ApiUtil = __webpack_require__(231);
+	
+	var ShowStore = new Store(AppDispatcher);
+	
+	var _shows = {};
+	
+	var resetShows = function (shows) {
+	  _shows = {};
+	  for (var i = 0; i < shows.length; i++) {
+	    _shows[shows[i].id] = shows[i];
+	  }
+	};
+	
+	ShowStore.all = function () {
+	  var _returnShows = [];
+	  Object.keys(_shows).map(function (key) {
+	    _returnShows.push(_shows[key]);
+	  });
+	  return _returnShows;
+	};
+	
+	ShowStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case ShowConstants.SHOWS_RECEIVED:
+	      var result = resetShows(payload.shows.resultsPage.results.event);
+	      ShowStore.__emitChange();
+	      break;
+	  }
+	};
+	
+	window.ShowStore = ShowStore;
+	
+	module.exports = ShowStore;
+
+/***/ },
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var ArtistSearchFilter = __webpack_require__(251);
-	var ArtistIndex = __webpack_require__(237);
+	var ReactRouter = __webpack_require__(159);
+	
+	var ArtistShowItem = React.createClass({
+	  displayName: 'ArtistShowItem',
+	
+	  getMonth: function (date) {
+	    var dateParsed = date.split('-');
+	    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+	    return months[parseInt(dateParsed[1], 10)];
+	  },
+	  getDay: function (date) {
+	    var dateParsed = date.split('-');
+	    return parseInt(dateParsed[2], 10);
+	  },
+	  render: function () {
+	    console.log(this.props.show);
+	    return React.createElement(
+	      'div',
+	      { className: 'show-item' },
+	      React.createElement(
+	        'div',
+	        { className: 'date-cont' },
+	        React.createElement(
+	          'div',
+	          { className: 'calendar-date' },
+	          React.createElement('span', { className: 'binds' }),
+	          React.createElement(
+	            'span',
+	            { className: 'month' },
+	            this.getMonth(this.props.show.start.date)
+	          ),
+	          React.createElement(
+	            'h1',
+	            { className: 'day' },
+	            this.getDay(this.props.show.start.date)
+	          )
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'show-details' },
+	        React.createElement(
+	          'div',
+	          { className: 'display-name' },
+	          this.props.show.displayName
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'venue' },
+	          this.props.show.venue.displayName
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'location' },
+	          this.props.show.location.city
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = ArtistShowItem;
+
+/***/ },
+/* 258 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ArtistSearchFilter = __webpack_require__(259);
+	var ArtistIndex = __webpack_require__(238);
 	
 	var ArtistSearch = React.createClass({
 	  displayName: 'ArtistSearch',
@@ -33169,15 +33600,15 @@
 	module.exports = ArtistSearch;
 
 /***/ },
-/* 251 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ArtistStore = __webpack_require__(208);
 	var ApiUtil = __webpack_require__(231);
-	var SearchStore = __webpack_require__(238);
+	var SearchStore = __webpack_require__(239);
 	
-	var ArtistIndex = __webpack_require__(237);
+	var ArtistIndex = __webpack_require__(238);
 	
 	var ArtistSearch = React.createClass({
 	  displayName: 'ArtistSearch',
@@ -33203,11 +33634,11 @@
 	module.exports = ArtistSearch;
 
 /***/ },
-/* 252 */
+/* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var ArtistSearch = __webpack_require__(250);
+	var ArtistSearch = __webpack_require__(258);
 	
 	var Home = React.createClass({
 	  displayName: 'Home',
@@ -33240,21 +33671,21 @@
 	module.exports = Home;
 
 /***/ },
-/* 253 */
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
 	
-	var UserStore = __webpack_require__(254);
-	var AttendStore = __webpack_require__(242);
+	var UserStore = __webpack_require__(262);
+	var AttendStore = __webpack_require__(243);
 	var ApiUtil = __webpack_require__(231);
 	
-	var UserHeader = __webpack_require__(255);
-	var UserStats = __webpack_require__(256);
-	var UserActivity = __webpack_require__(259);
-	var UserFollowers = __webpack_require__(262);
-	var UserFollows = __webpack_require__(265);
+	var UserHeader = __webpack_require__(263);
+	var UserStats = __webpack_require__(264);
+	var UserActivity = __webpack_require__(267);
+	var UserFollowers = __webpack_require__(270);
+	var UserFollows = __webpack_require__(273);
 	
 	var UserShow = React.createClass({
 	  displayName: 'UserShow',
@@ -33359,7 +33790,7 @@
 	module.exports = UserShow;
 
 /***/ },
-/* 254 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(209).Store;
@@ -33405,15 +33836,15 @@
 	module.exports = UserStore;
 
 /***/ },
-/* 255 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
 	
-	var UserActivityStats = __webpack_require__(256);
-	var UserAddFollow = __webpack_require__(257);
-	var UserAlreadyFollow = __webpack_require__(258);
+	var UserActivityStats = __webpack_require__(264);
+	var UserAddFollow = __webpack_require__(265);
+	var UserAlreadyFollow = __webpack_require__(266);
 	
 	var UserHeader = React.createClass({
 	  displayName: 'UserHeader',
@@ -33433,16 +33864,12 @@
 	    this.follows();
 	    if (this.follow === false) {
 	      if (this.props.user.id === window.getCurrentUserId) {
-	        addFollowButton = React.createElement(
-	          'div',
-	          null,
-	          ' You! '
-	        );
+	        addFollowButton = React.createElement('div', null);
 	      } else {
 	        addFollowButton = React.createElement(UserAddFollow, { user: this.props.user });
 	      }
 	    } else {
-	      addFollowButton = React.createElement(UserAlreadyFollow, null);
+	      addFollowButton = React.createElement(UserAlreadyFollow, { user: this.props.user });
 	    }
 	    return React.createElement(
 	      'div',
@@ -33471,7 +33898,7 @@
 	module.exports = UserHeader;
 
 /***/ },
-/* 256 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -33550,7 +33977,7 @@
 	module.exports = UserStats;
 
 /***/ },
-/* 257 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -33563,12 +33990,13 @@
 	    var user_id = window.getCurrentUserId;
 	    var follower_id = this.props.user.id;
 	    ApiUtil.follow({ user_id: follower_id, follower_id: user_id });
+	    ApiUtil.fetchUser(user_id);
 	  },
 	  render: function () {
 	    return React.createElement(
 	      'div',
 	      { className: 'check-in-box', onClick: this.follow },
-	      'FOLLOW'
+	      React.createElement('span', { className: 'glyphicon glyphicon-plus check-in', 'aria-hidden': 'true' })
 	    );
 	  }
 	});
@@ -33576,7 +34004,7 @@
 	module.exports = UserFollow;
 
 /***/ },
-/* 258 */
+/* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -33587,9 +34015,9 @@
 	
 	  render: function () {
 	    return React.createElement(
-	      'a',
-	      { href: '#', className: 'check-in-box' },
-	      'FOLLOWING'
+	      'div',
+	      { className: 'check-in-box' },
+	      React.createElement('span', { className: 'glyphicon glyphicon-ok check-in', 'aria-hidden': 'true' })
 	    );
 	  }
 	});
@@ -33597,16 +34025,16 @@
 	module.exports = UserAlreadyFollow;
 
 /***/ },
-/* 259 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var ActivityItem = __webpack_require__(248);
-	var AttendStore = __webpack_require__(242);
+	var ActivityItem = __webpack_require__(254);
+	var AttendStore = __webpack_require__(243);
 	var ApiUtil = __webpack_require__(231);
-	var UserActivityFeed = __webpack_require__(260);
-	var UserActivityStats = __webpack_require__(256);
+	var UserActivityFeed = __webpack_require__(268);
+	var UserActivityStats = __webpack_require__(264);
 	
 	var UserActivity = React.createClass({
 	  displayName: 'UserActivity',
@@ -33644,12 +34072,12 @@
 	module.exports = UserActivity;
 
 /***/ },
-/* 260 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var UserActivityItem = __webpack_require__(261);
+	var UserActivityItem = __webpack_require__(269);
 	
 	var UserActivityFeed = React.createClass({
 	  displayName: 'UserActivityFeed',
@@ -33676,7 +34104,7 @@
 	module.exports = UserActivityFeed;
 
 /***/ },
-/* 261 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -33820,13 +34248,13 @@
 	module.exports = UserActivityItem;
 
 /***/ },
-/* 262 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var FollowItem = __webpack_require__(263);
-	var FollowStore = __webpack_require__(264);
+	var FollowItem = __webpack_require__(271);
+	var FollowStore = __webpack_require__(272);
 	
 	var UserFollows = React.createClass({
 	  displayName: 'UserFollows',
@@ -33875,7 +34303,7 @@
 	module.exports = UserFollows;
 
 /***/ },
-/* 263 */
+/* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -33930,7 +34358,7 @@
 	module.exports = FollowItem;
 
 /***/ },
-/* 264 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(209).Store;
@@ -33972,13 +34400,13 @@
 	module.exports = FollowStore;
 
 /***/ },
-/* 265 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var FollowItem = __webpack_require__(263);
-	var FollowStore = __webpack_require__(264);
+	var FollowItem = __webpack_require__(271);
+	var FollowStore = __webpack_require__(272);
 	
 	var UserFollows = React.createClass({
 	  displayName: 'UserFollows',
@@ -34030,280 +34458,6 @@
 	});
 	
 	module.exports = UserFollows;
-
-/***/ },
-/* 266 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(267);
-
-/***/ },
-/* 267 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule LinkedStateMixin
-	 * @typechecks static-only
-	 */
-	
-	'use strict';
-	
-	var ReactLink = __webpack_require__(268);
-	var ReactStateSetters = __webpack_require__(269);
-	
-	/**
-	 * A simple mixin around ReactLink.forState().
-	 */
-	var LinkedStateMixin = {
-	  /**
-	   * Create a ReactLink that's linked to part of this component's state. The
-	   * ReactLink will have the current value of this.state[key] and will call
-	   * setState() when a change is requested.
-	   *
-	   * @param {string} key state key to update. Note: you may want to use keyOf()
-	   * if you're using Google Closure Compiler advanced mode.
-	   * @return {ReactLink} ReactLink instance linking to the state.
-	   */
-	  linkState: function (key) {
-	    return new ReactLink(this.state[key], ReactStateSetters.createStateKeySetter(this, key));
-	  }
-	};
-	
-	module.exports = LinkedStateMixin;
-
-/***/ },
-/* 268 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule ReactLink
-	 * @typechecks static-only
-	 */
-	
-	'use strict';
-	
-	/**
-	 * ReactLink encapsulates a common pattern in which a component wants to modify
-	 * a prop received from its parent. ReactLink allows the parent to pass down a
-	 * value coupled with a callback that, when invoked, expresses an intent to
-	 * modify that value. For example:
-	 *
-	 * React.createClass({
-	 *   getInitialState: function() {
-	 *     return {value: ''};
-	 *   },
-	 *   render: function() {
-	 *     var valueLink = new ReactLink(this.state.value, this._handleValueChange);
-	 *     return <input valueLink={valueLink} />;
-	 *   },
-	 *   _handleValueChange: function(newValue) {
-	 *     this.setState({value: newValue});
-	 *   }
-	 * });
-	 *
-	 * We have provided some sugary mixins to make the creation and
-	 * consumption of ReactLink easier; see LinkedValueUtils and LinkedStateMixin.
-	 */
-	
-	var React = __webpack_require__(2);
-	
-	/**
-	 * @param {*} value current value of the link
-	 * @param {function} requestChange callback to request a change
-	 */
-	function ReactLink(value, requestChange) {
-	  this.value = value;
-	  this.requestChange = requestChange;
-	}
-	
-	/**
-	 * Creates a PropType that enforces the ReactLink API and optionally checks the
-	 * type of the value being passed inside the link. Example:
-	 *
-	 * MyComponent.propTypes = {
-	 *   tabIndexLink: ReactLink.PropTypes.link(React.PropTypes.number)
-	 * }
-	 */
-	function createLinkTypeChecker(linkType) {
-	  var shapes = {
-	    value: typeof linkType === 'undefined' ? React.PropTypes.any.isRequired : linkType.isRequired,
-	    requestChange: React.PropTypes.func.isRequired
-	  };
-	  return React.PropTypes.shape(shapes);
-	}
-	
-	ReactLink.PropTypes = {
-	  link: createLinkTypeChecker
-	};
-	
-	module.exports = ReactLink;
-
-/***/ },
-/* 269 */
-/***/ function(module, exports) {
-
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule ReactStateSetters
-	 */
-	
-	'use strict';
-	
-	var ReactStateSetters = {
-	  /**
-	   * Returns a function that calls the provided function, and uses the result
-	   * of that to set the component's state.
-	   *
-	   * @param {ReactCompositeComponent} component
-	   * @param {function} funcReturningState Returned callback uses this to
-	   *                                      determine how to update state.
-	   * @return {function} callback that when invoked uses funcReturningState to
-	   *                    determined the object literal to setState.
-	   */
-	  createStateSetter: function (component, funcReturningState) {
-	    return function (a, b, c, d, e, f) {
-	      var partialState = funcReturningState.call(component, a, b, c, d, e, f);
-	      if (partialState) {
-	        component.setState(partialState);
-	      }
-	    };
-	  },
-	
-	  /**
-	   * Returns a single-argument callback that can be used to update a single
-	   * key in the component's state.
-	   *
-	   * Note: this is memoized function, which makes it inexpensive to call.
-	   *
-	   * @param {ReactCompositeComponent} component
-	   * @param {string} key The key in the state that you should update.
-	   * @return {function} callback of 1 argument which calls setState() with
-	   *                    the provided keyName and callback argument.
-	   */
-	  createStateKeySetter: function (component, key) {
-	    // Memoize the setters.
-	    var cache = component.__keySetters || (component.__keySetters = {});
-	    return cache[key] || (cache[key] = createStateKeySetter(component, key));
-	  }
-	};
-	
-	function createStateKeySetter(component, key) {
-	  // Partial state is allocated outside of the function closure so it can be
-	  // reused with every call, avoiding memory allocation when this function
-	  // is called.
-	  var partialState = {};
-	  return function stateKeySetter(value) {
-	    partialState[key] = value;
-	    component.setState(partialState);
-	  };
-	}
-	
-	ReactStateSetters.Mixin = {
-	  /**
-	   * Returns a function that calls the provided function, and uses the result
-	   * of that to set the component's state.
-	   *
-	   * For example, these statements are equivalent:
-	   *
-	   *   this.setState({x: 1});
-	   *   this.createStateSetter(function(xValue) {
-	   *     return {x: xValue};
-	   *   })(1);
-	   *
-	   * @param {function} funcReturningState Returned callback uses this to
-	   *                                      determine how to update state.
-	   * @return {function} callback that when invoked uses funcReturningState to
-	   *                    determined the object literal to setState.
-	   */
-	  createStateSetter: function (funcReturningState) {
-	    return ReactStateSetters.createStateSetter(this, funcReturningState);
-	  },
-	
-	  /**
-	   * Returns a single-argument callback that can be used to update a single
-	   * key in the component's state.
-	   *
-	   * For example, these statements are equivalent:
-	   *
-	   *   this.setState({x: 1});
-	   *   this.createStateKeySetter('x')(1);
-	   *
-	   * Note: this is memoized function, which makes it inexpensive to call.
-	   *
-	   * @param {string} key The key in the state that you should update.
-	   * @return {function} callback of 1 argument which calls setState() with
-	   *                    the provided keyName and callback argument.
-	   */
-	  createStateKeySetter: function (key) {
-	    return ReactStateSetters.createStateKeySetter(this, key);
-	  }
-	};
-	
-	module.exports = ReactStateSetters;
-
-/***/ },
-/* 270 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var ReactRouter = __webpack_require__(159);
-	var ReactSlider = __webpack_require__(241);
-	
-	var Slider = React.createClass({
-	  displayName: 'Demo',
-	  getInitialState: function () {
-	    return { value: 0 };
-	  },
-	  onChange: function (value) {
-	    this.setState({ value: value });
-	    this.props.onSliderChange(value);
-	  },
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { className: 'rating value' },
-	      React.createElement(
-	        'div',
-	        { className: 'your-score' },
-	        'YOUR SCORE'
-	      ),
-	      React.createElement(
-	        'div',
-	        { className: 'calc' },
-	        this.state.value
-	      ),
-	      React.createElement(ReactSlider, {
-	        className: 'horizontal-slider',
-	        onChange: this.onChange,
-	        value: this.state.value,
-	        withBars: 'true',
-	        defaultValue: 0
-	      })
-	    );
-	  }
-	});
-	
-	module.exports = Slider;
 
 /***/ }
 /******/ ]);

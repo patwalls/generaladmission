@@ -36,7 +36,7 @@ var ArtistStats = React.createClass({
         <div className='artist-stats'>
           <div className='stat'>
             <div className='header'>
-              GA SCORE
+              SCORE
             </div>
             <div className='calc'>
               {this.gaScore()}

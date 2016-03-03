@@ -3,7 +3,7 @@ var ReactRouter = require('react-router');
 var ReactSlider = require('react-slider');
 
 var ArtistStore = require('../../stores/artist');
-var AttendStore = require('../../stores/attend')
+var AttendStore = require('../../stores/attend');
 var ApiUtil = require('../../util/api_util');
 
 var ArtistHeader = require('./artist_header');
@@ -78,9 +78,7 @@ var ArtistShow = React.createClass({
       <div>
       <div className='container-fluid nopadding'>
         <div className='row'>
-          <div className='col-md-12 nopadding header-photo' style={photoDivStyle}>
             <ArtistHeader artist={this.state.artist}/>
-          </div>
         </div>
         <div className='row'>
           <div className='col-md-12 nopadding about-artist'>
@@ -91,8 +89,10 @@ var ArtistShow = React.createClass({
       <div className='container-fluid page-content'>
         <div className='row'>
           <div className='col-lg-8 col-md-8 col-sm-12 col-xs-12 nopadding testy'>
-            <div className='inner'>
+          <div className='inner'>
+            <div className='row module'>
               <ArtistActivity artist={this.state.artist}/>
+            </div>
             </div>
           </div>
           <div className='col-lg-4 col-md-4 col-sm-12 col-xs-12 nopadding testy'>

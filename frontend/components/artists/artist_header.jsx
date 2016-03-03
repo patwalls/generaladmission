@@ -13,13 +13,11 @@ var ArtistHeader = React.createClass({
       backgroundImage: 'url(' + this.props.artist.photo + ')'
     };
     return (
-        <div className='row'>
-          <div>
-            <div className='artist-header' style={photoDivStyle}>
-              <div className='artist-photo-text'>{this.upperCaseName()}</div>
-              <NewActivityItem artist={this.props.artist}/>
-              <ArtistStats artist={this.props.artist} />
-            </div>
+        <div className='artist-header' style={photoDivStyle}>
+          <div className='col-lg-12 inner-header'>
+            <div className='artist-photo-text'>{this.upperCaseName()}</div>
+            <NewActivityItem artist={this.props.artist}/>
+            <ArtistStats artist={this.props.artist} />
           </div>
         </div>
       );

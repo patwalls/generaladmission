@@ -21,12 +21,12 @@ var UserHeader = React.createClass({
     this.follows();
     if (this.follow === false) {
       if (this.props.user.id === window.getCurrentUserId) {
-        addFollowButton = <div> You! </div>;
+        addFollowButton = <div></div>;
       } else {
       addFollowButton = <UserAddFollow user={this.props.user}/>;
       }
     } else {
-      addFollowButton = <UserAlreadyFollow />;
+      addFollowButton = <UserAlreadyFollow user={this.props.user} />;
     }
     return (
         <div className='user-header'>
