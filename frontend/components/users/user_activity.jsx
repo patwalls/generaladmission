@@ -3,8 +3,8 @@ var ReactRouter = require('react-router');
 var ActivityItem = require('../activity/activity_item');
 var AttendStore = require('../../stores/attend');
 var ApiUtil = require('../../util/api_util');
-var UserActivityFeed = require('./user_activity_feed');
 var UserActivityStats = require('./user_stats');
+var UserActivityItem = require('../activity/user_activity_item');
 
 var UserActivity = React.createClass({
   getInitialState: function () {
@@ -30,9 +30,19 @@ var UserActivity = React.createClass({
 
   render: function () {
     return (
-        <div className='user-activity'>
-          <UserActivityFeed attends={this.state.attends} />
+      <div>
+        <div className='activity-header'>
+          <span> {this.props.user.name}'s Activity </span>
+          <hr />
         </div>
+        <ul className='nopadding'>
+          {
+            this.state.attends.map( function (attend) {
+                return <UserActivityItem attend={attend} key={attend.id}/>
+            }, this)
+          }
+        </ul>
+      </div>
       );
     }
 });

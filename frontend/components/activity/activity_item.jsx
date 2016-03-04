@@ -44,7 +44,6 @@ var ActivityItem = React.createClass({
     var rightmost = {
       width: right +'%'
     };
-    console.log(this.props.attend);
     return (
       <div className='col-lg-6 col-md-6 col-sm-12 col-xs-12 activity-item'>
 

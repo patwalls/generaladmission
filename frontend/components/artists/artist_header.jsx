@@ -10,14 +10,23 @@ var ArtistHeader = React.createClass({
   },
   render: function () {
     var photoDivStyle = {
-      backgroundImage: 'url(' + this.props.artist.photo + ')'
+      backgroundImage: 'url(http://images.sk-static.com/images/media/profile_images/artists/' + this.props.artist.songkick_id + '/huge_avatar)'
     };
+    var avatarPhoto = 'http://images.sk-static.com/images/media/profile_images/artists/' + this.props.artist.songkick_id + '/huge_avatar';
     return (
-        <div className='artist-header' style={photoDivStyle}>
+        <div className='artist-header'>
+          <div className='overflow'>
+            <div className='bg-photo-cool' style={photoDivStyle}></div>
+          </div>
           <div className='col-lg-12 inner-header'>
             <div className='artist-photo-text'>{this.upperCaseName()}</div>
             <NewActivityItem artist={this.props.artist}/>
             <ArtistStats artist={this.props.artist} />
+            <img className='artist-header-avatar'
+              src={avatarPhoto}
+              height='250px'
+              width='250px'
+            />
           </div>
         </div>
       );

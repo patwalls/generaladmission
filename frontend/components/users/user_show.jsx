@@ -51,35 +51,32 @@ var UserShow = React.createClass({
     this.setState({ user: user });
   },
   render: function () {
-    var photoDivStyle = {
-      backgroundImage: 'url(https://c2.staticflickr.com/4/3936/15617350755_ecaab550f0_b.jpg)'
-    };
+
     return(
     <div>
       <div className='container-fluid nopadding'>
-        <div className='row'>
-          <div className='col-md-12 nopadding header-photo' style={photoDivStyle}>
-              <UserHeader user={this.state.user} />
-          </div>
+        <div className='row header-size'>
+          <UserHeader user={this.state.user} />
         </div>
       </div>
-      <div className='container-fluid nopadding'>
+      <div className='container-fluid page-content'>
         <div className='row'>
           <div className='col-lg-8 col-md-8 col-sm-12 col-xs-12 nopadding testy'>
             <div className='inner'>
+            <div className='row module'>
               <UserActivity user={this.state.user} />
+              </div>
             </div>
           </div>
           <div className='col-lg-4 col-md-4 col-sm-12 col-xs-12 nopadding testy'>
             <div className='inner'>
               <UserFollows user={this.state.user} />
               <div className='module tbd'>Top Artists</div>
-              <div className='module tbd'>Top Venues</div>
             </div>
           </div>
         </div>
+        </div>
       </div>
-    </div>
     );
   }
 });

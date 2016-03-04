@@ -5,6 +5,7 @@ var UserConstants = require('../constants/user_constants');
 var FollowConstants = require('../constants/follow_constants');
 var SearchConstants = require('../constants/search_constants');
 var ShowConstants = require('../constants/show_constants');
+var VenueConstants = require('../constants/venue_constants');
 
 ApiActions = {
   receiveAllResults: function(results){
@@ -22,6 +23,17 @@ ApiActions = {
   resetAllResults: function(){
     AppDispatcher.dispatch({
       actionType: SearchConstants.RESET_RESULTS,
+    });
+  },
+  receiveAllVenueResults: function(results){
+    AppDispatcher.dispatch({
+      actionType: VenueConstants.VENUE_RESULTS_RECEIVED,
+      results: results
+    });
+  },
+  resetAllVenueResults: function(){
+    AppDispatcher.dispatch({
+      actionType: VenueConstants.VENUE_RESET_RESULTS,
     });
   },
   receiveAll: function(artists){

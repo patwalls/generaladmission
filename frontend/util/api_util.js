@@ -74,8 +74,17 @@ var ApiUtil = {
       ApiActions.receiveAllShows(data);
     });
   },
+  venueSearchResults: function(query) {
+    var searchUrl = 'http://api.songkick.com/api/3.0/search/venues.json?query=' + query + '&apikey=n3h6YMv9J87oRnq9';
+    $.getJSON(searchUrl, function(data) {
+      ApiActions.receiveAllVenueResults(data);
+    });
+  },
   resetResults: function() {
-    ApiActions.resetAllArtists();
+    ApiActions.resetAllResults();
+  },
+  resetVenueResults: function() {
+    ApiActions.resetAllVenueResults();
   },
   artistExistsInDb: function(songkickId) {
 

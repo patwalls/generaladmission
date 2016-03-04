@@ -24,16 +24,20 @@ var App = React.createClass({
   render: function() {
     if (this.signedIn()) {
       return (
-        <div className='container-fluid'>
-          <nav className="navbar navbar-dark bg-inverse">
-            <ul className="nav navbar-nav navbar-left">
-              <li><Link to={"/"}>GENERAL ADMISSION</Link></li>
-            </ul>
-            <ul className="nav navbar-nav navbar-right">
-              <li><Link to={"/users/" + window.getCurrentUserId}>MY PROFILE</Link></li>
-              <li><a href="/" onClick={this.signOut}>SIGN OUT</a></li>
-            </ul>
-          </nav>
+        <div className='container-fluid nopadding'>
+          <div className='surrounding-nav-bar'>
+            <nav className="navbar navbar-dark bg-inverse">``
+              <ul className="nav navbar-nav navbar-left">
+                <li>
+                  <Link to={"/"}><img src='https://www.bjcc.org/img/ticket-icon.png' width='20px' height='20px'/> GA</Link>
+                </li>
+              </ul>
+              <ul className="nav navbar-nav navbar-right">
+                <li><Link to={"/users/" + window.getCurrentUserId}>MY PROFILE</Link></li>
+                <li><a href="/" onClick={this.signOut}>SIGN OUT</a></li>
+              </ul>
+            </nav>
+          </div>
           {this.props.children}
         </div>
       );

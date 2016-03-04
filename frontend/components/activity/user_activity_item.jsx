@@ -2,90 +2,56 @@ var React = require('react');
 var ReactRouter = require('react-router');
 var History = require('react-router').History;
 
-var UserActivityItem = React.createClass({
+var ActivityItem = React.createClass({
   mixins: [History],
-  showArtist: function () {
-    this.history.push("/artists/" + this.props.attend.artist_id);
+  showUser: function () {
+    this.history.push("/users/" + this.props.attend.user_id);
   },
 
   render: function () {
-    var rating = this.props.attend.rating;
-    var leftset = 70;
-    var middleset = 20;
-    var rightset = 10;
-    var left;
-    var middle;
-    var right;
-    var leftvalue;
-    var middlevalue;
-    var rightvalue;
-    if (rating <= leftset) {
-      left = rating;
-      middle = 0;
-      right = 0;
-      leftvalue = rating;
-    } else if  (rating <= leftset + middleset) {
-      left = leftset;
-      middle = rating - leftset;
-      right = 0;
-      middlevalue = rating;
-    } else if  (rating <= leftset + middleset + rightset) {
-      left = leftset;
-      middle = middleset;
-      right = rating - middleset - leftset;
-      rightvalue = rating;
-    }
-    var leftmost = {
-      width: left +'%'
-    };
-    var middlemost = {
-      width: middle +'%'
-    };
-    var rightmost = {
-      width: right +'%'
-    };
+    console.log(this.props.attend);
     return (
-      <div className='container-fluid'>
-        <div className='col-lg-12 col-md-12 col-sm-12 col-xs-12 activity-item nopadding testy'>
-          <div className='inner'>
-          <div className='row'>
-            <div className='top-user-activity'>
-              <div className='user-attend-details'>
-                <div className='artist' onClick={this.showArtist}>{this.props.attend.artist_name}</div>
-                <div className='date'>{this.props.attend.date_attended}</div>
-                <div className='venue'>TBD Venue</div>
-              </div>
-              <div className='review-details'>
-                <div className='review'>
-                  <blockquote>
-                    {this.props.attend.review}
-                    <cite>{this.props.attend.name}, {this.props.attend.date_attended}</cite>
-                  </blockquote>
-                </div>
-              </div>
-              <div className='artist-photo' onClick={this.showArtist}>
-                <img src={this.props.attend.artist_photo} className="img-circle" alt="Cinque Terre" width="100" height="100"></img>
-              </div>
-            </div>
-            <div className='bottom-user-activity'>
-              <div className="progress">
-                <div className="progress-bar progress-bar-success" style={leftmost}>
-                  {leftvalue}
-                </div>
-                <div className="progress-bar progress-bar-warning" style={middlemost}>
-                  {middlevalue}
-                </div>
-                <div className="progress-bar progress-bar-danger" style={rightmost}>
-                  {rightvalue}
-                </div>
-              </div>
+      <div className='col-lg-6 col-md-6 col-sm-12 col-xs-12 user-activity-item'>
+      <div className='main-left-pane'>
+        <div className='left-left-pane'>
+          <div className="date-cont">
+            <div className="calendar-date">
+              <span className="binds"></span>
+              <span className="month">Mar</span>
+              <h1 className="day">24</h1>
             </div>
           </div>
         </div>
+        <div className='left-pane'>
+          <div className='show-details'>
+            <div className='show-details-artist-name'>{this.props.attend.artist_name}</div>
+            <div className='venue'>Fox Theater</div>
+            <div className='location'>Oakland, CA</div>
+          </div>
+        </div>
+        </div>
+        <div className='main-right-pane'>
+        <div className='divider'>
+        </div>
+        <div className='middle-pane'>
+          <div className='review'>
+            {this.props.attend.review}
+          </div>
+          <div className='attend-details'>
+            <div className='name'>-{this.props.attend.name}</div>
+          </div>
+          </div>
+        </div>
+
+        <div className='right-pane'>
+          <div className='activity-rating'>
+              <div className='score'>SCORE</div>
+              <div className='calc'>{this.props.attend.rating}</div>
+          </div>
         </div>
       </div>
       );
   }
 });
 
-module.exports = UserActivityItem;
+module.exports = ActivityItem;

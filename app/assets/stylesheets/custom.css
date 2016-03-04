@@ -10,14 +10,36 @@
 
 .artist-header {
   height: 500px;
+  background-size: cover;
+  background-position: center;
 }
 
-.inner-header {
-  position: absolute;
-  margin: auto;
-  max-width: 1200px;
-  outline: 2px solid white;
+.bg-photo-cool {
   height: 500px;
+  margin: -10px 0px -5px 0px;
+  background-size: cover;
+  background-position: center;
+  -webkit-filter: blur(7px);
+  -moz-filter: blur(7px);
+  -o-filter: blur(7px);
+  -ms-filter: blur(7px);
+  filter: blur(7px);
+  z-index:-1;
+}
+
+.overflow {
+    overflow: hidden;
+    margin: 5px;
+}
+
+
+.inner-header {
+  position: relative;
+  top: -100%;
+  max-width: 1200px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
 }
 
 html, body {
@@ -50,37 +72,34 @@ html, body {
   text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
 }
 
-blockquote {
-  font-family: Georgia, serif;
-  font-size: 14px;
-  font-style: italic;
-  margin: 0.25em 0;
-  padding: 0.35em 10px 0.35em 40px;
-  line-height: 1.45;
-  position: relative;
-  color: #383838;
-}
-
-blockquote:before {
-  display: block;
-  padding-left: 10px;
-  content: "\201C";
-  font-size: 80px;
+.artist-stats {
+  top: 320px;
   position: absolute;
-  left: -20px;
-  top: -20px;
-  color: #7a7a7a;
+  display: flex;
+  top: 315px;
+  left: 16%;
 }
 
-blockquote cite {
-  color: #999999;
-  font-size: 14px;
-  display: block;
-  margin-top: 5px;
+.artist-stats .stat {
+  height: 150px;
+  width: 150px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+  border: 1px solid #e5e5e5;
 }
 
-blockquote cite:before {
-  content: "\2014 \2009";
+.artist-stats .header {
+  font-size: 1em;
+  color: black;
+}
+
+.artist-stats .calc {
+  font-size: 7em;
+  color: black;
 }
 
 .right-sidebar {
@@ -113,6 +132,7 @@ body {
   text-align: center;
   color: #2C3539;
   font-size: 6em;
+  margin-top: 50px;
 }
 
 .tagline {
@@ -120,10 +140,12 @@ body {
   text-align: center;
   color: #2C3539;
   font-size: 2.5em;
+  margin-bottom: 30px;
 }
 
 .search {
   width: 100%;
+  margin-top: 40px;
 }
 
 a {
@@ -322,18 +344,33 @@ input {
 .check-in-box {
   height: 150px;
   width: 150px;
+  top: 320px;
   background-color: #5cb85c;
   border: 1px #4cae4c;
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
-  border-radius: 8px;
   bottom: 3%;
-  right: 3%;
+  left: 3%;
+}
+
+.artist-header-avatar {
+  position: relative;
+  bottom: -218px;
+  left: 79%;
+  border: 1px solid #e5e5e5;
+}
+
+.user-header-avatar {
+  position: relative;
+  top: -39px;
+  left: 79%;
+  border: 1px solid #e5e5e5;
 }
 
 .checked-in {
+  top: 320px;
   height: 150px;
   width: 150px;
   background-color: #5bc0de;
@@ -342,9 +379,8 @@ input {
   justify-content: center;
   align-items: center;
   position: absolute;
-  border-radius: 8px;
   bottom: 3%;
-  right: 3%;
+  left: 3%;
 }
 
 .check-in {
@@ -357,45 +393,13 @@ input {
   padding: 20px;
 }
 
-.artist-stats {
-  position: absolute;
-  display: flex;
-  bottom: 3%;
-  left: 3%;
-}
 
-.artist-stats .stat {
-  height: 150px;
-  width: 150px;
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 5px;
-}
-
-.artist-stats .header {
-  font-size: 1em;
-  color: black;
-}
-
-.artist-stats .calc {
-  font-size: 7em;
-  color: black;
-}
 
 .header-photo {
   height: 500px;
   background-size: cover;
   background-position: center;
   background-color: #4d4d4d;
-}
-
-.header-photo img {
-  position: absolute;
-  top: 3%;
-  right: 3%;
 }
 
 .user-photo-text-name {
@@ -411,11 +415,9 @@ input {
 }
 
 .user-header {
-  display: flex;
-  flex-direction: column;
-  line-height: 1;
-  top: 0px;
-  left: 40px;
+  height: 500px;
+  background-size: cover;
+  background-position: center;
 }
 
 .user-header .artist-stats {
@@ -511,6 +513,10 @@ blockquote {
   color: #2C3539;
   font-size: 2em;
   margin-left: 5px;
+}
+
+.activity-header ul {
+  padding: 0px;
 }
 
 .about-artist .btn {
@@ -794,4 +800,128 @@ body {
   position: relative;
   margin-top: auto;
   margin-bottom: auto;
+}
+
+/**/
+
+.user-activity-item {
+  display: flex;
+  flex-direction: row;
+  height: 120px;
+  background-color: white;
+  border: 10px transparent;
+  width: 100%;
+}
+
+.user-activity-item .main-left-pane {
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+}
+
+.user-activity-item .main-right-pane {
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+}
+
+.user-activity-item .left-left-pane {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-activity-item .left-pane {
+  display: flex;
+  justify-content: flex-start;
+  font-size: 1.2em;
+  margin-left: 10px;
+}
+
+.user-activity-item .right-pane {
+  display: flex;
+  justify-content: flex-start;
+  font-size: 1.2em;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.user-activity-item .left-pane .show-details-artist-name {
+  font-size: 1.5em;
+}
+
+.user-activity-item .activity-rating {
+  height: 100px;
+  width: 100px;
+  background-color: #555;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-activity-item .user-activity-rating .score {
+  position:relative;
+  font-size: 1em;
+  padding-top: 15px;
+
+}
+
+.user-activity-item .user-activity-rating .calc {
+ font-size: 4.5em;
+}
+
+.user-activity-item .border {
+  vertical-align: middle;
+  border-left: 3px solid #555;
+  height: 90%;
+  position: relative;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.user-activity-item .middle-pane {
+  padding-left: 5px;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.divider {
+  vertical-align: middle;
+  border-left: 3px solid #555;
+  height: 90%;
+  position: relative;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.venue-search-and-dropdown input {
+  display: block;
+  width: 300px;
+}
+
+.navbar {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 0px;
+  background-color: #555;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.navbar a {
+  color: white;
+}
+
+.surrounding-nav-bar {
+  background-color: #555;
+  background-size: cover;
+}
+
+.header-size {
+  height: 500px;
 }

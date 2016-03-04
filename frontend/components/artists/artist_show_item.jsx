@@ -13,7 +13,6 @@ var ArtistShowItem = React.createClass({
     return parseInt(dateParsed[2],10)
   },
   render: function () {
-    console.log(this.props.show);
     return (
       <div className="show-item">
         <div className="date-cont">
