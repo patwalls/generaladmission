@@ -63,14 +63,9 @@ var ArtistShow = React.createClass({
     };
     return (
       <div>
-      <div className='container-fluid nopadding '>
-        <div className='row'>
+      <div className='container-fluid nopadding'>
+        <div className='row artist-header'>
             <ArtistHeader artist={this.state.artist}/>
-        </div>
-        <div className='row'>
-          <div className='col-md-12 nopadding about-artist'>
-            <ArtistAbout artist={this.state.artist}/>
-          </div>
         </div>
       </div>
       <div className='container-fluid page-content'>
@@ -90,7 +85,6 @@ var ArtistShow = React.createClass({
           </div>
         </div>
       </div>
-      // modal
       <NewActivityItemModal artist={this.state.artist} />
       </div>
       );

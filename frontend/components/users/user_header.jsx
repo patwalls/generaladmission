@@ -11,7 +11,7 @@ var UserHeader = React.createClass({
   },
   follows: function (newProps) {
     this.followStatus = false;
-    if (typeof newProps.user.following !== 'undefined') {
+    if (typeof newProps.user !== 'undefined') {
       newProps.user.following.forEach( function (follow) {
         if (follow.id === window.getCurrentUserId) {
           this.followStatus = true;
@@ -20,46 +20,64 @@ var UserHeader = React.createClass({
       }.bind(this));
     }
   },
-  componentWillMount: function () {
-    // this.props = 'undefined';
+  componentDidMount: function () {
+    console.log(this.props);
+    if (typeof this.props !== 'undefined') {
+      if (Object.keys(this.props.user).length !== 0) {
+      console.log('this is where we at');
+        // this.follows(this.props.user.id);
+      }
+    }
   },
   componentWillReceiveProps: function (newProps) {
-    console.log(newProps.user.id);
     this.follows(newProps);
   },
   changeFollowStatus: function () {
     this.setState({ followstatus: true });
   },
   render: function () {
+    console.log(this.state.followstatus);
     var photoDivStyle = {
       backgroundImage: 'url(https://c2.staticflickr.com/4/3936/15617350755_ecaab550f0_b.jpg)'
     };
     var addFollowButton;
     if (this.state.followstatus === false) {
-      if (this.props.user.id === window.getCurrentUserId) {
-        addFollowButton = <div></div>;
-      } else {
-      addFollowButton = <UserAddFollow user={this.props.user} changeFollowStatus={this.changeFollowStatus}/>;
+      if ((typeof this.props.user !== 'undefined') || (Object.keys(this.props.user).length !== 0)) {
+        if (this.props.user.id === window.getCurrentUserId) {
+          addFollowButton = <div className='follow-yourself'></div>;
+        } else {
+          addFollowButton = <UserAddFollow user={this.props.user} changeFollowStatus={this.changeFollowStatus}/>;
+        }
       }
     } else {
       addFollowButton = <UserAlreadyFollow user={this.props.user} />;
     }
+    var userPhoto;
+
+    if (this.props.user.photo === null) {
+      userPhoto = 'http://cdn3.rd.io/user/no-user-image-square.jpg';
+    } else {
+      userPhoto = this.props.user.photo;
+    }
     return (
-      <div className='user-header'>
+      <div className='artist-header'>
       <div className='overflow'>
         <div className='bg-photo-cool' style={photoDivStyle}></div>
       </div>
-        <div className='col-md-12 inner-header'>
+        <div className='inner-header'>
             <div className='user-photo-text-name'>{this.props.user.name}</div>
+            <span className="glyphicon glyphicon-user" aria-hidden="true"></span>
             <div className='user-photo-text-username'>{this.props.user.username}</div>
             {addFollowButton}
             <UserActivityStats user={this.props.user}/>
+
             <img className='user-header-avatar'
-              src={this.props.user.photo}
+              src={userPhoto}
               height='250px'
               width='250px'
             />
           </div>
+          <div className='user-dropdown'></div>
         </div>
       );
   }

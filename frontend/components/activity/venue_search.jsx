@@ -36,11 +36,10 @@ var VenueSearch = React.createClass({
     this.props.onVenueSelection(venueProps);
   },
   render: function () {
-    console.log(this.state.venues);
     return (
       <div>
         <input type='text' name='q' className='form-control' placeholder='Search for venues...' id='venue-search-query' onChange={this.changedQuery}></input>
-        <ul>
+        <ul className='venue-list'>
           {
             this.state.venues.map( function (venue) {
                 return <VenueItem venue={venue} onVenueSelect={this.onVenueSelect} />

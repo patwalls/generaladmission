@@ -9,41 +9,6 @@ var ActivityItem = React.createClass({
   },
 
   render: function () {
-    var rating = this.props.attend.rating;
-    var leftset = 70;
-    var middleset = 20;
-    var rightset = 10;
-    var left;
-    var middle;
-    var right;
-    var leftvalue;
-    var middlevalue;
-    var rightvalue;
-    if (rating <= leftset) {
-      left = rating;
-      middle = 0;
-      right = 0;
-      leftvalue = rating;
-    } else if  (rating <= leftset + middleset) {
-      left = leftset;
-      middle = rating - leftset;
-      right = 0;
-      middlevalue = rating;
-    } else if  (rating <= leftset + middleset + rightset) {
-      left = leftset;
-      middle = middleset;
-      right = rating - middleset - leftset;
-      rightvalue = rating;
-    }
-    var leftmost = {
-      width: left +'%'
-    };
-    var middlemost = {
-      width: middle +'%'
-    };
-    var rightmost = {
-      width: right +'%'
-    };
     return (
       <div className='col-lg-6 col-md-6 col-sm-12 col-xs-12 activity-item'>
 
@@ -52,7 +17,7 @@ var ActivityItem = React.createClass({
               <div className='score'>SCORE</div>
               <div className='calc'>{this.props.attend.rating}</div>
           </div>
-          <div className='user'>
+          <div className='user' onClick={this.showUser}>
             <div className='user-image'>
               <img src={this.props.attend.photo} className="img-circle" alt="Cinque Terre" width="80" height="80"></img>
             </div>
@@ -69,7 +34,8 @@ var ActivityItem = React.createClass({
           <div className='attend-details'>
             <div className='name'>-{this.props.attend.name}</div>
             <div className='date'>-{this.props.attend.date_attended}</div>
-            <div className='venue-location'>-Fox Theatre, Oakland CA</div>
+            <div className='venue-name'>-{this.props.attend.venue_name}</div>
+            <div className='venue-city'>-{this.props.attend.venue_city}</div>
           </div>
           </div>
         </div>

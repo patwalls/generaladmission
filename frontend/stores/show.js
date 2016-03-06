@@ -10,9 +10,11 @@ var _shows = {};
 
 var resetShows = function(shows){
   _shows = {};
-  for (var i = 0; i < shows.length; i++) {
-      _shows[shows[i].id] = shows[i];
-    }
+  if (typeof shows !== 'undefined') {
+    for (var i = 0; i < shows.length; i++) {
+        _shows[shows[i].id] = shows[i];
+      }
+  }
 };
 
 ShowStore.all = function () {

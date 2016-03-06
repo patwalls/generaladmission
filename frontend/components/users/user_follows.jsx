@@ -31,7 +31,7 @@ var UserFollows = React.createClass({
           <div className='module'>
             <span>People You Follow</span>
             <hr />
-            <ul>
+            <ul className='follows-list'>
             {
               this.state.follows.map( function (follow) {
                   return <FollowItem follow={follow} />

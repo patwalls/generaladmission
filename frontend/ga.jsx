@@ -9,6 +9,7 @@ var ArtistStore = require('./stores/artist.js');
 var ArtistIndex = require('./components/artists/artist_index.jsx');
 var ArtistShow = require('./components/artists/artist_show.jsx');
 var ArtistSearch = require('./components/artists/artist_search.jsx');
+var ArtistSearchHeader = require('./components/artists/artist_search_header.jsx');
 var Home = require('./components/home.jsx');
 var AttendStore = require('./stores/attend.js');
 var UserShow = require('./components/users/user_show.jsx');
@@ -22,6 +23,10 @@ var App = React.createClass({
     return typeof window.getCurrentUserId !== "undefined";
   },
   render: function() {
+    var searchInHeader;
+      if (typeof this.props.params.artistId !== 'undefined') {
+        searchInHeader = <li><ArtistSearchHeader className='header-search' /></li>
+      }
     if (this.signedIn()) {
       return (
         <div className='container-fluid nopadding'>
@@ -29,7 +34,7 @@ var App = React.createClass({
             <nav className="navbar navbar-dark bg-inverse">``
               <ul className="nav navbar-nav navbar-left">
                 <li>
-                  <Link to={"/"}><img src='https://www.bjcc.org/img/ticket-icon.png' width='20px' height='20px'/> GA</Link>
+                  <Link to={"/"}><img src='https://www.bjcc.org/img/ticket-icon.png' width='20px' height='20px'/> GENERAL ADMISSION</Link>
                 </li>
               </ul>
               <ul className="nav navbar-nav navbar-right">
@@ -43,12 +48,21 @@ var App = React.createClass({
       );
     } else {
       return (
-        <div className='container'>
-          <ul className='list-inline'>
-            <li><Link to={"/"}>GENERAL ADMISSION</Link></li>
-            <li><a href="/session/new">SIGN IN</a></li>
-            <li><a href="/users/new">SIGN UP</a></li>
-          </ul>
+        <div className='container-fluid nopadding'>
+          <div className='surrounding-nav-bar'>
+            <nav className="navbar navbar-dark bg-inverse">``
+              <ul className="nav navbar-nav navbar-left">
+                <li>
+                  <Link to={"/"}><img src='https://www.bjcc.org/img/ticket-icon.png' width='20px' height='20px'/> GENERAL ADMISSION</Link>
+                </li>
+                {searchInHeader}
+              </ul>
+              <ul className="nav navbar-nav navbar-right">
+                <li><a href="/session/new">SIGN IN</a></li>
+                <li><a href="/users/new">SIGN UP</a></li>
+              </ul>
+            </nav>
+          </div>
           {this.props.children}
         </div>
       );

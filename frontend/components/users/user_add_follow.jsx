@@ -3,6 +3,9 @@ var ReactRouter = require('react-router');
 
 var UserFollow = React.createClass({
   follow: function () {
+    if (typeof window.getCurrentUserId === 'undefined')  {
+      window.location.href = '/session/new';
+    }
     var user_id = window.getCurrentUserId;
     var follower_id = this.props.user.id;
     ApiUtil.follow({ user_id: follower_id, follower_id: user_id });
@@ -10,8 +13,8 @@ var UserFollow = React.createClass({
   },
   render: function () {
     return (
-      <div className="check-in-box" onClick={this.follow}>
-        <span className="glyphicon glyphicon-plus check-in" aria-hidden="true"></span>
+      <div className="add-follow" onClick={this.follow}>
+        {'Follow ' + this.props.user.name}
       </div>
       );
   }

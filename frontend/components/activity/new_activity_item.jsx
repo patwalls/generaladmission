@@ -24,7 +24,9 @@ var NewActivityItem = React.createClass({
     this.setState({ rating: value });
   },
   openModal: function () {
-    console.log('trying to open');
+    if (typeof window.getCurrentUserId === 'undefined')  {
+      window.location.href = '/session/new';
+    }
   },
   render: function () {
     this.userSeenArtist();
@@ -34,15 +36,14 @@ var NewActivityItem = React.createClass({
         boxStyle = 'checked-in';
         glyph = 'glyphicon glyphicon-ok check-in';
       } else {
-        boxStyle = 'check-in-box';
+        boxStyle = 'checked-in';
         glyph = 'glyphicon glyphicon-plus check-in';
       }
     var attend = Object.assign({}, this.state);
     return (
-      <div>
-        <a href='#' className={boxStyle} onClick={this.openModal} data-toggle="modal" data-target=".bs-example-modal-md">
-          <h4>
-          <span className={glyph} aria-hidden="true"></span></h4>
+      <div className='artist-activity-item' onClick={this.openModal}>
+        <a href='#' className={boxStyle} data-toggle="modal" data-target=".bs-example-modal-md">
+          <span className='check-in-text'>ADD<br />REVIEW</span>
         </a>
       </div>
 

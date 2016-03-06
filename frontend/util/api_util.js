@@ -59,7 +59,7 @@ var ApiUtil = {
   },
   follow: function(data){
     $.post('api/followers', { follower: data }, function(follow) {
-      console.log('should this do anything?');
+      // callback
     });
   },
   searchResults: function(query) {

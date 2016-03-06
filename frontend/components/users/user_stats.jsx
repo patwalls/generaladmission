@@ -22,24 +22,24 @@ var UserStats = React.createClass({
   render: function () {
     return (
       <div className='artist-stats'>
-        <div className='stat'>
-          <div className='header'>
+        <div className='artist-activity-rating'>
+          <div className='score'>
             SHOWS
           </div>
           <div className='calc'>
             {this.props.user.shows_amt}
           </div>
         </div>
-        <div className='stat'>
-          <div className='header'>
+        <div className='artist-activity-rating'>
+          <div className='score'>
             UNIQUE
           </div>
           <div className='calc'>
             {this.props.user.unique_shows_amt}
           </div>
         </div>
-        <div className='stat'>
-          <div className='header'>
+        <div className='artist-activity-rating'>
+          <div className='score'>
             FOLLOWERS
           </div>
           <div className='calc'>

@@ -1,16 +1,36 @@
-<h2>Sign Up</h2>
+<div class='container-fluid nopadding'>
+  <div class='surrounding-nav-bar'>
+    <nav class="navbar navbar-dark bg-inverse">``
+      <ul class="nav navbar-nav navbar-left">
+        <li>
+          <a href="/"><img src='https://www.bjcc.org/img/ticket-icon.png' width='20px' height='20px'/> GENERAL ADMISSION</Link>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right navbar-issue">
+        <li>
+          <li><a href="/session/new">SIGN IN</a></li>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
 
-<form action="<%= users_url %>" method="post">
-  <%= auth_token_input %>
-  <label>
-    Username
-    <input type="text" name="user[username]" value="">
-  </label>
 
-  <label>
-    Password
-    <input type="password" name="user[password]" value="">
-  </label>
+<div class='sign-in-page'>
+  <div class='sign-in-window'>
+    <h3 class='sign-in-header'>GENERAL ADMISSION</h3>
+    <%= render "layouts/errors" %>
 
-  <input type="submit" value="Sign Up">
-</form>
+    <form class='sign-in-form' action="<%= users_url %>" method="post">
+      <%= auth_token_input %>
+        <div class='inputs'>
+          <input class='email' type='text' name="user[name]" value="" placeholder='Name'>
+          <input class='email' type="text" name="user[username]" value="" placeholder='Username'>
+          <input class='password' type="password" name="user[password]" value="" placeholder='Password'>
+        </div>
+        <div class='buttons'>
+          <button type="submit" class="btn btn-primary btn-lg btn-block sign-in-button" value="SIGN IN">SIGN UP</button>
+        </div>
+    </form>
+  </div>
+</div>

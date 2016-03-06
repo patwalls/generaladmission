@@ -12,7 +12,7 @@ var Home = React.createClass({
     return (
       <div className='home-components'>
         <div className='site-title'>GENERAL ADMISSION</div>
-        <div className='tagline'>YOUR RESOURSE FOR THE BEST CONCERTS</div>
+        <div className='tagline'>YOUR RESOURCE FOR CONCERT REVIEWS</div>
         <ArtistSearch />
       </div>
     );

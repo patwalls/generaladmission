@@ -1,6 +1,10 @@
 var React = require('react');
 var ReactRouter = require('react-router');
 var ArtistStats = require('./artist_stats');
+var ArtistAbout = require('./artist_about');
+var ArtistStore = require('../../stores/artist');
+var ApiUtil = require('../../util/api_util');
+
 
 var ArtistHeader = React.createClass({
   upperCaseName: function () {
@@ -16,11 +20,10 @@ var ArtistHeader = React.createClass({
     return (
         <div className='artist-header'>
           <div className='overflow'>
-            <div className='bg-photo-cool' style={photoDivStyle}></div>
+            <div className='bg-photo-cool' style={photoDivStyle}/>
           </div>
-          <div className='col-lg-12 inner-header'>
+          <div className='inner-header'>
             <div className='artist-photo-text'>{this.upperCaseName()}</div>
-            <NewActivityItem artist={this.props.artist}/>
             <ArtistStats artist={this.props.artist} />
             <img className='artist-header-avatar'
               src={avatarPhoto}
@@ -28,6 +31,7 @@ var ArtistHeader = React.createClass({
               width='250px'
             />
           </div>
+          <div className='about-dropdown'></div>
         </div>
       );
   }

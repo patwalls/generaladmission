@@ -4,29 +4,31 @@ var History = require('react-router').History;
 
 var ActivityItem = React.createClass({
   mixins: [History],
-  showUser: function () {
-    this.history.push("/users/" + this.props.attend.user_id);
+  showArtist: function () {
+    this.history.push("/artists/" + this.props.attend.artist_id);
   },
 
   render: function () {
-    console.log(this.props.attend);
+    var avatarPhoto = 'http://images.sk-static.com/images/media/profile_images/artists/' + this.props.attend.artist_songkick_id + '/huge_avatar';
     return (
-      <div className='col-lg-6 col-md-6 col-sm-12 col-xs-12 user-activity-item'>
-      <div className='main-left-pane'>
+      <div className='col-lg-12 col-md-12 col-sm-12 col-xs-12 main-activity-item'>
+      <div className='user-activity-item'>
+      <div className='main-left-pane' onClick={this.showArtist}>
         <div className='left-left-pane'>
           <div className="date-cont">
-            <div className="calendar-date">
-              <span className="binds"></span>
-              <span className="month">Mar</span>
-              <h1 className="day">24</h1>
-            </div>
+            <img className='activity-artist-photo'
+              src={avatarPhoto}
+              height='100px'
+              width='100px'
+            />
           </div>
         </div>
         <div className='left-pane'>
           <div className='show-details'>
             <div className='show-details-artist-name'>{this.props.attend.artist_name}</div>
-            <div className='venue'>Fox Theater</div>
-            <div className='location'>Oakland, CA</div>
+            <div className='date-attend'>{this.props.attend.date_attended}</div>
+            <div className='venue'>{this.props.attend.venue_name}</div>
+            <div className='location'>{this.props.attend.venue_city}</div>
           </div>
         </div>
         </div>
@@ -43,11 +45,14 @@ var ActivityItem = React.createClass({
           </div>
         </div>
 
-        <div className='right-pane'>
-          <div className='activity-rating'>
+        <div className='user-activity-right-pane'>
+          <div className='follow-activity-rating'>
               <div className='score'>SCORE</div>
               <div className='calc'>{this.props.attend.rating}</div>
           </div>
+        </div>
+        </div>
+          <div className='bottom-line'>
         </div>
       </div>
       );

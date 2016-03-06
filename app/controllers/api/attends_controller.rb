@@ -30,6 +30,6 @@ class Api::AttendsController < ApplicationController
   private
 
   def attend_params
-    params.require(:attend).permit(:review, :rating, :photo, :date_attended, :user_id, :artist_id, :venue_id)
+    params.require(:attend).permit(:review, :rating, :photo, :date_attended, :user_id, :artist_id, :venue_id, :venue_name, :venue_city)
   end
 end

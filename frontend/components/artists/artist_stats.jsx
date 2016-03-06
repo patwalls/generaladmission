@@ -34,22 +34,24 @@ var ArtistStats = React.createClass({
   render: function () {
     return (
         <div className='artist-stats'>
-          <div className='stat'>
-            <div className='header'>
+
+          <div className='artist-activity-rating'>
+            <div className='score'>
               SCORE
             </div>
             <div className='calc'>
               {this.gaScore()}
             </div>
           </div>
-          <div className='stat'>
-            <div className='header'>
+          <div className='artist-activity-rating'>
+            <div className='score'>
               NO. REVIEWS
             </div>
             <div className='calc'>
               {this.state.attends.length}
             </div>
           </div>
+          <NewActivityItem artist={this.props.artist}/>
         </div>
       );
   }

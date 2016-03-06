@@ -16,16 +16,31 @@ var FollowItem = React.createClass({
     return (
         <div className='follow-item' onClick={this.showDetail}>
           <div className='follow-photo'>
-            <img src={this.props.follow.followed_photo} className="img-circle" alt="Cinque Terre" width="60" height="60"></img>
+            <img src={this.props.follow.followed_photo} className="img-circle" alt="Cinque Terre" width="75" height="75"></img>
+            <div>{this.props.follow.followed_name}</div>
           </div>
-          <div className='follow-details'>
-            <span>{this.props.follow.followed_name}</span>
-            <span>Total Shows: {this.props.follow.followed_shows_amt}</span>
-            <span>Followers: {this.props.follow.followed_followers_amt}</span>
+          <div className='border'>
+          </div>
+          <div className='follow-stats'>
+            <div className='follow-activity-rating'>
+              <div className='score'>
+                SHOWS
+              </div>
+              <div className='calc'>
+                {this.props.follow.followed_shows_amt}
+              </div>
+            </div>
+            <div className='follow-activity-rating'>
+              <div className='score'>
+                FOLLOWS
+              </div>
+              <div className='calc'>
+                {this.props.follow.followed_followers_amt}
+              </div>
+            </div>
           </div>
         </div>
       );
   }
 });
-
 module.exports = FollowItem;

@@ -22,9 +22,9 @@ var NewActivityItemModal = React.createClass({
       artist_id: this.props.artist.id,
       date_attended: "",
       venue_id: 1,
-      venue_songkick_id: "",
+      venue_songkick_id: 1,
       venue_name: "",
-      city: ""
+      venue_city: ""
     };
   },
   handleSubmit: function(event){
@@ -45,10 +45,17 @@ var NewActivityItemModal = React.createClass({
     this.setState({ rating: value });
   },
   onVenueSelection: function (props) {
-    this.setState({venue_songkick_id: props.id, venue_name: props.displayName, city: props.city.displayName})
+    this.setState({venue_songkick_id: props.id, venue_name: props.displayName, venue_city: props.city.displayName})
   },
   render: function () {
-    console.log(this.state);
+    var submitButton;
+    if (typeof this.state !== 'undefined') {
+      if ((this.state.review.length > 0) && (this.state.rating > -1) && (this.state.date_attended.length > 0)) {
+        submitButton = <input className='btn btn-info' role='button' type="submit" value="Submit" onClick={this.closeModal}/>
+      } else {
+        submitButton = <input className="btn btn-info" role='button' type="submit" value="Submit" disabled="disabled"/>
+      }
+    }
     return (
       <div>
         <div className="modal fade bs-example-modal-md" id='attend-modal' tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
@@ -78,7 +85,7 @@ var NewActivityItemModal = React.createClass({
                   </div>
                   <div className='form-buttons'>
                     <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-                    <input className='btn btn-info' role='button' type="submit" value="Submit!" onClick={this.closeModal}/>
+                    {submitButton}
                   </div>
                </form>
               </div>

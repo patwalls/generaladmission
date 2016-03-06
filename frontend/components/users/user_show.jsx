@@ -55,7 +55,7 @@ var UserShow = React.createClass({
     return(
     <div>
       <div className='container-fluid nopadding'>
-        <div className='row header-size'>
+        <div className='row artist-header'>
           <UserHeader user={this.state.user} />
         </div>
       </div>

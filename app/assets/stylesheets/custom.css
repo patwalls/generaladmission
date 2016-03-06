@@ -8,6 +8,10 @@
   max-width: 1200px;
 }
 
+.row .artist-header {
+  height: 500px;
+}
+
 .artist-header {
   height: 500px;
   background-size: cover;
@@ -16,7 +20,7 @@
 
 .bg-photo-cool {
   height: 500px;
-  margin: -10px 0px -5px 0px;
+  /*margin: -10px 0px -5px 0px;*/
   background-size: cover;
   background-position: center;
   -webkit-filter: blur(7px);
@@ -29,7 +33,7 @@
 
 .overflow {
     overflow: hidden;
-    margin: 5px;
+    margin: -10px;
 }
 
 
@@ -65,9 +69,9 @@ html, body {
 
 .artist-photo-text {
   position: absolute;
-  top: 0px;
+  top: 5%;
   color: #fff;
-  left: 40px;
+  left: 5%;
   font-size: 8em;
   text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
 }
@@ -76,8 +80,9 @@ html, body {
   top: 320px;
   position: absolute;
   display: flex;
+  left: 4%;
   top: 315px;
-  left: 16%;
+  color: #555;
 }
 
 .artist-stats .stat {
@@ -86,20 +91,19 @@ html, body {
   background-color: white;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   margin: 5px;
   border: 1px solid #e5e5e5;
+  color: #555;
 }
 
 .artist-stats .header {
-  font-size: 1em;
-  color: black;
+  font-size: 1.5em;
 }
 
 .artist-stats .calc {
   font-size: 7em;
-  color: black;
 }
 
 .right-sidebar {
@@ -344,50 +348,98 @@ input {
 .check-in-box {
   height: 150px;
   width: 150px;
-  top: 320px;
-  background-color: #5cb85c;
-  border: 1px #4cae4c;
+  background: rgba(255,255,255,.75);
+  border: 4px solid #555;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  bottom: 3%;
-  left: 3%;
+}
+
+.following {
+  height: 150px;
+  width: 150px;
+  background: rgba(255,255,255,.75);
+  border: 4px solid #555;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  left: 533px;
+  top: 109px;
+}
+
+.follow-yourself {
+  height: 150px;
+  width: 150px;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  left: 533px;
+  top: 109px;
+}
+
+.add-follow {
+  height: 150px;
+  width: 150px;
+  background: rgba(255,255,255,.75);
+  border: 4px dashed #555;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  left: 533px;
+  top: 109px;
+  text-align: center;
+}
+
+
+.check-in-text {
+  font-size: 1.5em;
+  color: #555;
+  padding-left: 5px;
+  text-align: center;
 }
 
 .artist-header-avatar {
   position: relative;
   bottom: -218px;
-  left: 79%;
+  left: 71%;
   border: 1px solid #e5e5e5;
+}
+
+.activity-artist-photo {
+  position: relative;
+  border: 1px solid #555;
 }
 
 .user-header-avatar {
   position: relative;
-  top: -39px;
-  left: 79%;
+  top: -143px;
+  left: 74%;
   border: 1px solid #e5e5e5;
 }
 
 .checked-in {
-  top: 320px;
   height: 150px;
   width: 150px;
-  background-color: #5bc0de;
-  border: 1px #4cae4c;
+  background-color: rgba(255,255,255,.75);
+  border: 4px dashed black;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  bottom: 3%;
-  left: 3%;
+  position: relative;
+  top: 5px;
+  left: 5px;
+  text-decoration: none;
 }
 
-.check-in {
-  font-size: 5em;
-  color: white;
-  padding-left: 5px;
+.check-in-text a:hover {
+  text-decoration: none;
 }
+
+
 
 .activity-input {
   padding: 20px;
@@ -404,14 +456,18 @@ input {
 
 .user-photo-text-name {
   position: relative;
-  color: gray;
-  font-size: 8em;
+  color: #555;
+  font-size: 7em;
+  top: 5px;
+  right: -71px;
 }
 
 .user-photo-text-username {
   position: relative;
-  color: gray;
-  font-size: 5em;
+  color: #555;
+  font-size: 2em;
+  right: -114px;
+  top: -42px;
 }
 
 .user-header {
@@ -517,10 +573,6 @@ blockquote {
 
 .activity-header ul {
   padding: 0px;
-}
-
-.about-artist .btn {
-  border-radius: 0px;
 }
 
 .follow-details {
@@ -635,7 +687,7 @@ body {
 	display: block;
 	width: 100px;
 	height: 110px;
-	margin: 30px auto;
+	margin-bottom: 30px auto;
 	background: #fff;
 	text-align: center;
 	font-family: 'Helvetica', sans-serif;
@@ -703,21 +755,22 @@ body {
   display: flex;
   flex-direction: row;
   margin-bottom: 20px;
+  height: 120px;
 }
 
 .show-item .show-details {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: column;
   padding: 5px;
+  position: relative;
+  top: -10px;
 }
 
 .show-item .date-cont {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  width: 150px;
-  height: 110px;
 }
 
 .module .shows ul {
@@ -756,6 +809,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .activity-rating {
@@ -811,12 +865,14 @@ body {
   background-color: white;
   border: 10px transparent;
   width: 100%;
+  margin: 5px 0px;
 }
 
 .user-activity-item .main-left-pane {
   width: 50%;
   display: flex;
   flex-direction: row;
+  cursor: pointer;
 }
 
 .user-activity-item .main-right-pane {
@@ -890,12 +946,8 @@ body {
 }
 
 .divider {
-  vertical-align: middle;
-  border-left: 3px solid #555;
-  height: 90%;
+  border-left: 1px solid #eee;;
   position: relative;
-  margin-top: auto;
-  margin-bottom: auto;
 }
 
 .venue-search-and-dropdown input {
@@ -904,13 +956,16 @@ body {
 }
 
 .navbar {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  /*padding-top: 20px;*/
+  /*padding-bottom: 20px;*/
+  padding: 20px 120px;
   margin-bottom: 0px;
   background-color: #555;
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
+  /*max-width: 1200px;*/
+  width: 100%;
+  /*margin-left: auto;
+  margin-right: auto;*/
+  z-index: 100;
 }
 
 .navbar a {
@@ -922,6 +977,241 @@ body {
   background-size: cover;
 }
 
+.nav a:hover {
+  color: gray;
+  background-color: #555;
+}
+
+.nav li:hover {
+  background-color: #555;
+}
+
 .header-size {
   height: 500px;
+}
+
+.navbar-site-title {
+  font-size: 2.5em;
+}
+
+.user-image img {
+  background-position: cover;
+}
+
+
+
+.about-dropdown {
+  position: relative;
+  z-index: 1000;
+  top: -249px;
+  width: 100%;
+  height: 20px;
+  background-color: #F5F5F5;
+}
+
+
+.user-dropdown {
+  position: relative;
+  z-index: 1000;
+  top: -617px;
+  width: 100%;
+  height: 20px;
+  background-color: #F5F5F5;
+}
+
+.artist-activity-rating {
+  height: 150px;
+  width: 150px;
+  background-color: white;
+  color: #555;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+  border: 1px solid #e5e5e5;
+}
+
+.artist-activity-rating .score {
+  position:relative;
+  font-size: 1em;
+  padding-top: 25px;
+
+}
+
+.artist-activity-rating .calc {
+ font-size: 6em;
+}
+
+.glyphicon-user {
+  position: relative;
+  left: 78px;
+  font-size: 2em;
+}
+
+.follow-item {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+}
+
+.follow-item .follow-photo {
+  margin: 3px 11px 3px 3px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 90px;
+  cursor: pointer;
+}
+
+.follow-item .follow-details {
+  display: flex;
+  flex-direction: column;
+  margin-left: 13px;
+}
+
+.follow-item .border {
+  border-left: 2px solid #555;
+}
+
+.follows-list {
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.follow-stats {
+  display: flex;
+  color: #555;
+  margin-left: 10px;
+}
+
+.follow-activity-rating {
+  height: 90px;
+  width: 90px;
+  background-color: #555;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+  border: 1px solid #e5e5e5;
+}
+
+.follow-activity-rating .score {
+  position:relative;
+  font-size: 0.8em;
+  padding-top: 11px;
+
+}
+
+.follow-activity-rating .calc {
+ font-size: 4em;
+}
+
+.bottom-line {
+  border-bottom: 1px solid #eee;
+}
+
+.user-activity-right-pane {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sign-in-page {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.sign-in-window {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+.sign-in-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.sign-in-form .inputs {
+  width: 300px;
+  background-color: white;
+  border: 1px;
+  border-style: solid;
+  border-radius: 3px;
+  border-color: #eee;
+}
+
+.sign-in-form input {
+  height: 45px;
+  font-size: 1em;
+  border: none;
+  background-color: transparent;
+}
+
+.sign-in-form .email {
+  width: 100%;
+  padding: 11px 10px 11px 13px;
+  border-bottom: 1px solid #eee;
+}
+
+.sign-in-form .password {
+  width: 100%;
+  padding: 11px 10px 11px 13px;
+  border-bottom: 1px solid #eee;
+}
+
+.sign-in-header {
+  color: #333;
+  text-align: center;
+}
+
+.sign-in-button {
+  border-radius: 3px;
+  height: 45px;
+  position: relative;
+  top: 14px;
+  width: 300px;
+}
+
+.guest-login {
+  background-color: #555;
+}
+
+.navbar-issue li {
+  height: 0px;
+}
+
+.navbar-issue a {
+  positon: relative;
+  top: -29px;
+}
+
+.venue-list {
+  list-style: none;
+  padding-left: 0px;
+  border-top: none;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.venue-list li {
+  border-top: 1px solid #ccc;
+  height: 25px;
+  padding: 2px;
+  cursor: pointer;
+}
+
+.venue-list li:hover {
+  background-color: #ccc;
 }
