@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  skip_before_filter :verify_authenticity_token, :only => [:update]
   protect_from_forgery with: :exception
 
   # Expose these methods to the views
