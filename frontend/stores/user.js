@@ -10,9 +10,11 @@ var _users = {};
 
 var resetUsers = function (users) {
   _users = {};
-  users.forEach(function (user) {
-    _users[user.id] = user;
-  });
+  if (typeof users !== 'undefined') {
+    users.forEach(function (user) {
+      _users[user.id] = user;
+    });
+  }
 };
 
 UserStore.all = function () {

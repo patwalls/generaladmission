@@ -74,12 +74,12 @@ var NewActivityItemModal = React.createClass({
                       <br/>
                   </div>
                   <div className="form-group">
-                    <label for='venue'>Venue?</label>
+                    <label htmlFor='venue'>Venue?</label>
                        <VenueSearch onVenueSelection={this.onVenueSelection} />
                        <br/>
                   </div>
                   <div className="form-group date">
-                    <label for='dateInput'>Date Attended?</label>
+                    <label htmlFor='dateInput'>Date Attended?</label>
                        <input type="date" id = 'dateInput' className='date' valueLink={this.linkState('date_attended')}/>
                        <br/>
                   </div>

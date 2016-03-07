@@ -17,9 +17,9 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 - [x] Search results page
 - [x] View artist rating, info, other check-ins, and other details
 - [x] Check-In for an artist and submit review and other details
-- [ ] Edit User Details/Settings
+- [x] Edit User Details/Settings
 - [x] View user's profiles, details, and other stats (including self)
-- [ ] Add friend
+- [x] Add friend
 - [ ] View feed (global, friends, & self) (if time permits)
 
 ## Design Docs
@@ -60,7 +60,7 @@ the API.
 - [x] setup Webpack & Flux scaffold
 - [x] setup `APIUtil` to interact with the API
 - [x] test out API interaction in the console.
-- [ ] API interaction with Songkick (if time permits)
+- [x] API interaction with Songkick (if time permits)
 - [x] Basic search index on root/landing page
 
 ### Phase 3: Attends Model, API, and basic APIUtil (1.5 days)
@@ -96,29 +96,29 @@ user interface.
 
 **Objective:** Existing pages (including singup/signin) will look good.
 
-- [ ] create a basic style guide
+- [x] create a basic style guide
 - [x] position elements on the page
-- [ ] add basic colors & styles
+- [x] add basic colors & styles
 
 ### Phase 6: User Profiles & Friends (1.5 days)
 
 **Objective:** Users have profiles that show their activity and stats and users have friends.
 
-- [ ] Add friend button/action on user profiles.
+- [x] Add friend button/action on user profiles.
 - build out API, Flux loop, and components for:
-  - [ ] get recent activity
-  - [ ] statistics about attendance
-  - [ ] user details
-- [ ] Style new elements
+  - [x] get recent activity
+  - [x] statistics about attendance
+  - [x] user details
+- [x] Style new elements
 
 ### Phase 7: Styling Cleanup and Seeding (1.5 day)
 
 **objective:** Make the site feel more cohesive and awesome.
 
-- [ ] Get feedback on my UI from others
-- [ ] Refactor HTML classes & CSS rules
-- [ ] Research easy UI fixes / advice that can increase look (Product Hunt?)
-- [ ] Add modals, transitions, and other styling flourishes.
+- [x] Get feedback on my UI from others
+- [x] Refactor HTML classes & CSS rules
+- [x] Research easy UI fixes / advice that can increase look (Product Hunt?)
+- [x] Add modals, transitions, and other styling flourishes.
 
 ### Bonus: The Feed (TBD)
 
@@ -129,7 +129,7 @@ user interface.
   - [ ] Filtering feed
 
 ### Bonus Features (TBD)
-- [ ] Songkick API integration for artists and venues, and similar artists
+- [x] Songkick API integration for artists and venues, and similar artists
 - [ ] Extra stats on user profile such as Top Artists & Venues
 - [ ] Extra stats on artists such as loyal fans, similar artists, and popular venues
 - [ ] Extra stats on artists such as loyal fans, similar artists, and popular venues

@@ -35,7 +35,7 @@ var ArtistUpcomingShows = React.createClass({
           <ul>
             {
               this.state.shows.map( function (show) {
-                  return <ArtistShowItem show={show}/>
+                  return <ArtistShowItem key={show.id} show={show}/>
               }, this)
             }
           </ul>

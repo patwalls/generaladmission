@@ -42,7 +42,7 @@ var VenueSearch = React.createClass({
         <ul className='venue-list'>
           {
             this.state.venues.map( function (venue) {
-                return <VenueItem venue={venue} onVenueSelect={this.onVenueSelect} />
+                return <VenueItem venue={venue} key={venue.id} onVenueSelect={this.onVenueSelect} />
             }, this)
           }
         </ul>

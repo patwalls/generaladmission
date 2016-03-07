@@ -153,8 +153,7 @@
 	                  React.createElement('img', { src: 'https://www.bjcc.org/img/ticket-icon.png', width: '20px', height: '20px' }),
 	                  ' GENERAL ADMISSION'
 	                )
-	              ),
-	              searchInHeader
+	              )
 	            ),
 	            React.createElement(
 	              'ul',
@@ -24460,8 +24459,10 @@
 	
 	var resetArtists = function (artists) {
 	  _artists = {};
-	  for (var i = 0; i < artists.length; i++) {
-	    _artists[artists[i].id] = artists[i];
+	  if (typeof artists !== 'undefined') {
+	    for (var i = 0; i < artists.length; i++) {
+	      _artists[artists[i].id] = artists[i];
+	    }
 	  }
 	};
 	
@@ -31605,8 +31606,10 @@
 	
 	var resetSearch = function (results) {
 	  _results = {};
-	  for (var i = 0; i < results.length; i++) {
-	    _results[results[i].id] = results[i];
+	  if (typeof results !== 'undefined') {
+	    for (var i = 0; i < results.length; i++) {
+	      _results[results[i].id] = results[i];
+	    }
 	  }
 	};
 	
@@ -31774,9 +31777,6 @@
 	    this.setState({ artist: artist });
 	  },
 	  render: function () {
-	    var photoDivStyle = {
-	      backgroundImage: 'url(http://images.sk-static.com/images/media/profile_images/artists/' + 5004833 + '/huge_avatar)'
-	    };
 	    return React.createElement(
 	      'div',
 	      null,
@@ -31814,12 +31814,7 @@
 	            React.createElement(
 	              'div',
 	              { className: 'inner' },
-	              React.createElement(ArtistUpcomingShows, { artist: this.state.artist }),
-	              React.createElement(
-	                'div',
-	                { className: 'module tbd' },
-	                'Loyal Fans'
-	              )
+	              React.createElement(ArtistUpcomingShows, { artist: this.state.artist })
 	            )
 	          )
 	        )
@@ -32645,9 +32640,11 @@
 	
 	var resetAttends = function (attends) {
 	  _attends = {};
-	  attends.forEach(function (attend) {
-	    _attends[attend.id] = attend;
-	  });
+	  if (typeof attends !== 'undefined') {
+	    attends.forEach(function (attend) {
+	      _attends[attend.id] = attend;
+	    });
+	  }
 	};
 	
 	AttendStore.all = function () {
@@ -32703,10 +32700,12 @@
 	    }
 	  },
 	  render: function () {
-	    var photoDivStyle = {
-	      backgroundImage: 'url(http://images.sk-static.com/images/media/profile_images/artists/' + this.props.artist.songkick_id + '/huge_avatar)'
-	    };
-	    var avatarPhoto = 'http://images.sk-static.com/images/media/profile_images/artists/' + this.props.artist.songkick_id + '/huge_avatar';
+	    if (Object.keys(this.props.artist).length !== 0) {
+	      var photoDivStyle = {
+	        backgroundImage: 'url(http://images.sk-static.com/images/media/profile_images/artists/' + this.props.artist.songkick_id + '/huge_avatar)'
+	      };
+	      var avatarPhoto = 'http://images.sk-static.com/images/media/profile_images/artists/' + this.props.artist.songkick_id + '/huge_avatar';
+	    }
 	    return React.createElement(
 	      'div',
 	      { className: 'artist-header' },
@@ -33196,7 +33195,7 @@
 	        className: 'horizontal-slider',
 	        onChange: this.onChange,
 	        value: this.state.value,
-	        withBars: 'true',
+	        withBars: true,
 	        defaultValue: 0
 	      })
 	    );
@@ -33257,7 +33256,7 @@
 	        'ul',
 	        { className: 'venue-list' },
 	        this.state.venues.map(function (venue) {
-	          return React.createElement(VenueItem, { venue: venue, onVenueSelect: this.onVenueSelect });
+	          return React.createElement(VenueItem, { venue: venue, key: venue.id, onVenueSelect: this.onVenueSelect });
 	        }, this)
 	      )
 	    );
@@ -33284,8 +33283,10 @@
 	
 	var resetSearch = function (results) {
 	  _results = {};
-	  for (var i = 0; i < results.length; i++) {
-	    _results[i] = results[i];
+	  if (typeof results !== 'undefined') {
+	    for (var i = 0; i < results.length; i++) {
+	      _results[i] = results[i];
+	    }
 	  }
 	};
 	
@@ -33449,7 +33450,7 @@
 	                  { className: 'form-group' },
 	                  React.createElement(
 	                    'label',
-	                    { 'for': 'venue' },
+	                    { htmlFor: 'venue' },
 	                    'Venue?'
 	                  ),
 	                  React.createElement(VenueSearch, { onVenueSelection: this.onVenueSelection }),
@@ -33460,7 +33461,7 @@
 	                  { className: 'form-group date' },
 	                  React.createElement(
 	                    'label',
-	                    { 'for': 'dateInput' },
+	                    { htmlFor: 'dateInput' },
 	                    'Date Attended?'
 	                  ),
 	                  React.createElement('input', { type: 'date', id: 'dateInput', className: 'date', valueLink: this.linkState('date_attended') }),
@@ -33543,7 +33544,7 @@
 	        'ul',
 	        { className: 'activity-item-ul' },
 	        this.state.attends.map(function (attend) {
-	          return React.createElement(ActivityItem, { attend: attend, key: attend.id });
+	          return React.createElement(ActivityItem, { key: attend.id, attend: attend });
 	        }, this)
 	      )
 	    );
@@ -33696,7 +33697,7 @@
 	          'ul',
 	          null,
 	          this.state.shows.map(function (show) {
-	            return React.createElement(ArtistShowItem, { show: show });
+	            return React.createElement(ArtistShowItem, { key: show.id, show: show });
 	          }, this)
 	        )
 	      )
@@ -33874,6 +33875,9 @@
 	  },
 	  componentDidMount: function () {
 	    this.changePlaceholder();
+	  },
+	  componentWillUnmount: function () {
+	    clearInterval(this.nIntervId);
 	  },
 	  changePlaceholder: function () {
 	    this.nIntervId = setInterval(this.change, 80);
@@ -34088,12 +34092,7 @@
 	            React.createElement(
 	              'div',
 	              { className: 'inner' },
-	              React.createElement(UserFollows, { user: this.state.user }),
-	              React.createElement(
-	                'div',
-	                { className: 'module tbd' },
-	                'Top Artists'
-	              )
+	              React.createElement(UserFollows, { user: this.state.user })
 	            )
 	          )
 	        )
@@ -34120,9 +34119,11 @@
 	
 	var resetUsers = function (users) {
 	  _users = {};
-	  users.forEach(function (user) {
-	    _users[user.id] = user;
-	  });
+	  if (typeof users !== 'undefined') {
+	    users.forEach(function (user) {
+	      _users[user.id] = user;
+	    });
+	  }
 	};
 	
 	UserStore.all = function () {
@@ -34179,10 +34180,8 @@
 	    }
 	  },
 	  componentDidMount: function () {
-	    console.log(this.props);
 	    if (typeof this.props !== 'undefined') {
 	      if (Object.keys(this.props.user).length !== 0) {
-	        console.log('this is where we at');
 	        // this.follows(this.props.user.id);
 	      }
 	    }
@@ -34194,7 +34193,7 @@
 	    this.setState({ followstatus: true });
 	  },
 	  render: function () {
-	    console.log(this.state.followstatus);
+	
 	    var photoDivStyle = {
 	      backgroundImage: 'url(https://c2.staticflickr.com/4/3936/15617350755_ecaab550f0_b.jpg)'
 	    };
@@ -34614,7 +34613,7 @@
 	        'ul',
 	        null,
 	        this.state.follows.map(function (follow) {
-	          return React.createElement(FollowItem, { follow: follow });
+	          return React.createElement(FollowItem, { key: follow.id, follow: follow });
 	        }, this)
 	      )
 	    );
@@ -34710,9 +34709,11 @@
 	
 	var resetFollows = function (follows) {
 	  _follows = {};
-	  follows.forEach(function (follow) {
-	    _follows[follow.id] = follow;
-	  });
+	  if (typeof follows !== 'undefined') {
+	    follows.forEach(function (follow) {
+	      _follows[follow.id] = follow;
+	    });
+	  }
 	};
 	
 	FollowStore.all = function () {
@@ -34786,7 +34787,7 @@
 	          'ul',
 	          { className: 'follows-list' },
 	          this.state.follows.map(function (follow) {
-	            return React.createElement(FollowItem, { follow: follow });
+	            return React.createElement(FollowItem, { key: follow.id, follow: follow });
 	          }, this)
 	        )
 	      )

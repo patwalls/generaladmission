@@ -10,9 +10,11 @@ var _results = {};
 
 var resetSearch = function(results){
   _results = {};
-  for (var i = 0; i < results.length; i++) {
-      _results[i] = results[i];
-    }
+  if (typeof results !== 'undefined') {
+    for (var i = 0; i < results.length; i++) {
+        _results[i] = results[i];
+      }
+  }
 };
 
 VenueStore.all = function () {

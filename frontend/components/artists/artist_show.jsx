@@ -58,9 +58,6 @@ var ArtistShow = React.createClass({
     this.setState({ artist: artist });
   },
   render: function () {
-    var photoDivStyle = {
-      backgroundImage: 'url(http://images.sk-static.com/images/media/profile_images/artists/' + 5004833 + '/huge_avatar)'
-    };
     return (
       <div>
       <div className='container-fluid nopadding'>
@@ -80,7 +77,6 @@ var ArtistShow = React.createClass({
           <div className='col-lg-4 col-md-4 col-sm-12 col-xs-12 nopadding testy'>
             <div className='inner'>
               <ArtistUpcomingShows artist={this.state.artist}/>
-              <div className='module tbd'>Loyal Fans</div>
             </div>
           </div>
         </div>

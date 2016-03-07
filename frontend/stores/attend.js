@@ -10,9 +10,11 @@ var _attends = {};
 
 var resetAttends = function (attends) {
   _attends = {};
-  attends.forEach(function (attend) {
-    _attends[attend.id] = attend;
-  });
+  if (typeof attends !== 'undefined') {
+    attends.forEach(function (attend) {
+      _attends[attend.id] = attend;
+    });
+  }
 };
 
 AttendStore.all = function () {

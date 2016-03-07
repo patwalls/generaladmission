@@ -24,6 +24,9 @@ var ArtistSearch = React.createClass({
   componentDidMount: function () {
     this.changePlaceholder();
   },
+  componentWillUnmount: function () {
+    clearInterval(this.nIntervId);
+  },
   changePlaceholder: function () {
     this.nIntervId = setInterval(this.change, 80);
   },

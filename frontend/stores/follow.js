@@ -11,9 +11,11 @@ var _follows = {};
 
 var resetFollows = function (follows) {
   _follows = {};
-  follows.forEach(function (follow) {
-    _follows[follow.id] = follow;
-  });
+  if (typeof follows !== 'undefined') {
+    follows.forEach(function (follow) {
+      _follows[follow.id] = follow;
+    });
+  }
 };
 
 FollowStore.all = function () {

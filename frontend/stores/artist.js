@@ -10,9 +10,11 @@ var _artists = {};
 
 var resetArtists = function(artists){
   _artists = {};
+  if (typeof artists !== 'undefined') {
   for (var i = 0; i < artists.length; i++) {
       _artists[artists[i].id] = artists[i];
     }
+  }
 };
 
 var resetArtist = function(artist){

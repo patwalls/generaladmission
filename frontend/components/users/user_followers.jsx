@@ -32,7 +32,7 @@ var UserFollows = React.createClass({
             <ul>
             {
               this.state.follows.map( function (follow) {
-                  return <FollowItem follow={follow} />
+                  return <FollowItem key={follow.id} follow={follow} />
               }, this)
             }
             </ul>

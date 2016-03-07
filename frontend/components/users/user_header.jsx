@@ -21,10 +21,8 @@ var UserHeader = React.createClass({
     }
   },
   componentDidMount: function () {
-    console.log(this.props);
     if (typeof this.props !== 'undefined') {
       if (Object.keys(this.props.user).length !== 0) {
-      console.log('this is where we at');
         // this.follows(this.props.user.id);
       }
     }
@@ -36,7 +34,7 @@ var UserHeader = React.createClass({
     this.setState({ followstatus: true });
   },
   render: function () {
-    console.log(this.state.followstatus);
+
     var photoDivStyle = {
       backgroundImage: 'url(https://c2.staticflickr.com/4/3936/15617350755_ecaab550f0_b.jpg)'
     };

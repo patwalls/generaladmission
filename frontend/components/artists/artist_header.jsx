@@ -13,10 +13,12 @@ var ArtistHeader = React.createClass({
     }
   },
   render: function () {
-    var photoDivStyle = {
-      backgroundImage: 'url(http://images.sk-static.com/images/media/profile_images/artists/' + this.props.artist.songkick_id + '/huge_avatar)'
-    };
-    var avatarPhoto = 'http://images.sk-static.com/images/media/profile_images/artists/' + this.props.artist.songkick_id + '/huge_avatar';
+    if (Object.keys(this.props.artist).length !== 0) {
+      var photoDivStyle = {
+        backgroundImage: 'url(http://images.sk-static.com/images/media/profile_images/artists/' + this.props.artist.songkick_id + '/huge_avatar)'
+      };
+      var avatarPhoto = 'http://images.sk-static.com/images/media/profile_images/artists/' + this.props.artist.songkick_id + '/huge_avatar';
+    }
     return (
         <div className='artist-header'>
           <div className='overflow'>

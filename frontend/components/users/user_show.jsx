@@ -71,7 +71,6 @@ var UserShow = React.createClass({
           <div className='col-lg-4 col-md-4 col-sm-12 col-xs-12 nopadding testy'>
             <div className='inner'>
               <UserFollows user={this.state.user} />
-              <div className='module tbd'>Top Artists</div>
             </div>
           </div>
         </div>

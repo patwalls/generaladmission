@@ -37,7 +37,7 @@ var ArtistActivity = React.createClass({
           <ul className='activity-item-ul'>
             {
               this.state.attends.map( function (attend) {
-                  return <ActivityItem attend={attend} key={attend.id}/>
+                  return <ActivityItem key={attend.id} attend={attend}/>
               }, this)
             }
           </ul>

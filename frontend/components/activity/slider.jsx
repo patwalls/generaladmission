@@ -21,7 +21,7 @@ var Slider = React.createClass({
           className='horizontal-slider'
           onChange={this.onChange}
           value={this.state.value}
-          withBars='true'
+          withBars={true}
           defaultValue={0}
         />
       </div>
