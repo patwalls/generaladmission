@@ -31352,19 +31352,19 @@
 	    });
 	  },
 	  searchResults: function (query) {
-	    var searchUrl = 'http://api.songkick.com/api/3.0/search/artists.json?query=' + query + '&apikey=n3h6YMv9J87oRnq9';
+	    var searchUrl = 'https://api.songkick.com/api/3.0/search/artists.json?query=' + query + '&apikey=n3h6YMv9J87oRnq9';
 	    $.getJSON(searchUrl, function (data) {
 	      ApiActions.receiveAllResults(data);
 	    });
 	  },
 	  upcomingEventsForArtist: function (songKickId) {
-	    var url = 'http://api.songkick.com/api/3.0/artists/' + songKickId + '/calendar.json?apikey=n3h6YMv9J87oRnq9';
+	    var url = 'https://api.songkick.com/api/3.0/artists/' + songKickId + '/calendar.json?apikey=n3h6YMv9J87oRnq9';
 	    $.getJSON(url, function (data) {
 	      ApiActions.receiveAllShows(data);
 	    });
 	  },
 	  venueSearchResults: function (query) {
-	    var searchUrl = 'http://api.songkick.com/api/3.0/search/venues.json?query=' + query + '&apikey=n3h6YMv9J87oRnq9';
+	    var searchUrl = 'https://api.songkick.com/api/3.0/search/venues.json?query=' + query + '&apikey=n3h6YMv9J87oRnq9';
 	    $.getJSON(searchUrl, function (data) {
 	      ApiActions.receiveAllVenueResults(data);
 	    });
