@@ -6,50 +6,31 @@ var UserAddFollow = require('./user_add_follow');
 var UserAlreadyFollow = require('./user_already_follow');
 
 var UserHeader = React.createClass({
-  getInitialState: function () {
-    return { followstatus: false };
-  },
-  follows: function (newProps) {
-    this.followStatus = false;
-    if (typeof newProps.user !== 'undefined') {
-      newProps.user.following.forEach( function (follow) {
+  render: function () {
+    var addFollowButton;
+    if ((typeof this.props.user !== 'undefined') && (Object.keys(this.props.user).length !== 0)) {
+      this.props.user.following.forEach( function (follow) {
         if (follow.id === window.getCurrentUserId) {
-          this.followStatus = true;
-          this.changeFollowStatus();
+          addFollowButton = <UserAlreadyFollow user={this.props.user} />;
         }
       }.bind(this));
     }
-  },
-  componentDidMount: function () {
-    if (typeof this.props !== 'undefined') {
-      if (Object.keys(this.props.user).length !== 0) {
-        // this.follows(this.props.user.id);
+
+
+    if (typeof addFollowButton === 'undefined') {
+      addFollowButton = <UserAddFollow user={this.props.user}/>;
+    }
+
+    if ((typeof this.props.user !== 'undefined') || (Object.keys(this.props.user).length !== 0)) {
+      if (this.props.user.id === window.getCurrentUserId) {
+        addFollowButton = <div className='follow-yourself'></div>;
       }
     }
-  },
-  componentWillReceiveProps: function (newProps) {
-    this.follows(newProps);
-  },
-  changeFollowStatus: function () {
-    this.setState({ followstatus: true });
-  },
-  render: function () {
 
     var photoDivStyle = {
       backgroundImage: 'url(https://c2.staticflickr.com/4/3936/15617350755_ecaab550f0_b.jpg)'
     };
-    var addFollowButton;
-    if (this.state.followstatus === false) {
-      if ((typeof this.props.user !== 'undefined') || (Object.keys(this.props.user).length !== 0)) {
-        if (this.props.user.id === window.getCurrentUserId) {
-          addFollowButton = <div className='follow-yourself'></div>;
-        } else {
-          addFollowButton = <UserAddFollow user={this.props.user} changeFollowStatus={this.changeFollowStatus}/>;
-        }
-      }
-    } else {
-      addFollowButton = <UserAlreadyFollow user={this.props.user} />;
-    }
+
     var userPhoto;
 
     if (this.props.user.photo === null) {

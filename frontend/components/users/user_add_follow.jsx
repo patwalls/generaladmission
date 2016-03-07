@@ -9,7 +9,6 @@ var UserFollow = React.createClass({
     var user_id = window.getCurrentUserId;
     var follower_id = this.props.user.id;
     ApiUtil.follow({ user_id: follower_id, follower_id: user_id });
-    this.props.changeFollowStatus();
   },
   render: function () {
     return (
