@@ -1,140 +1,77 @@
-# General Admission
+#General Admission
 
-[Heroku link][heroku]
+General Admission is a web application for rating and discovering great live music. It is built mainly with React + Flux, Ruby on Rails, PostgreSQL, SongKick API, and Bootstrap.
 
-[heroku]: http://generaladmission.herokuapp.com/
+View it live at http://generaladmission.io
 
-## Minimum Viable Product
+###Main Functionality:
+* Search for any artist using SongKick's search API.
+* View an aggregate artist rating, as well as individual reviews by users.
+* View upcoming concerts for any artist using SongKick's upcoming events API.
+* Submit your live music experience of an artist.
+* View yours or others' concert history on a user page.
+* Follow a user.
 
-General Admission (GA) is a web application inspired by Untappd.com built using Ruby on Rails and React.js. GA allows users to:
+###Additional Features & Notables:
+* Elegant Slider for rating artists using React-Slider plugin.
+* SongKick Venue API for user input.
+* Beautiful artist pages linking from SongKick's photos based on ID.
+* React.js communicating with a RESTful JSON API
+* Hand-rolled authentication via Rails
+* Iterates on React state to imitate typing on landing page search input.
+* Prevention of submission of forms and non-signed in actions using React.
 
-<!-- This is a Markdown checklist. Use it to keep track of your
-progress. Put an x between the brackets for a checkmark: [x] -->
+Dynamic search between SongKick API and local database allows for the ability keep database light while allowing for user to search and view any artist.
+```
+showDetail: function() {
+  var songkickId = this.props.artist.id;
+  ApiUtil.fetchArtistFromDB(songkickId, function (artist) {
+    if (artist.id) {
+      this.history.push("/artists/" + artist.id);
+      ## if the artist is already in the database, just go to that page
+    } else {
+      ApiUtil.createArtist({
+        name: this.props.artist.displayName,
+        songkick_id: this.props.artist.id
+          }, function(newId) {
+            this.seedNewArtistWithData(newId);
+            this.history.push("/artists/" + newId);
+          }.bind(this));
+    }
+  }.bind(this));
+  ## if they dont exist in the database, create them and seed them with some reviews!
+},
+```
+An image of what the search looks like on the frontend:
 
-- [x] Create an account
-- [x] Log in / Log out
-- [x] Search for artists
-- [x] Search results page
-- [x] View artist rating, info, other check-ins, and other details
-- [x] Check-In for an artist and submit review and other details
-- [x] Edit User Details/Settings
-- [x] View user's profiles, details, and other stats (including self)
-- [x] Add friend
-- [ ] View feed (global, friends, & self) (if time permits)
+![landing-page](http://i.imgur.com/w5SPC7Z.jpg)
 
-## Design Docs
-* [View Wireframes][views]
-* [React Components][components]
-* [Flux Stores][stores]
-* [API endpoints][api-endpoints]
-* [DB schema][schema]
+Search API functionality itself:
 
-[views]: ./docs/views.md
-[components]: ./docs/components.md
-[stores]: ./docs/stores.md
-[api-endpoints]: ./docs/api-endpoints.md
-[schema]: ./docs/schema.md
+```
+changedQuery: function () {
+  var query = this.queryString();
+  if (query.length === 0) {
+    ApiUtil.resetResults();
+  } else {
+    ApiUtil.searchResults(query);
+  }
+},
+queryString: function () {
+  return document.getElementById('search-query').value;
+},
 
-## Implementation Timeline
+```
 
-### Phase 1: Backend setup and User Authentication (0.5 days)
+Search Input:
 
-**Objective:** Functioning rails project with Authentication
-
-- [x] create new project
-- [x] create `User` model
-- [x] authentication
-- [x] user signup/signin pages
-- [x] blank landing page after signin
-
-### Phase 2: Artists Model & Search Index, API, and basic APIUtil (1.5 days)
-
-**Objective:** Artists can be created, read, edited and destroyed through
-the API.
-
-- [x] create `Artist` model
-- [x] seed the database with a small amount of test data
-- [x] CRUD API for artists (`ArtistsController`)
-- [x] Artists indexed on root page
-- [x] jBuilder views for Artists (single Artist Page)
-- [x] setup Webpack & Flux scaffold
-- [x] setup `APIUtil` to interact with the API
-- [x] test out API interaction in the console.
-- [x] API interaction with Songkick (if time permits)
-- [x] Basic search index on root/landing page
-
-### Phase 3: Attends Model, API, and basic APIUtil (1.5 days)
-
-**Objective:** Attends can be created, read, edited and destroyed through
-the API. Attends = one Activity React component.
-
-- [x] create `Attend` model
-- [x] seed the database with a small amount of test data
-- [x] CRUD API for artists (`AttendsController`)
-- [x] jBuilder views for Attends (single User Page)
-- [x] setup Webpack & Flux scaffold
-- [x] setup `APIUtil` to interact with the API
-- [x] test out API interaction in the console.
-- [x] create `Activity` React component
-- [x] Artist aggregated rating on show page
-- [x] create `Check In` React component
-- [ ] Ability to delete review (later phase)
-
-### Phase 4: Flux Architecture and Router (1.5 days)
-
-**Objective:** Artists and Attends can be created, read, edited and destroyed with the
-user interface.
-
-- [x] setup the flux loop with skeleton files
-- [x] setup React Router
-- implement each component, building out the flux loop as needed.
-  - [x] `User Profile`
-  - [x] `Artist Profile`
-  - [x] `Activity`
-
-### Phase 5: Start Styling (0.5 days)
-
-**Objective:** Existing pages (including singup/signin) will look good.
-
-- [x] create a basic style guide
-- [x] position elements on the page
-- [x] add basic colors & styles
-
-### Phase 6: User Profiles & Friends (1.5 days)
-
-**Objective:** Users have profiles that show their activity and stats and users have friends.
-
-- [x] Add friend button/action on user profiles.
-- build out API, Flux loop, and components for:
-  - [x] get recent activity
-  - [x] statistics about attendance
-  - [x] user details
-- [x] Style new elements
-
-### Phase 7: Styling Cleanup and Seeding (1.5 day)
-
-**objective:** Make the site feel more cohesive and awesome.
-
-- [x] Get feedback on my UI from others
-- [x] Refactor HTML classes & CSS rules
-- [x] Research easy UI fixes / advice that can increase look (Product Hunt?)
-- [x] Add modals, transitions, and other styling flourishes.
-
-### Bonus: The Feed (TBD)
-
-**Objective:** Users have a feed that can be filtered globally or friends only.
-
-- build out API, Flux loop, and components for:
-  - [ ] Updated Feed
-  - [ ] Filtering feed
-
-### Bonus Features (TBD)
-- [x] Songkick API integration for artists and venues, and similar artists
-- [ ] Extra stats on user profile such as Top Artists & Venues
-- [ ] Extra stats on artists such as loyal fans, similar artists, and popular venues
-- [ ] Extra stats on artists such as loyal fans, similar artists, and popular venues
-
-[phase-one]: ./docs/phases/phase1.md
-[phase-two]: ./docs/phases/phase2.md
-[phase-three]: ./docs/phases/phase3.md
-[phase-six]: ./docs/phases/phase6.md
+```
+render: function () {
+  if (this.state.placeholder === this.typing) {
+    clearInterval(this.nIntervId);
+  }
+  return (
+      <input type='text' name='q' className='form-control' placeholder={this.state.placeholder} id='search-query' onChange={this.changedQuery}></input>
+  );
+}
+```
