@@ -37,9 +37,9 @@ showDetail: function() {
             this.seedNewArtistWithData(newId);
             this.history.push("/artists/" + newId);
           }.bind(this));
+      ## if they dont exist in the database, create them and seed them with some reviews!
     }
   }.bind(this));
-  ## if they dont exist in the database, create them and seed them with some reviews!
 },
 ```
 An image of what the search looks like on the frontend:
