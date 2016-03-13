@@ -56,6 +56,7 @@ var App = React.createClass({
                 <li>
                   <Link to={"/"}><img src='https://www.bjcc.org/img/ticket-icon.png' width='20px' height='20px'/> GENERAL ADMISSION</Link>
                 </li>
+                <li><ArtistSearchHeader/></li>
               </ul>
               <ul className="nav navbar-nav navbar-right">
                 <li><a href="/session/new">SIGN IN</a></li>

@@ -158,6 +158,11 @@
 	                  React.createElement('img', { src: 'https://www.bjcc.org/img/ticket-icon.png', width: '20px', height: '20px' }),
 	                  ' GENERAL ADMISSION'
 	                )
+	              ),
+	              React.createElement(
+	                'li',
+	                null,
+	                React.createElement(ArtistSearchHeader, null)
 	              )
 	            ),
 	            React.createElement(
