@@ -23,7 +23,7 @@ var ArtistShowItem = React.createClass({
           </div>
         </div>
         <div className='show-details'>
-          <div className='display-name'>{this.props.show.displayName}</div>
+          <div className='display-name'><a href={this.props.show.uri}>{this.props.show.displayName}</a></div>
           <div className='venue'>{this.props.show.venue.displayName}</div>
           <div className='location'>{this.props.show.location.city}</div>
         </div>

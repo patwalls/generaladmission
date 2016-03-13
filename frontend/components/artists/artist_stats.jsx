@@ -15,7 +15,9 @@ var ArtistStats = React.createClass({
   },
 
   componentWillReceiveProps: function (newProps) {
-    ApiUtil.fetchAttendsForArtist(newProps.artist.id);
+    if (typeof newProps.artist !== 'undefined') {
+      ApiUtil.fetchAttendsForArtist(newProps.artist.id);
+    }
     return { attends: AttendStore.all() };
   },
 

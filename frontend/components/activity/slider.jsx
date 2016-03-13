@@ -22,7 +22,9 @@ var Slider = React.createClass({
           onChange={this.onChange}
           value={this.state.value}
           withBars={true}
-          defaultValue={0}
+          defaultValue={1}
+          min={1}
+          max={99}
         />
       </div>
     );

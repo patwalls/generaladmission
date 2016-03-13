@@ -29,7 +29,7 @@ var UserFollows = React.createClass({
     return (
         <div className='nopadding testy'>
           <div className='module'>
-            <span>People You Follow</span>
+            <span>People {this.props.user.name} Follows</span>
             <hr />
             <ul className='follows-list'>
             {

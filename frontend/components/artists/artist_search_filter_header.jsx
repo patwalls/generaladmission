@@ -1,29 +1,26 @@
 var React = require('react');
-var ArtistStore = require('../../stores/artist');
 var ApiUtil = require('../../util/api_util');
-var SearchStore = require('../../stores/search');
+var HeaderSearchStore = require('../../stores/header_search');
 
-var ArtistIndex = require('./artist_index');
-
-var ArtistSearch = React.createClass({
+var HeaderArtistSearch = React.createClass({
   changedQuery: function () {
     var query = this.queryString();
     if (query.length === 0) {
-      ApiUtil.resetResults();
+      ApiUtil.resetHeaderResults();
     } else {
-      ApiUtil.searchResults(query);
+      ApiUtil.searchHeaderResults(query);
     }
   },
   queryString: function () {
-    return document.getElementById('search-query').value;
+    return document.getElementById('search-query-header').value;
   },
   render: function () {
     return (
-        <input type='text' name='q' className='form-control' placeholder='Search...' id='search-query' onChange={this.changedQuery}></input>
+        <input type='text' name='q' autoComplete="off" className='form-control' placeholder='Search artists...' id='search-query-header' onChange={this.changedQuery}></input>
     );
   }
 });
 
-window.ArtistSearch = ArtistSearch;
+window.HeaderArtistSearch = HeaderArtistSearch;
 
-module.exports = ArtistSearch;
+module.exports = HeaderArtistSearch;

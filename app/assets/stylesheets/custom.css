@@ -152,6 +152,10 @@ body {
   margin-top: 40px;
 }
 
+.nav .search {
+
+}
+
 a {
   color: #1e7ad3;
   text-decoration: none;
@@ -179,8 +183,8 @@ input {
 }
 
 .nav .search {
-  margin: 0 auto;
-  width: 70%;
+  margin: 0;
+  width: 100%;
 }
 
 .search input {
@@ -206,9 +210,11 @@ input {
 
 .nav .search input {
   height: 40px;
-  width: 300px;
   font-size: 1em;
   text-align: left;
+  color: white;
+  margin-top: 5px;
+  background: url("http://cssdeck.com/uploads/media/items/5/5JuDgOa.png") 7px 13px no-repeat;
 }
 
 .search input:focus {
@@ -247,11 +253,14 @@ input {
   -ms-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   -o-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
 
 .nav .search .results {
   position: absolute;
-  top: 25px;
+  top: 45px;
+  font-size: 1em;
+  border: 0px;
 }
 
 .search .results li { display: block }
@@ -994,8 +1003,14 @@ body {
   font-size: 2.5em;
 }
 
-.user-image img {
-  background-position: cover;
+.user-image {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height:88px;
+  width:88px;
+  border: 1px solid #555;
+  margin-top: 3px;
 }
 
 
@@ -1055,13 +1070,17 @@ body {
   margin-bottom: 10px;
 }
 
-.follow-item .follow-photo {
+.follow-item .follow-left-pane {
   margin: 3px 11px 3px 3px;
   display: flex;
   align-items: center;
   flex-direction: column;
   width: 90px;
   cursor: pointer;
+}
+
+.follow-item .user-name {
+  text-align: center;
 }
 
 .follow-item .follow-details {

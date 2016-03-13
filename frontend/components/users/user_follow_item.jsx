@@ -13,11 +13,14 @@ var FollowItem = React.createClass({
   },
 
   render: function () {
+    var userImage = {
+      backgroundImage: 'url(' + this.props.follow.followed_photo + ')'
+    };
     return (
         <div className='follow-item' onClick={this.showDetail}>
-          <div className='follow-photo'>
-            <img src={this.props.follow.followed_photo} className="img-circle" alt="Cinque Terre" width="75" height="75"></img>
-            <div>{this.props.follow.followed_name}</div>
+          <div className='follow-left-pane'>
+            <div className='user-image' style={userImage} />
+            <div className='user-name'>{this.props.follow.followed_name}</div>
           </div>
           <div className='border'>
           </div>
@@ -32,7 +35,7 @@ var FollowItem = React.createClass({
             </div>
             <div className='follow-activity-rating'>
               <div className='score'>
-                FOLLOWS
+                FOLLOWERS
               </div>
               <div className='calc'>
                 {this.props.follow.followed_followers_amt}

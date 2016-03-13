@@ -9,6 +9,10 @@ var ActivityItem = React.createClass({
   },
 
   render: function () {
+    console.log(this.props.attend);
+    var userImage = {
+      backgroundImage: 'url(' + this.props.attend.photo + ')'
+    };
     return (
       <div className='col-lg-6 col-md-6 col-sm-12 col-xs-12 activity-item'>
 
@@ -18,9 +22,7 @@ var ActivityItem = React.createClass({
               <div className='calc'>{this.props.attend.rating}</div>
           </div>
           <div className='user' onClick={this.showUser}>
-            <div className='user-image'>
-              <img src={this.props.attend.photo} className="img-circle" alt="Cinque Terre" width="80" height="80"></img>
-            </div>
+            <div className='user-image' style={userImage} />
             <div className='username'>
               {this.props.attend.username}
             </div>

@@ -27,6 +27,7 @@ var ArtistUpcomingShows = React.createClass({
   },
 
   render: function () {
+          console.log(this.state.shows);
     return (
       <div className='module'>
         Upcoming Shows
@@ -40,6 +41,8 @@ var ArtistUpcomingShows = React.createClass({
             }
           </ul>
         </div>
+        <hr />
+        <a href='http://songkick.com'>Upcoming Shows Provided by SongKick API</a>
       </div>
     );
   }

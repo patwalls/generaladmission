@@ -4,6 +4,7 @@ var AttendsConstants = require('../constants/attends_constants');
 var UserConstants = require('../constants/user_constants');
 var FollowConstants = require('../constants/follow_constants');
 var SearchConstants = require('../constants/search_constants');
+var HeaderSearchConstants = require('../constants/header_search_constants');
 var ShowConstants = require('../constants/show_constants');
 var VenueConstants = require('../constants/venue_constants');
 
@@ -11,6 +12,13 @@ ApiActions = {
   receiveAllResults: function(results){
     AppDispatcher.dispatch({
       actionType: SearchConstants.RESULTS_RECEIVED,
+      results: results
+    });
+  },
+  receiveAllHeaderResults: function(results){
+    console.log('action is being called');
+    AppDispatcher.dispatch({
+      actionType: HeaderSearchConstants.HEADER_RESULTS_RECEIVED,
       results: results
     });
   },
@@ -23,6 +31,11 @@ ApiActions = {
   resetAllResults: function(){
     AppDispatcher.dispatch({
       actionType: SearchConstants.RESET_RESULTS,
+    });
+  },
+  resetAllHeaderResults: function(){
+    AppDispatcher.dispatch({
+      actionType: HeaderSearchConstants.HEADER_RESET_RESULTS,
     });
   },
   receiveAllVenueResults: function(results){

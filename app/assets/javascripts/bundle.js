@@ -102,6 +102,11 @@
 	                  React.createElement('img', { src: 'https://www.bjcc.org/img/ticket-icon.png', width: '20px', height: '20px' }),
 	                  ' GENERAL ADMISSION'
 	                )
+	              ),
+	              React.createElement(
+	                'li',
+	                null,
+	                React.createElement(ArtistSearchHeader, null)
 	              )
 	            ),
 	            React.createElement(
@@ -31302,7 +31307,7 @@
 	  fetchArtistFromDB: function (songkickId, cb) {
 	    var searchParam = { songkick_id: songkickId };
 	    $.get('api/artists', searchParam, function (artists) {
-	      ApiActions.receiveAll(artists);
+	      // ApiActions.receiveAll(artists);
 	      cb && cb(artists);
 	    });
 	  },
@@ -31358,6 +31363,12 @@
 	      ApiActions.receiveAllResults(data);
 	    });
 	  },
+	  searchHeaderResults: function (query) {
+	    var searchUrl = 'https://api.songkick.com/api/3.0/search/artists.json?query=' + query + '&apikey=n3h6YMv9J87oRnq9&jsoncallback=?';
+	    $.getJSON(searchUrl, function (data) {
+	      ApiActions.receiveAllHeaderResults(data);
+	    });
+	  },
 	  upcomingEventsForArtist: function (songKickId) {
 	    var url = 'https://api.songkick.com/api/3.0/artists/' + songKickId + '/calendar.json?apikey=n3h6YMv9J87oRnq9&jsoncallback=?';
 	    $.getJSON(url, function (data) {
@@ -31372,6 +31383,9 @@
 	  },
 	  resetResults: function () {
 	    ApiActions.resetAllResults();
+	  },
+	  resetHeaderResults: function () {
+	    ApiActions.resetAllHeaderResults();
 	  },
 	  resetVenueResults: function () {
 	    ApiActions.resetAllVenueResults();
@@ -31391,6 +31405,7 @@
 	var UserConstants = __webpack_require__(234);
 	var FollowConstants = __webpack_require__(235);
 	var SearchConstants = __webpack_require__(236);
+	var HeaderSearchConstants = __webpack_require__(282);
 	var ShowConstants = __webpack_require__(237);
 	var VenueConstants = __webpack_require__(238);
 	
@@ -31398,6 +31413,13 @@
 	  receiveAllResults: function (results) {
 	    AppDispatcher.dispatch({
 	      actionType: SearchConstants.RESULTS_RECEIVED,
+	      results: results
+	    });
+	  },
+	  receiveAllHeaderResults: function (results) {
+	    console.log('action is being called');
+	    AppDispatcher.dispatch({
+	      actionType: HeaderSearchConstants.HEADER_RESULTS_RECEIVED,
 	      results: results
 	    });
 	  },
@@ -31410,6 +31432,11 @@
 	  resetAllResults: function () {
 	    AppDispatcher.dispatch({
 	      actionType: SearchConstants.RESET_RESULTS
+	    });
+	  },
+	  resetAllHeaderResults: function () {
+	    AppDispatcher.dispatch({
+	      actionType: HeaderSearchConstants.HEADER_RESET_RESULTS
 	    });
 	  },
 	  receiveAllVenueResults: function (results) {
@@ -32695,16 +32722,20 @@
 	  displayName: 'ArtistHeader',
 	
 	  upperCaseName: function () {
-	    if (typeof this.props.artist.name !== 'undefined') {
-	      return this.props.artist.name.toUpperCase();
+	    if (typeof this.props.artist !== 'undefined') {
+	      if (typeof this.props.artist.name !== 'undefined') {
+	        return this.props.artist.name.toUpperCase();
+	      }
 	    }
 	  },
 	  render: function () {
-	    if (Object.keys(this.props.artist).length !== 0) {
-	      var photoDivStyle = {
-	        backgroundImage: 'url(http://images.sk-static.com/images/media/profile_images/artists/' + this.props.artist.songkick_id + '/huge_avatar)'
-	      };
-	      var avatarPhoto = 'http://images.sk-static.com/images/media/profile_images/artists/' + this.props.artist.songkick_id + '/huge_avatar';
+	    if (typeof this.props.artist !== 'undefined') {
+	      if (Object.keys(this.props.artist).length !== 0) {
+	        var photoDivStyle = {
+	          backgroundImage: 'url(http://images.sk-static.com/images/media/profile_images/artists/' + this.props.artist.songkick_id + '/huge_avatar)'
+	        };
+	        var avatarPhoto = 'http://images.sk-static.com/images/media/profile_images/artists/' + this.props.artist.songkick_id + '/huge_avatar';
+	      }
 	    }
 	    return React.createElement(
 	      'div',
@@ -32759,7 +32790,9 @@
 	  },
 	
 	  componentWillReceiveProps: function (newProps) {
-	    ApiUtil.fetchAttendsForArtist(newProps.artist.id);
+	    if (typeof newProps.artist !== 'undefined') {
+	      ApiUtil.fetchAttendsForArtist(newProps.artist.id);
+	    }
 	    return { attends: AttendStore.all() };
 	  },
 	
@@ -33196,7 +33229,9 @@
 	        onChange: this.onChange,
 	        value: this.state.value,
 	        withBars: true,
-	        defaultValue: 0
+	        defaultValue: 1,
+	        min: 1,
+	        max: 99
 	      })
 	    );
 	  }
@@ -33571,6 +33606,10 @@
 	  },
 	
 	  render: function () {
+	    console.log(this.props.attend);
+	    var userImage = {
+	      backgroundImage: 'url(' + this.props.attend.photo + ')'
+	    };
 	    return React.createElement(
 	      'div',
 	      { className: 'col-lg-6 col-md-6 col-sm-12 col-xs-12 activity-item' },
@@ -33594,11 +33633,7 @@
 	        React.createElement(
 	          'div',
 	          { className: 'user', onClick: this.showUser },
-	          React.createElement(
-	            'div',
-	            { className: 'user-image' },
-	            React.createElement('img', { src: this.props.attend.photo, className: 'img-circle', alt: 'Cinque Terre', width: '80', height: '80' })
-	          ),
+	          React.createElement('div', { className: 'user-image', style: userImage }),
 	          React.createElement(
 	            'div',
 	            { className: 'username' },
@@ -33685,6 +33720,7 @@
 	  },
 	
 	  render: function () {
+	    console.log(this.state.shows);
 	    return React.createElement(
 	      'div',
 	      { className: 'module' },
@@ -33700,6 +33736,12 @@
 	            return React.createElement(ArtistShowItem, { key: show.id, show: show });
 	          }, this)
 	        )
+	      ),
+	      React.createElement('hr', null),
+	      React.createElement(
+	        'a',
+	        { href: 'http://songkick.com' },
+	        'Upcoming Shows Provided by SongKick API'
 	      )
 	    );
 	  }
@@ -33799,7 +33841,11 @@
 	        React.createElement(
 	          'div',
 	          { className: 'display-name' },
-	          this.props.show.displayName
+	          React.createElement(
+	            'a',
+	            { href: this.props.show.uri },
+	            this.props.show.displayName
+	          )
 	        ),
 	        React.createElement(
 	          'div',
@@ -33891,7 +33937,7 @@
 	    if (this.state.placeholder === this.typing) {
 	      clearInterval(this.nIntervId);
 	    }
-	    return React.createElement('input', { type: 'text', name: 'q', className: 'form-control', placeholder: this.state.placeholder, id: 'search-query', onChange: this.changedQuery });
+	    return React.createElement('input', { type: 'text', name: 'q', autoComplete: 'off', className: 'form-control', placeholder: this.state.placeholder, id: 'search-query', onChange: this.changedQuery });
 	  }
 	});
 	
@@ -33905,10 +33951,10 @@
 
 	var React = __webpack_require__(1);
 	var ArtistSearchFilterHeader = __webpack_require__(266);
-	var ArtistIndex = __webpack_require__(239);
+	var ArtistIndexHeader = __webpack_require__(280);
 	
-	var ArtistSearch = React.createClass({
-	  displayName: 'ArtistSearch',
+	var ArtistSearchHeader = React.createClass({
+	  displayName: 'ArtistSearchHeader',
 	
 	  contextTypes: {
 	    router: React.PropTypes.func
@@ -33918,46 +33964,43 @@
 	      'div',
 	      { className: 'search' },
 	      React.createElement(ArtistSearchFilterHeader, null),
-	      React.createElement(ArtistIndex, null)
+	      React.createElement(ArtistIndexHeader, null)
 	    );
 	  }
 	});
 	
-	module.exports = ArtistSearch;
+	module.exports = ArtistSearchHeader;
 
 /***/ },
 /* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var ArtistStore = __webpack_require__(208);
 	var ApiUtil = __webpack_require__(231);
-	var SearchStore = __webpack_require__(240);
+	var HeaderSearchStore = __webpack_require__(281);
 	
-	var ArtistIndex = __webpack_require__(239);
-	
-	var ArtistSearch = React.createClass({
-	  displayName: 'ArtistSearch',
+	var HeaderArtistSearch = React.createClass({
+	  displayName: 'HeaderArtistSearch',
 	
 	  changedQuery: function () {
 	    var query = this.queryString();
 	    if (query.length === 0) {
-	      ApiUtil.resetResults();
+	      ApiUtil.resetHeaderResults();
 	    } else {
-	      ApiUtil.searchResults(query);
+	      ApiUtil.searchHeaderResults(query);
 	    }
 	  },
 	  queryString: function () {
-	    return document.getElementById('search-query').value;
+	    return document.getElementById('search-query-header').value;
 	  },
 	  render: function () {
-	    return React.createElement('input', { type: 'text', name: 'q', className: 'form-control', placeholder: 'Search...', id: 'search-query', onChange: this.changedQuery });
+	    return React.createElement('input', { type: 'text', name: 'q', autoComplete: 'off', className: 'form-control', placeholder: 'Search artists...', id: 'search-query-header', onChange: this.changedQuery });
 	  }
 	});
 	
-	window.ArtistSearch = ArtistSearch;
+	window.HeaderArtistSearch = HeaderArtistSearch;
 	
-	module.exports = ArtistSearch;
+	module.exports = HeaderArtistSearch;
 
 /***/ },
 /* 267 */
@@ -34621,16 +34664,19 @@
 	  },
 	
 	  render: function () {
+	    var userImage = {
+	      backgroundImage: 'url(' + this.props.follow.followed_photo + ')'
+	    };
 	    return React.createElement(
 	      'div',
 	      { className: 'follow-item', onClick: this.showDetail },
 	      React.createElement(
 	        'div',
-	        { className: 'follow-photo' },
-	        React.createElement('img', { src: this.props.follow.followed_photo, className: 'img-circle', alt: 'Cinque Terre', width: '75', height: '75' }),
+	        { className: 'follow-left-pane' },
+	        React.createElement('div', { className: 'user-image', style: userImage }),
 	        React.createElement(
 	          'div',
-	          null,
+	          { className: 'user-name' },
 	          this.props.follow.followed_name
 	        )
 	      ),
@@ -34658,7 +34704,7 @@
 	          React.createElement(
 	            'div',
 	            { className: 'score' },
-	            'FOLLOWS'
+	            'FOLLOWERS'
 	          ),
 	          React.createElement(
 	            'div',
@@ -34759,7 +34805,9 @@
 	        React.createElement(
 	          'span',
 	          null,
-	          'People You Follow'
+	          'People ',
+	          this.props.user.name,
+	          ' Follows'
 	        ),
 	        React.createElement('hr', null),
 	        React.createElement(
@@ -34775,6 +34823,184 @@
 	});
 	
 	module.exports = UserFollows;
+
+/***/ },
+/* 280 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ApiUtil = __webpack_require__(231);
+	var HeaderSearchStore = __webpack_require__(281);
+	
+	var HeaderArtistIndexItem = __webpack_require__(283);
+	
+	var HeaderArtistIndex = React.createClass({
+	  displayName: 'HeaderArtistIndex',
+	
+	
+	  getInitialState: function () {
+	    return { artists: HeaderSearchStore.all().slice(0, 5) };
+	  },
+	
+	  _onChange: function () {
+	    this.setState({ artists: HeaderSearchStore.all().slice(0, 5) });
+	  },
+	
+	  componentDidMount: function (callback) {
+	    this.listenerToken = HeaderSearchStore.addListener(this._onChange);
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.listenerToken.remove();
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'ul',
+	      { className: 'results' },
+	      this.state.artists.map(function (artist) {
+	        return React.createElement(HeaderArtistIndexItem, { artist: artist, key: artist.id });
+	      }, this)
+	    );
+	  }
+	});
+	
+	module.exports = HeaderArtistIndex;
+
+/***/ },
+/* 281 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(209).Store;
+	
+	var HeaderSearchConstants = __webpack_require__(282);
+	var AppDispatcher = __webpack_require__(228);
+	var ApiUtil = __webpack_require__(231);
+	
+	var HeaderSearchStore = new Store(AppDispatcher);
+	
+	var _headerResults = {};
+	
+	var resetSearch = function (results) {
+	  _headerResults = {};
+	  if (typeof results !== 'undefined') {
+	    for (var i = 0; i < results.length; i++) {
+	      _headerResults[results[i].id] = results[i];
+	    }
+	  }
+	};
+	
+	HeaderSearchStore.all = function () {
+	  var _returnSearch = [];
+	  Object.keys(_headerResults).map(function (key) {
+	    _returnSearch.push(_headerResults[key]);
+	  });
+	  return _returnSearch;
+	};
+	
+	HeaderSearchStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case HeaderSearchConstants.HEADER_RESULTS_RECEIVED:
+	      var result = resetSearch(payload.results.resultsPage.results.artist);
+	      HeaderSearchStore.__emitChange();
+	      break;
+	    case HeaderSearchConstants.HEADER_RESET_RESULTS:
+	      _headerResults = {};
+	      this.__emitChange();
+	      break;
+	  }
+	};
+	
+	window.HeaderSearchStore = HeaderSearchStore;
+	
+	module.exports = HeaderSearchStore;
+
+/***/ },
+/* 282 */
+/***/ function(module, exports) {
+
+	var HeaderSearchConstants = {
+	  HEADER_RESULTS_RECEIVED: "HEADER_RESULTS_RECEIVED",
+	  HEADER_RESET_RESULTS: "HEADER_RESET_RESULTS"
+	};
+	
+	module.exports = HeaderSearchConstants;
+
+/***/ },
+/* 283 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ApiUtil = __webpack_require__(231);
+	var History = __webpack_require__(159).History;
+	
+	var HeaderArtistIndexItem = React.createClass({
+	  displayName: 'HeaderArtistIndexItem',
+	
+	  mixins: [History],
+	
+	  randomDate(start, end) {
+	    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+	  },
+	
+	  seedNewArtistWithData(id) {
+	    for (var i = 0; i < 4; i++) {
+	      var randomRating = Math.floor(Math.random() * (99 - 75 + 1)) + 75;
+	      var randomReview = Math.floor(Math.random() * (7 - 0 + 1)) + 0;
+	      var randomUser = Math.floor(Math.random() * (12 - 2 + 1)) + 2;
+	      var randomDate = this.randomDate(new Date(2012, 0, 1), new Date());
+	      var randomVenue = Math.floor(Math.random() * (7 - 0 + 1)) + 0;
+	      var reviews = ["What an excellent show! The set was 2 hours long. They've still got it after all these years!", "They put on a really good show for the crowd. Played most of the classics! Only issue was that they went on a bit late :(, but it was all worth the wait.", "One of the best live shows I've ever been to! Amazing audience interaction and even some crowd surfing!", "I didn't want the show to end! I've seen them live so many times and this was certainly one of the best! They had a 5 song encore to boot!", "Good show, although my spot in the crowd wasn't the best. I wish I got there a little earlier!", "They are so good live! I had so much fun at this concert. They played for so long and had a great mix of their new and old stuff!", "What a great performance. Only issue was there were too many openers, and that got a bit tiresome, but when they finally got on the crowd went insane.", "I'm going to seem them live every time they come into town from now on! So much fun and a great crowd!"];
+	      var venues = [["Fox Theater", "Oakland, CA"], ["Red Rocks Ampitheatre", "Morrison, CO"], ["Coachella", "Indio, CA"], ["Madison Square Garder", "New York City, NY"], ["Greek Theatre", "Berkeley, CA"], ["Hollywood Bowl", "Los Angeles, CA"], ["The Tabernacle", "Atlanta, GA"], ["The Fillmore", "San Francisco, CA"]];
+	      ApiUtil.createAttend({
+	        review: reviews[randomReview],
+	        rating: randomRating,
+	        user_id: randomUser,
+	        artist_id: id,
+	        date_attended: randomDate,
+	        venue_id: 1,
+	        venue_songkick_id: 1,
+	        venue_name: venues[randomVenue][0],
+	        venue_city: venues[randomVenue][1]
+	      });
+	    }
+	  },
+	
+	  showDetail: function () {
+	    var songkickId = this.props.artist.id;
+	    ApiUtil.resetHeaderResults();
+	    ApiUtil.fetchArtistFromDB(songkickId, function (artist) {
+	      if (artist.id) {
+	        this.history.push("/artists/" + artist.id);
+	      } else {
+	        ApiUtil.createArtist({
+	          name: this.props.artist.displayName,
+	          photo: "N/A",
+	          genre: "N/A",
+	          description: "Test Description",
+	          songkick_id: this.props.artist.id
+	        }, function (newId) {
+	          this.seedNewArtistWithData(newId);
+	          this.history.push("/artists/" + newId);
+	        }.bind(this));
+	      }
+	    }.bind(this));
+	    document.getElementById('search-query-header').value = "";
+	  },
+	  render: function () {
+	    return React.createElement(
+	      'li',
+	      null,
+	      React.createElement(
+	        'a',
+	        { onClick: this.showDetail },
+	        this.props.artist.displayName
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = HeaderArtistIndexItem;
 
 /***/ }
 /******/ ]);

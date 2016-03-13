@@ -40,7 +40,7 @@ var ArtistSearch = React.createClass({
       clearInterval(this.nIntervId);
     }
     return (
-        <input type='text' name='q' className='form-control' placeholder={this.state.placeholder} id='search-query' onChange={this.changedQuery}></input>
+        <input type='text' name='q' autoComplete="off" className='form-control' placeholder={this.state.placeholder} id='search-query' onChange={this.changedQuery}></input>
     );
   }
 });

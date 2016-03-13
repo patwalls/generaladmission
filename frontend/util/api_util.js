@@ -12,7 +12,7 @@ var ApiUtil = {
   fetchArtistFromDB: function(songkickId, cb){
     var searchParam = {songkick_id: songkickId};
     $.get('api/artists', searchParam, function(artists) {
-      ApiActions.receiveAll(artists);
+      // ApiActions.receiveAll(artists);
       cb && cb(artists);
     });
   },
@@ -68,6 +68,12 @@ var ApiUtil = {
       ApiActions.receiveAllResults(data);
     });
   },
+  searchHeaderResults: function(query) {
+    var searchUrl = 'https://api.songkick.com/api/3.0/search/artists.json?query=' + query + '&apikey=n3h6YMv9J87oRnq9&jsoncallback=?';
+    $.getJSON(searchUrl, function(data) {
+      ApiActions.receiveAllHeaderResults(data);
+    });
+  },
   upcomingEventsForArtist: function(songKickId) {
     var url = 'https://api.songkick.com/api/3.0/artists/' + songKickId + '/calendar.json?apikey=n3h6YMv9J87oRnq9&jsoncallback=?';
     $.getJSON(url, function(data) {
@@ -82,6 +88,9 @@ var ApiUtil = {
   },
   resetResults: function() {
     ApiActions.resetAllResults();
+  },
+  resetHeaderResults: function() {
+    ApiActions.resetAllHeaderResults();
   },
   resetVenueResults: function() {
     ApiActions.resetAllVenueResults();
