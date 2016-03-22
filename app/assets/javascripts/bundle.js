@@ -52,13 +52,13 @@
 	var IndexRoute = ReactRouter.IndexRoute;
 	var Link = __webpack_require__(159).Link;
 	var ArtistStore = __webpack_require__(208);
-	var ArtistIndex = __webpack_require__(239);
-	var ArtistShow = __webpack_require__(242);
-	var ArtistSearch = __webpack_require__(263);
-	var ArtistSearchHeader = __webpack_require__(265);
-	var Home = __webpack_require__(267);
-	var AttendStore = __webpack_require__(244);
-	var UserShow = __webpack_require__(268);
+	var ArtistIndex = __webpack_require__(240);
+	var ArtistShow = __webpack_require__(243);
+	var ArtistSearch = __webpack_require__(264);
+	var ArtistSearchHeader = __webpack_require__(266);
+	var Home = __webpack_require__(271);
+	var AttendStore = __webpack_require__(245);
+	var UserShow = __webpack_require__(272);
 	var ApiUtil = __webpack_require__(231);
 	
 	var App = React.createClass({
@@ -31410,9 +31410,9 @@
 	var UserConstants = __webpack_require__(234);
 	var FollowConstants = __webpack_require__(235);
 	var SearchConstants = __webpack_require__(236);
-	var HeaderSearchConstants = __webpack_require__(282);
-	var ShowConstants = __webpack_require__(237);
-	var VenueConstants = __webpack_require__(238);
+	var HeaderSearchConstants = __webpack_require__(237);
+	var ShowConstants = __webpack_require__(238);
+	var VenueConstants = __webpack_require__(239);
 	
 	ApiActions = {
 	  receiveAllResults: function (results) {
@@ -31422,7 +31422,6 @@
 	    });
 	  },
 	  receiveAllHeaderResults: function (results) {
-	    console.log('action is being called');
 	    AppDispatcher.dispatch({
 	      actionType: HeaderSearchConstants.HEADER_RESULTS_RECEIVED,
 	      results: results
@@ -31561,6 +31560,17 @@
 /* 237 */
 /***/ function(module, exports) {
 
+	var HeaderSearchConstants = {
+	  HEADER_RESULTS_RECEIVED: "HEADER_RESULTS_RECEIVED",
+	  HEADER_RESET_RESULTS: "HEADER_RESET_RESULTS"
+	};
+	
+	module.exports = HeaderSearchConstants;
+
+/***/ },
+/* 238 */
+/***/ function(module, exports) {
+
 	var ShowConstants = {
 	  SHOWS_RECEIVED: "SHOWS_RECEIVED"
 	};
@@ -31568,7 +31578,7 @@
 	module.exports = ShowConstants;
 
 /***/ },
-/* 238 */
+/* 239 */
 /***/ function(module, exports) {
 
 	var VenueConstants = {
@@ -31579,15 +31589,15 @@
 	module.exports = VenueConstants;
 
 /***/ },
-/* 239 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ArtistStore = __webpack_require__(208);
 	var ApiUtil = __webpack_require__(231);
-	var SearchStore = __webpack_require__(240);
+	var SearchStore = __webpack_require__(241);
 	
-	var ArtistIndexItem = __webpack_require__(241);
+	var ArtistIndexItem = __webpack_require__(242);
 	
 	var ArtistIndex = React.createClass({
 	  displayName: 'ArtistIndex',
@@ -31623,7 +31633,7 @@
 	module.exports = ArtistIndex;
 
 /***/ },
-/* 240 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(209).Store;
@@ -31671,7 +31681,7 @@
 	module.exports = SearchStore;
 
 /***/ },
-/* 241 */
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -31746,25 +31756,25 @@
 	module.exports = ArtistIndexItem;
 
 /***/ },
-/* 242 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var ReactSlider = __webpack_require__(243);
+	var ReactSlider = __webpack_require__(244);
 	
 	var ArtistStore = __webpack_require__(208);
-	var AttendStore = __webpack_require__(244);
+	var AttendStore = __webpack_require__(245);
 	var ApiUtil = __webpack_require__(231);
-	var SearchStore = __webpack_require__(240);
+	var SearchStore = __webpack_require__(241);
 	
-	var ArtistHeader = __webpack_require__(245);
-	var ArtistAbout = __webpack_require__(247);
+	var ArtistHeader = __webpack_require__(246);
+	var ArtistAbout = __webpack_require__(248);
 	
-	var NewActivityItem = __webpack_require__(248);
-	var NewActivityItemModal = __webpack_require__(257);
-	var ArtistActivity = __webpack_require__(258);
-	var ArtistUpcomingShows = __webpack_require__(260);
+	var NewActivityItem = __webpack_require__(249);
+	var NewActivityItemModal = __webpack_require__(258);
+	var ArtistActivity = __webpack_require__(259);
+	var ArtistUpcomingShows = __webpack_require__(261);
 	
 	var ArtistShow = React.createClass({
 	  displayName: 'ArtistShow',
@@ -31859,7 +31869,7 @@
 	module.exports = ArtistShow;
 
 /***/ },
-/* 243 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
@@ -32657,7 +32667,7 @@
 
 
 /***/ },
-/* 244 */
+/* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(209).Store;
@@ -32713,13 +32723,13 @@
 	module.exports = AttendStore;
 
 /***/ },
-/* 245 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var ArtistStats = __webpack_require__(246);
-	var ArtistAbout = __webpack_require__(247);
+	var ArtistStats = __webpack_require__(247);
+	var ArtistAbout = __webpack_require__(248);
 	var ArtistStore = __webpack_require__(208);
 	var ApiUtil = __webpack_require__(231);
 	
@@ -32773,7 +32783,7 @@
 	module.exports = ArtistHeader;
 
 /***/ },
-/* 246 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -32853,7 +32863,7 @@
 	module.exports = ArtistStats;
 
 /***/ },
-/* 247 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -32900,19 +32910,19 @@
 	module.exports = ArtistAbout;
 
 /***/ },
-/* 248 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var LinkedStateMixin = __webpack_require__(249);
-	var Slider = __webpack_require__(253);
+	var LinkedStateMixin = __webpack_require__(250);
+	var Slider = __webpack_require__(254);
 	
-	var AttendStore = __webpack_require__(244);
+	var AttendStore = __webpack_require__(245);
 	var ApiUtil = __webpack_require__(231);
 	var ArtistStore = __webpack_require__(208);
 	
-	var VenueSearch = __webpack_require__(254);
+	var VenueSearch = __webpack_require__(255);
 	
 	var NewActivityItem = React.createClass({
 	  displayName: 'NewActivityItem',
@@ -32932,6 +32942,7 @@
 	  },
 	  openModal: function () {
 	    if (typeof window.getCurrentUserId === 'undefined') {
+	
 	      window.location.href = '/session/new';
 	    }
 	  },
@@ -32969,13 +32980,13 @@
 	module.exports = NewActivityItem;
 
 /***/ },
-/* 249 */
+/* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(250);
+	module.exports = __webpack_require__(251);
 
 /***/ },
-/* 250 */
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -32992,8 +33003,8 @@
 	
 	'use strict';
 	
-	var ReactLink = __webpack_require__(251);
-	var ReactStateSetters = __webpack_require__(252);
+	var ReactLink = __webpack_require__(252);
+	var ReactStateSetters = __webpack_require__(253);
 	
 	/**
 	 * A simple mixin around ReactLink.forState().
@@ -33016,7 +33027,7 @@
 	module.exports = LinkedStateMixin;
 
 /***/ },
-/* 251 */
+/* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -33090,7 +33101,7 @@
 	module.exports = ReactLink;
 
 /***/ },
-/* 252 */
+/* 253 */
 /***/ function(module, exports) {
 
 	/**
@@ -33199,12 +33210,12 @@
 	module.exports = ReactStateSetters;
 
 /***/ },
-/* 253 */
+/* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var ReactSlider = __webpack_require__(243);
+	var ReactSlider = __webpack_require__(244);
 	
 	var Slider = React.createClass({
 	  displayName: 'Demo',
@@ -33245,13 +33256,13 @@
 	module.exports = Slider;
 
 /***/ },
-/* 254 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ApiUtil = __webpack_require__(231);
-	var VenueStore = __webpack_require__(255);
-	var VenueItem = __webpack_require__(256);
+	var VenueStore = __webpack_require__(256);
+	var VenueItem = __webpack_require__(257);
 	
 	var VenueSearch = React.createClass({
 	  displayName: 'VenueSearch',
@@ -33308,12 +33319,12 @@
 	module.exports = VenueSearch;
 
 /***/ },
-/* 255 */
+/* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(209).Store;
 	
-	var VenueConstants = __webpack_require__(238);
+	var VenueConstants = __webpack_require__(239);
 	var AppDispatcher = __webpack_require__(228);
 	var ApiUtil = __webpack_require__(231);
 	
@@ -33356,12 +33367,12 @@
 	module.exports = VenueStore;
 
 /***/ },
-/* 256 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ApiUtil = __webpack_require__(231);
-	var VenueStore = __webpack_require__(255);
+	var VenueStore = __webpack_require__(256);
 	
 	var VenueItem = React.createClass({
 	  displayName: 'VenueItem',
@@ -33385,19 +33396,19 @@
 	module.exports = VenueItem;
 
 /***/ },
-/* 257 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var LinkedStateMixin = __webpack_require__(249);
-	var Slider = __webpack_require__(253);
+	var LinkedStateMixin = __webpack_require__(250);
+	var Slider = __webpack_require__(254);
 	
-	var AttendStore = __webpack_require__(244);
+	var AttendStore = __webpack_require__(245);
 	var ApiUtil = __webpack_require__(231);
 	var ArtistStore = __webpack_require__(208);
 	
-	var VenueSearch = __webpack_require__(254);
+	var VenueSearch = __webpack_require__(255);
 	
 	var NewActivityItemModal = React.createClass({
 	  displayName: 'NewActivityItemModal',
@@ -33530,16 +33541,16 @@
 	module.exports = NewActivityItemModal;
 
 /***/ },
-/* 258 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
 	
-	var AttendStore = __webpack_require__(244);
+	var AttendStore = __webpack_require__(245);
 	var ApiUtil = __webpack_require__(231);
 	
-	var ActivityItem = __webpack_require__(259);
+	var ActivityItem = __webpack_require__(260);
 	
 	var ArtistActivity = React.createClass({
 	  displayName: 'ArtistActivity',
@@ -33595,7 +33606,7 @@
 	module.exports = ArtistActivity;
 
 /***/ },
-/* 259 */
+/* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -33611,7 +33622,6 @@
 	  },
 	
 	  render: function () {
-	    console.log(this.props.attend);
 	    var userImage = {
 	      backgroundImage: 'url(' + this.props.attend.photo + ')'
 	    };
@@ -33691,13 +33701,13 @@
 	module.exports = ActivityItem;
 
 /***/ },
-/* 260 */
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var ShowStore = __webpack_require__(261);
-	var ArtistShowItem = __webpack_require__(262);
+	var ShowStore = __webpack_require__(262);
+	var ArtistShowItem = __webpack_require__(263);
 	
 	var ArtistUpcomingShows = React.createClass({
 	  displayName: 'ArtistUpcomingShows',
@@ -33755,12 +33765,12 @@
 	module.exports = ArtistUpcomingShows;
 
 /***/ },
-/* 261 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(209).Store;
 	
-	var ShowConstants = __webpack_require__(237);
+	var ShowConstants = __webpack_require__(238);
 	var AppDispatcher = __webpack_require__(228);
 	var ApiUtil = __webpack_require__(231);
 	
@@ -33799,7 +33809,7 @@
 	module.exports = ShowStore;
 
 /***/ },
-/* 262 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -33870,12 +33880,12 @@
 	module.exports = ArtistShowItem;
 
 /***/ },
-/* 263 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var ArtistSearchFilter = __webpack_require__(264);
-	var ArtistIndex = __webpack_require__(239);
+	var ArtistSearchFilter = __webpack_require__(265);
+	var ArtistIndex = __webpack_require__(240);
 	
 	var ArtistSearch = React.createClass({
 	  displayName: 'ArtistSearch',
@@ -33896,15 +33906,15 @@
 	module.exports = ArtistSearch;
 
 /***/ },
-/* 264 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ArtistStore = __webpack_require__(208);
 	var ApiUtil = __webpack_require__(231);
-	var SearchStore = __webpack_require__(240);
+	var SearchStore = __webpack_require__(241);
 	
-	var ArtistIndex = __webpack_require__(239);
+	var ArtistIndex = __webpack_require__(240);
 	
 	var ArtistSearch = React.createClass({
 	  displayName: 'ArtistSearch',
@@ -33951,12 +33961,12 @@
 	module.exports = ArtistSearch;
 
 /***/ },
-/* 265 */
+/* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var ArtistSearchFilterHeader = __webpack_require__(266);
-	var ArtistIndexHeader = __webpack_require__(280);
+	var ArtistSearchFilterHeader = __webpack_require__(267);
+	var ArtistIndexHeader = __webpack_require__(269);
 	
 	var ArtistSearchHeader = React.createClass({
 	  displayName: 'ArtistSearchHeader',
@@ -33977,12 +33987,12 @@
 	module.exports = ArtistSearchHeader;
 
 /***/ },
-/* 266 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ApiUtil = __webpack_require__(231);
-	var HeaderSearchStore = __webpack_require__(281);
+	var HeaderSearchStore = __webpack_require__(268);
 	
 	var HeaderArtistSearch = React.createClass({
 	  displayName: 'HeaderArtistSearch',
@@ -34008,11 +34018,178 @@
 	module.exports = HeaderArtistSearch;
 
 /***/ },
-/* 267 */
+/* 268 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(209).Store;
+	
+	var HeaderSearchConstants = __webpack_require__(237);
+	var AppDispatcher = __webpack_require__(228);
+	var ApiUtil = __webpack_require__(231);
+	
+	var HeaderSearchStore = new Store(AppDispatcher);
+	
+	var _headerResults = {};
+	
+	var resetSearch = function (results) {
+	  _headerResults = {};
+	  if (typeof results !== 'undefined') {
+	    for (var i = 0; i < results.length; i++) {
+	      _headerResults[results[i].id] = results[i];
+	    }
+	  }
+	};
+	
+	HeaderSearchStore.all = function () {
+	  var _returnSearch = [];
+	  Object.keys(_headerResults).map(function (key) {
+	    _returnSearch.push(_headerResults[key]);
+	  });
+	  return _returnSearch;
+	};
+	
+	HeaderSearchStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case HeaderSearchConstants.HEADER_RESULTS_RECEIVED:
+	      var result = resetSearch(payload.results.resultsPage.results.artist);
+	      HeaderSearchStore.__emitChange();
+	      break;
+	    case HeaderSearchConstants.HEADER_RESET_RESULTS:
+	      _headerResults = {};
+	      this.__emitChange();
+	      break;
+	  }
+	};
+	
+	window.HeaderSearchStore = HeaderSearchStore;
+	
+	module.exports = HeaderSearchStore;
+
+/***/ },
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var ArtistSearch = __webpack_require__(263);
+	var ApiUtil = __webpack_require__(231);
+	var HeaderSearchStore = __webpack_require__(268);
+	
+	var HeaderArtistIndexItem = __webpack_require__(270);
+	
+	var HeaderArtistIndex = React.createClass({
+	  displayName: 'HeaderArtistIndex',
+	
+	
+	  getInitialState: function () {
+	    return { artists: HeaderSearchStore.all().slice(0, 5) };
+	  },
+	
+	  _onChange: function () {
+	    this.setState({ artists: HeaderSearchStore.all().slice(0, 5) });
+	  },
+	
+	  componentDidMount: function (callback) {
+	    this.listenerToken = HeaderSearchStore.addListener(this._onChange);
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.listenerToken.remove();
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'ul',
+	      { className: 'results' },
+	      this.state.artists.map(function (artist) {
+	        return React.createElement(HeaderArtistIndexItem, { artist: artist, key: artist.id });
+	      }, this)
+	    );
+	  }
+	});
+	
+	module.exports = HeaderArtistIndex;
+
+/***/ },
+/* 270 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ApiUtil = __webpack_require__(231);
+	var History = __webpack_require__(159).History;
+	
+	var HeaderArtistIndexItem = React.createClass({
+	  displayName: 'HeaderArtistIndexItem',
+	
+	  mixins: [History],
+	
+	  randomDate(start, end) {
+	    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+	  },
+	
+	  seedNewArtistWithData(id) {
+	    for (var i = 0; i < 4; i++) {
+	      var randomRating = Math.floor(Math.random() * (99 - 75 + 1)) + 75;
+	      var randomReview = Math.floor(Math.random() * (7 - 0 + 1)) + 0;
+	      var randomUser = Math.floor(Math.random() * (12 - 2 + 1)) + 2;
+	      var randomDate = this.randomDate(new Date(2012, 0, 1), new Date());
+	      var randomVenue = Math.floor(Math.random() * (7 - 0 + 1)) + 0;
+	      var reviews = ["What an excellent show! The set was 2 hours long. They've still got it after all these years!", "They put on a really good show for the crowd. Played most of the classics! Only issue was that they went on a bit late :(, but it was all worth the wait.", "One of the best live shows I've ever been to! Amazing audience interaction and even some crowd surfing!", "I didn't want the show to end! I've seen them live so many times and this was certainly one of the best! They had a 5 song encore to boot!", "Good show, although my spot in the crowd wasn't the best. I wish I got there a little earlier!", "They are so good live! I had so much fun at this concert. They played for so long and had a great mix of their new and old stuff!", "What a great performance. Only issue was there were too many openers, and that got a bit tiresome, but when they finally got on the crowd went insane.", "I'm going to seem them live every time they come into town from now on! So much fun and a great crowd!"];
+	      var venues = [["Fox Theater", "Oakland, CA"], ["Red Rocks Ampitheatre", "Morrison, CO"], ["Coachella", "Indio, CA"], ["Madison Square Garder", "New York City, NY"], ["Greek Theatre", "Berkeley, CA"], ["Hollywood Bowl", "Los Angeles, CA"], ["The Tabernacle", "Atlanta, GA"], ["The Fillmore", "San Francisco, CA"]];
+	      ApiUtil.createAttend({
+	        review: reviews[randomReview],
+	        rating: randomRating,
+	        user_id: randomUser,
+	        artist_id: id,
+	        date_attended: randomDate,
+	        venue_id: 1,
+	        venue_songkick_id: 1,
+	        venue_name: venues[randomVenue][0],
+	        venue_city: venues[randomVenue][1]
+	      });
+	    }
+	  },
+	
+	  showDetail: function () {
+	    var songkickId = this.props.artist.id;
+	    ApiUtil.resetHeaderResults();
+	    ApiUtil.fetchArtistFromDB(songkickId, function (artist) {
+	      if (artist.id) {
+	        this.history.push("/artists/" + artist.id);
+	      } else {
+	        ApiUtil.createArtist({
+	          name: this.props.artist.displayName,
+	          photo: "N/A",
+	          genre: "N/A",
+	          description: "Test Description",
+	          songkick_id: this.props.artist.id
+	        }, function (newId) {
+	          this.seedNewArtistWithData(newId);
+	          this.history.push("/artists/" + newId);
+	        }.bind(this));
+	      }
+	    }.bind(this));
+	    document.getElementById('search-query-header').value = "";
+	  },
+	  render: function () {
+	    return React.createElement(
+	      'li',
+	      null,
+	      React.createElement(
+	        'a',
+	        { onClick: this.showDetail },
+	        this.props.artist.displayName
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = HeaderArtistIndexItem;
+
+/***/ },
+/* 271 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ArtistSearch = __webpack_require__(264);
 	
 	var Home = React.createClass({
 	  displayName: 'Home',
@@ -34045,21 +34222,21 @@
 	module.exports = Home;
 
 /***/ },
-/* 268 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
 	
-	var UserStore = __webpack_require__(269);
-	var AttendStore = __webpack_require__(244);
+	var UserStore = __webpack_require__(273);
+	var AttendStore = __webpack_require__(245);
 	var ApiUtil = __webpack_require__(231);
 	
-	var UserHeader = __webpack_require__(270);
-	var UserStats = __webpack_require__(271);
-	var UserActivity = __webpack_require__(274);
-	var UserFollowers = __webpack_require__(276);
-	var UserFollows = __webpack_require__(279);
+	var UserHeader = __webpack_require__(274);
+	var UserStats = __webpack_require__(275);
+	var UserActivity = __webpack_require__(278);
+	var UserFollowers = __webpack_require__(280);
+	var UserFollows = __webpack_require__(283);
 	
 	var UserShow = React.createClass({
 	  displayName: 'UserShow',
@@ -34152,7 +34329,7 @@
 	module.exports = UserShow;
 
 /***/ },
-/* 269 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(209).Store;
@@ -34200,15 +34377,15 @@
 	module.exports = UserStore;
 
 /***/ },
-/* 270 */
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
 	
-	var UserActivityStats = __webpack_require__(271);
-	var UserAddFollow = __webpack_require__(272);
-	var UserAlreadyFollow = __webpack_require__(273);
+	var UserActivityStats = __webpack_require__(275);
+	var UserAddFollow = __webpack_require__(276);
+	var UserAlreadyFollow = __webpack_require__(277);
 	
 	var UserHeader = React.createClass({
 	  displayName: 'UserHeader',
@@ -34282,7 +34459,7 @@
 	module.exports = UserHeader;
 
 /***/ },
-/* 271 */
+/* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34361,7 +34538,7 @@
 	module.exports = UserStats;
 
 /***/ },
-/* 272 */
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34390,7 +34567,7 @@
 	module.exports = UserFollow;
 
 /***/ },
-/* 273 */
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34411,16 +34588,16 @@
 	module.exports = UserAlreadyFollow;
 
 /***/ },
-/* 274 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var ActivityItem = __webpack_require__(259);
-	var AttendStore = __webpack_require__(244);
+	var ActivityItem = __webpack_require__(260);
+	var AttendStore = __webpack_require__(245);
 	var ApiUtil = __webpack_require__(231);
-	var UserActivityStats = __webpack_require__(271);
-	var UserActivityItem = __webpack_require__(275);
+	var UserActivityStats = __webpack_require__(275);
+	var UserActivityItem = __webpack_require__(279);
 	
 	var UserActivity = React.createClass({
 	  displayName: 'UserActivity',
@@ -34476,7 +34653,7 @@
 	module.exports = UserActivity;
 
 /***/ },
-/* 275 */
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34595,13 +34772,13 @@
 	module.exports = ActivityItem;
 
 /***/ },
-/* 276 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var FollowItem = __webpack_require__(277);
-	var FollowStore = __webpack_require__(278);
+	var FollowItem = __webpack_require__(281);
+	var FollowStore = __webpack_require__(282);
 	
 	var UserFollows = React.createClass({
 	  displayName: 'UserFollows',
@@ -34650,7 +34827,7 @@
 	module.exports = UserFollows;
 
 /***/ },
-/* 277 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -34724,7 +34901,7 @@
 	module.exports = FollowItem;
 
 /***/ },
-/* 278 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Store = __webpack_require__(209).Store;
@@ -34768,13 +34945,13 @@
 	module.exports = FollowStore;
 
 /***/ },
-/* 279 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var ReactRouter = __webpack_require__(159);
-	var FollowItem = __webpack_require__(277);
-	var FollowStore = __webpack_require__(278);
+	var FollowItem = __webpack_require__(281);
+	var FollowStore = __webpack_require__(282);
 	
 	var UserFollows = React.createClass({
 	  displayName: 'UserFollows',
@@ -34828,184 +35005,6 @@
 	});
 	
 	module.exports = UserFollows;
-
-/***/ },
-/* 280 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var ApiUtil = __webpack_require__(231);
-	var HeaderSearchStore = __webpack_require__(281);
-	
-	var HeaderArtistIndexItem = __webpack_require__(283);
-	
-	var HeaderArtistIndex = React.createClass({
-	  displayName: 'HeaderArtistIndex',
-	
-	
-	  getInitialState: function () {
-	    return { artists: HeaderSearchStore.all().slice(0, 5) };
-	  },
-	
-	  _onChange: function () {
-	    this.setState({ artists: HeaderSearchStore.all().slice(0, 5) });
-	  },
-	
-	  componentDidMount: function (callback) {
-	    this.listenerToken = HeaderSearchStore.addListener(this._onChange);
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.listenerToken.remove();
-	  },
-	
-	  render: function () {
-	    return React.createElement(
-	      'ul',
-	      { className: 'results' },
-	      this.state.artists.map(function (artist) {
-	        return React.createElement(HeaderArtistIndexItem, { artist: artist, key: artist.id });
-	      }, this)
-	    );
-	  }
-	});
-	
-	module.exports = HeaderArtistIndex;
-
-/***/ },
-/* 281 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Store = __webpack_require__(209).Store;
-	
-	var HeaderSearchConstants = __webpack_require__(282);
-	var AppDispatcher = __webpack_require__(228);
-	var ApiUtil = __webpack_require__(231);
-	
-	var HeaderSearchStore = new Store(AppDispatcher);
-	
-	var _headerResults = {};
-	
-	var resetSearch = function (results) {
-	  _headerResults = {};
-	  if (typeof results !== 'undefined') {
-	    for (var i = 0; i < results.length; i++) {
-	      _headerResults[results[i].id] = results[i];
-	    }
-	  }
-	};
-	
-	HeaderSearchStore.all = function () {
-	  var _returnSearch = [];
-	  Object.keys(_headerResults).map(function (key) {
-	    _returnSearch.push(_headerResults[key]);
-	  });
-	  return _returnSearch;
-	};
-	
-	HeaderSearchStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case HeaderSearchConstants.HEADER_RESULTS_RECEIVED:
-	      var result = resetSearch(payload.results.resultsPage.results.artist);
-	      HeaderSearchStore.__emitChange();
-	      break;
-	    case HeaderSearchConstants.HEADER_RESET_RESULTS:
-	      _headerResults = {};
-	      this.__emitChange();
-	      break;
-	  }
-	};
-	
-	window.HeaderSearchStore = HeaderSearchStore;
-	
-	module.exports = HeaderSearchStore;
-
-/***/ },
-/* 282 */
-/***/ function(module, exports) {
-
-	var HeaderSearchConstants = {
-	  HEADER_RESULTS_RECEIVED: "HEADER_RESULTS_RECEIVED",
-	  HEADER_RESET_RESULTS: "HEADER_RESET_RESULTS"
-	};
-	
-	module.exports = HeaderSearchConstants;
-
-/***/ },
-/* 283 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var ApiUtil = __webpack_require__(231);
-	var History = __webpack_require__(159).History;
-	
-	var HeaderArtistIndexItem = React.createClass({
-	  displayName: 'HeaderArtistIndexItem',
-	
-	  mixins: [History],
-	
-	  randomDate(start, end) {
-	    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
-	  },
-	
-	  seedNewArtistWithData(id) {
-	    for (var i = 0; i < 4; i++) {
-	      var randomRating = Math.floor(Math.random() * (99 - 75 + 1)) + 75;
-	      var randomReview = Math.floor(Math.random() * (7 - 0 + 1)) + 0;
-	      var randomUser = Math.floor(Math.random() * (12 - 2 + 1)) + 2;
-	      var randomDate = this.randomDate(new Date(2012, 0, 1), new Date());
-	      var randomVenue = Math.floor(Math.random() * (7 - 0 + 1)) + 0;
-	      var reviews = ["What an excellent show! The set was 2 hours long. They've still got it after all these years!", "They put on a really good show for the crowd. Played most of the classics! Only issue was that they went on a bit late :(, but it was all worth the wait.", "One of the best live shows I've ever been to! Amazing audience interaction and even some crowd surfing!", "I didn't want the show to end! I've seen them live so many times and this was certainly one of the best! They had a 5 song encore to boot!", "Good show, although my spot in the crowd wasn't the best. I wish I got there a little earlier!", "They are so good live! I had so much fun at this concert. They played for so long and had a great mix of their new and old stuff!", "What a great performance. Only issue was there were too many openers, and that got a bit tiresome, but when they finally got on the crowd went insane.", "I'm going to seem them live every time they come into town from now on! So much fun and a great crowd!"];
-	      var venues = [["Fox Theater", "Oakland, CA"], ["Red Rocks Ampitheatre", "Morrison, CO"], ["Coachella", "Indio, CA"], ["Madison Square Garder", "New York City, NY"], ["Greek Theatre", "Berkeley, CA"], ["Hollywood Bowl", "Los Angeles, CA"], ["The Tabernacle", "Atlanta, GA"], ["The Fillmore", "San Francisco, CA"]];
-	      ApiUtil.createAttend({
-	        review: reviews[randomReview],
-	        rating: randomRating,
-	        user_id: randomUser,
-	        artist_id: id,
-	        date_attended: randomDate,
-	        venue_id: 1,
-	        venue_songkick_id: 1,
-	        venue_name: venues[randomVenue][0],
-	        venue_city: venues[randomVenue][1]
-	      });
-	    }
-	  },
-	
-	  showDetail: function () {
-	    var songkickId = this.props.artist.id;
-	    ApiUtil.resetHeaderResults();
-	    ApiUtil.fetchArtistFromDB(songkickId, function (artist) {
-	      if (artist.id) {
-	        this.history.push("/artists/" + artist.id);
-	      } else {
-	        ApiUtil.createArtist({
-	          name: this.props.artist.displayName,
-	          photo: "N/A",
-	          genre: "N/A",
-	          description: "Test Description",
-	          songkick_id: this.props.artist.id
-	        }, function (newId) {
-	          this.seedNewArtistWithData(newId);
-	          this.history.push("/artists/" + newId);
-	        }.bind(this));
-	      }
-	    }.bind(this));
-	    document.getElementById('search-query-header').value = "";
-	  },
-	  render: function () {
-	    return React.createElement(
-	      'li',
-	      null,
-	      React.createElement(
-	        'a',
-	        { onClick: this.showDetail },
-	        this.props.artist.displayName
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = HeaderArtistIndexItem;
 
 /***/ }
 /******/ ]);

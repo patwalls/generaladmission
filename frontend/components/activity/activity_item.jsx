@@ -9,7 +9,6 @@ var ActivityItem = React.createClass({
   },
 
   render: function () {
-    console.log(this.props.attend);
     var userImage = {
       backgroundImage: 'url(' + this.props.attend.photo + ')'
     };

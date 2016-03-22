@@ -25,6 +25,7 @@ var NewActivityItem = React.createClass({
   },
   openModal: function () {
     if (typeof window.getCurrentUserId === 'undefined')  {
+
       window.location.href = '/session/new';
     }
   },

@@ -16,7 +16,6 @@ ApiActions = {
     });
   },
   receiveAllHeaderResults: function(results){
-    console.log('action is being called');
     AppDispatcher.dispatch({
       actionType: HeaderSearchConstants.HEADER_RESULTS_RECEIVED,
       results: results

@@ -802,6 +802,15 @@ body {
   border: 10px transparent;
 }
 
+.activity-item:hover {
+  background-color: #F2F2F2;
+}
+
+.user-activity-item:hover {
+  background-color: #F2F2F2;
+}
+
+
 .activity-item .left-pane {
   display: flex;
   flex-direction: column;
@@ -1068,6 +1077,10 @@ body {
   display: flex;
   flex-direction: row;
   margin-bottom: 10px;
+}
+
+.follow-item:hover {
+  background-color: #F2F2F2;
 }
 
 .follow-item .follow-left-pane {
